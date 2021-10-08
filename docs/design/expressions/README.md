@@ -171,10 +171,16 @@ The diagram's attributes are:
 
 ### Unqualified names
 
-An _unqualified name_ is a [word](../lexical_conventions/words.md) that is not a
-keyword and is not preceded by a period (`.`).
+An [_unqualified name_](unqualified_names.md) is a
+[word](../lexical_conventions/words.md) that is not a keyword and is not
+preceded by a period (`.`).
 
-**TODO:** Name lookup rules for unqualified names.
+```
+// `F`, `a`, and `b` are unqualified names. `c` is a qualified name.
+F(a + b.c);
+// `x` and `y` are unqualified names. `z` is a qualified name.
+x.(y.z)();
+```
 
 ### Qualified names and member access
 
