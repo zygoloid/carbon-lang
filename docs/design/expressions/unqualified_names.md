@@ -69,9 +69,9 @@ fn SomeNamespace.MyClass.MyClass.Function() {
 
 ## Alternatives considered
 
--   [FIXME](/docs/proposals/p0845.md#FIXME)
+-   [FIXME](/proposals/p0855.md#FIXME)
 
 ## References
 
 -   Proposal
-    [#845: unqualified names](https://github.com/carbon-language/carbon-lang/pull/845).
+    [#855: unqualified names](https://github.com/carbon-language/carbon-lang/pull/855).
