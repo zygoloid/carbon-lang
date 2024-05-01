@@ -6,6 +6,7 @@
 #define CARBON_TOOLCHAIN_SEM_IR_GENERIC_H_
 
 #include "toolchain/sem_ir/ids.h"
+#include "toolchain/sem_ir/inst.h"
 
 namespace Carbon::SemIR {
 
@@ -37,10 +38,71 @@ struct Generic : public Printable<Generic> {
   // The index in this block will match the `bind_index` of the instruction.
   InstBlockId bindings_id;
 
+  // The following members are accumulated when the region is completed.
+
   // The region of the generic corresponding to the declaration of the entity.
   Region decl;
   // The region of the generic corresponding to the definition of the entity.
   Region definition;
+};
+
+// An instance of a generic entity, such as an instance of a generic function.
+// For each construct that depends on a compile-time parameter in the generic
+// entity, this contains the corresponding non-generic value. This includes
+// values for the compile-time parameters themselves.
+struct GenericInstance : Printable<GenericInstance> {
+  // Values corresponding to a region of a generic.
+  struct Region {
+    InstBlockId symbolic_constant_values_id = InstBlockId::Invalid;
+  };
+
+  auto Print(llvm::raw_ostream& out) const -> void {
+    out << "{generic: " << generic_id << ", args: " << args_id << "}";
+  }
+
+  // The generic that this is an instance of.
+  GenericId generic_id;
+  // Argument values, corresponding to the bindings in `Generic::bindings_id`.
+  InstBlockId args_id;
+
+  // The following members are accumulated when the region is completed.
+
+  // Values used in the declaration of the generic instance.
+  Region decl;
+  // Values used in the definition of the generic instance.
+  Region definition;
+};
+
+// Provides storage for deduplicated instances of generics.
+class GenericInstanceStore {
+ public:
+  explicit GenericInstanceStore(InstBlockStore& inst_block_store,
+                                llvm::BumpPtrAllocator& allocator)
+      : allocator_(&allocator),
+        inst_block_store_(&inst_block_store),
+        lookup_table_(this) {}
+
+  // Adds a new generic instance, or gets the existing generic instance for a
+  // specified generic and argument list. Returns the ID of the generic
+  // instance.
+  //
+  // This allocates a new InstBlock for the arguments if the instance is new.
+  auto GetOrAdd(GenericId generic_id,
+                llvm::ArrayRef<ConstantId> arg_ids) -> GenericInstanceId;
+
+ private:
+  // A deduplicated generic instance node in our folding set.
+  struct Node : llvm::FoldingSetNode {
+    GenericInstanceId generic_instance_id;
+
+    auto Profile(llvm::FoldingSetNodeID& id,
+                 GenericInstanceStore* store) -> void;
+  };
+
+  ValueStore<GenericInstanceId> generic_instances_;
+  llvm::BumpPtrAllocator* allocator_;
+  InstBlockStore* inst_block_store_;
+  llvm::ContextualFoldingSet<Node, GenericInstanceStore*> lookup_table_;
 };
 
 }  // namespace Carbon::SemIR
