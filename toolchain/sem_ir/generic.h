@@ -15,7 +15,7 @@ struct Generic : public Printable<Generic> {
   // A portion of the generic corresponding to either the declaration or the
   // definition. These are tracked separately because they're built and resolved
   // at different times.
-  struct Fragment {
+  struct Region {
     // A block containing symbolic constants that are used in this fragment.
     InstBlockId symbolic_constants_id = InstBlockId::Invalid;
     // TODO: Also track:
@@ -36,10 +36,10 @@ struct Generic : public Printable<Generic> {
   // The index in this block will match the `bind_index` of the instruction.
   InstBlockId bindings_id;
 
-  // The portion of the generic corresponding to the declaration of the entity.
-  Fragment decl;
-  // The portion of the generic corresponding to the definition of the entity.
-  Fragment definition;
+  // The region of the generic corresponding to the declaration of the entity.
+  Region decl;
+  // The region of the generic corresponding to the definition of the entity.
+  Region definition;
 };
 
 }  // namespace Carbon::SemIR

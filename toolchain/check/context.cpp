@@ -44,7 +44,8 @@ Context::Context(const Lex::TokenizedBuffer& tokens, DiagnosticEmitter& emitter,
       param_and_arg_refs_stack_(sem_ir, vlog_stream, node_stack_),
       args_type_info_stack_("args_type_info_stack_", sem_ir, vlog_stream),
       decl_name_stack_(this),
-      scope_stack_(sem_ir_->identifiers()) {
+      scope_stack_(sem_ir_->identifiers()),
+      generic_region_stack_(sem_ir_->inst_blocks()) {
   // Map the builtin `<error>` and `type` type constants to their corresponding
   // special `TypeId` values.
   type_ids_for_type_constants_.insert(
@@ -53,6 +54,10 @@ Context::Context(const Lex::TokenizedBuffer& tokens, DiagnosticEmitter& emitter,
   type_ids_for_type_constants_.insert(
       {SemIR::ConstantId::ForTemplateConstant(SemIR::InstId::BuiltinTypeType),
        SemIR::TypeId::TypeType});
+
+  // TODO: Remove this and add a `VerifyOnFinish` once we properly push and pop
+  // in the right places.
+  generic_region_stack().Push();
 }
 
 auto Context::TODO(SemIRLoc loc, std::string label) -> bool {
@@ -82,6 +87,10 @@ auto Context::AddInstInNoBlock(SemIR::LocIdAndInst loc_id_and_inst)
     CARBON_VLOG() << "Constant: " << loc_id_and_inst.inst << " -> "
                   << constant_values().GetInstId(const_id) << "\n";
     constant_values().Set(inst_id, const_id);
+
+    if (const_id.is_symbolic()) {
+      generic_region_stack().AddSymbolicConstant(const_id);
+    }
   }
 
   return inst_id;

@@ -32,6 +32,8 @@ auto HandleFunctionIntroducer(Context& context,
   // Optional modifiers and the name follow.
   context.decl_introducer_state_stack().Push<Lex::TokenKind::Fn>();
   context.decl_name_stack().PushScopeAndStartName();
+  // The function declaration is potentially a generic region.
+  context.generic_region_stack().Push();
   return true;
 }
 
@@ -269,11 +271,15 @@ static auto BuildFunctionDecl(Context& context,
       function_info.generic_id = context.generics().Add(SemIR::Generic{
           .decl_id = decl_id,
           .bindings_id = context.inst_blocks().Add(
-              context.scope_stack().compile_time_binding_stack())});
+              context.scope_stack().compile_time_binding_stack()),
+          .decl = context.generic_region_stack().PopGeneric()});
+    } else {
+      context.generic_region_stack().PopNotGeneric();
     }
 
     function_decl.function_id = context.functions().Add(function_info);
   } else {
+    context.generic_region_stack().PopAndDiscard();
     // TODO: Validate that the redeclaration doesn't set an access modifier.
   }
   function_decl.type_id = context.GetFunctionType(function_decl.function_id);
@@ -338,6 +344,7 @@ static auto HandleFunctionDefinitionAfterSignature(
   context.return_scope_stack().push_back({.decl_id = decl_id});
   context.inst_block_stack().Push();
   context.scope_stack().Push(decl_id);
+  context.generic_region_stack().Push();
   context.AddCurrentCodeBlockToFunction();
 
   // Check the return type is complete.
@@ -422,6 +429,19 @@ auto HandleFunctionDefinition(Context& context,
   context.inst_block_stack().Pop();
   context.return_scope_stack().pop_back();
   context.decl_name_stack().PopScope();
+
+  // If this is a generic function, collect information about the definition
+  // region.
+  auto& function = context.functions().Get(function_id);
+  if (function.generic_id.is_valid()) {
+    auto& generic = context.generics().Get(function.generic_id);
+    generic.definition = context.generic_region_stack().PopGeneric();
+  } else {
+    // TODO: We can have symbolic constants here if the function has a local
+    // generic let declaration. Handle this case.
+    context.generic_region_stack().PopAndDiscard();
+  }
+
   return true;
 }
 
