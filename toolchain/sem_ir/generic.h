@@ -16,8 +16,9 @@ struct Generic : public Printable<Generic> {
   // definition. These are tracked separately because they're built and resolved
   // at different times.
   struct Region {
-    // A block containing symbolic constants that are used in this fragment.
-    InstBlockId symbolic_constants_id = InstBlockId::Invalid;
+    // A block containing instructions that are used in this fragment and have
+    // symbolic constant values.
+    InstBlockId symbolic_constant_insts_id = InstBlockId::Invalid;
     // TODO: Also track:
     // - Types required to be complete in this generic.
     // - Template-dependent instructions in this generic.

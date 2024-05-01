@@ -89,7 +89,7 @@ auto Context::AddInstInNoBlock(SemIR::LocIdAndInst loc_id_and_inst)
     constant_values().Set(inst_id, const_id);
 
     if (const_id.is_symbolic()) {
-      generic_region_stack().AddSymbolicConstant(const_id);
+      generic_region_stack().AddSymbolicConstantInst(inst_id);
     }
   }
 

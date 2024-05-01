@@ -35,18 +35,17 @@ class GenericRegionStack {
   // Pops a region that is not generic.
   auto PopNotGeneric() -> void;
 
-  // Adds a symbolic constant to the list of symbolic constants used in the
-  // current region.
-  auto AddSymbolicConstant(SemIR::ConstantId constant_id) -> void {
+  // Adds an instruction with a  symbolic constant value to the list of such
+  // instructions used in the current region.
+  auto AddSymbolicConstantInst(SemIR::InstId inst_id) -> void {
     CARBON_CHECK(!regions_.empty())
         << "Formed a symbolic constant while not in a generic region.";
-    CARBON_CHECK(constant_id.is_symbolic()) << "Expected a symbolic constant.";
-    symbolic_constant_ids_.push_back(constant_id.inst_id());
+    symbolic_constant_inst_ids_.push_back(inst_id);
   }
 
  private:
   struct RegionInfo {
-    int32_t first_symbolic_constant_id;
+    int32_t first_symbolic_constant_index;
   };
 
   // Storage for instruction blocks.
@@ -55,8 +54,9 @@ class GenericRegionStack {
   // The current set of enclosing generic regions.
   llvm::SmallVector<RegionInfo> regions_;
 
-  // List of symbolic constants used in any of the enclosing generic regions.
-  llvm::SmallVector<SemIR::InstId> symbolic_constant_ids_;
+  // List of instructions with symbolic constant values used in any of the
+  // enclosing generic regions.
+  llvm::SmallVector<SemIR::InstId> symbolic_constant_inst_ids_;
 };
 
 }  // namespace Carbon::Check
