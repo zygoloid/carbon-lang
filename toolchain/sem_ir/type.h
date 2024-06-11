@@ -19,7 +19,9 @@ class TypeStore : public ValueStore<TypeId> {
   explicit TypeStore(InstStore* insts, ConstantValueStore* constants)
       : insts_(insts), constants_(constants) {}
 
-  // Returns the ID of the constant used to define the specified type.
+  // Returns the ID of the constant used to define the specified type. Note that
+  // for a symbolic type, this will be an abstract symbolic constant, not one
+  // that can be mapped to a specific value in a generic instance.
   auto GetConstantId(TypeId type_id) const -> ConstantId {
     if (type_id == TypeId::TypeType) {
       return ConstantId::ForTemplateConstant(InstId::BuiltinTypeType);

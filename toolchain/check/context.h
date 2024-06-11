@@ -476,11 +476,6 @@ class Context {
 
   // Cache of reverse mapping from type constants to types.
   //
-  // TODO: Instead of mapping to a dense `TypeId` space, we could make `TypeId`
-  // be a thin wrapper around `ConstantId` and only perform the lookup only when
-  // we want to access the completeness and value representation of a type. It's
-  // not clear whether that would result in more or fewer lookups.
-  //
   // TODO: Should this be part of the `TypeStore`?
   llvm::DenseMap<SemIR::ConstantId, SemIR::TypeId> type_ids_for_type_constants_;
 

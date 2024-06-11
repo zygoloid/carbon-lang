@@ -12,10 +12,8 @@ auto GenericRegionStack::Push() -> void {
 }
 
 auto GenericRegionStack::PopGeneric() -> SemIR::Generic::Region {
-  auto region = regions_.back();
-  auto symbolic_constant_insts_id = inst_block_store_->Add(
-      llvm::ArrayRef(symbolic_constant_inst_ids_)
-          .drop_front(region.first_symbolic_constant_index));
+  auto symbolic_constant_insts_id =
+      inst_block_store_->Add(PeekSymbolicConstantInsts());
   PopAndDiscard();
   return {.symbolic_constant_insts_id = symbolic_constant_insts_id};
 }

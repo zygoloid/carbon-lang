@@ -92,6 +92,17 @@ class ConstantValueStore {
     return symbolic_constants_[const_id.symbolic_index()];
   }
 
+  // Given a constant ID, produce a canonical version of that constant. For
+  // symbolic constants, this discards the information about the context in
+  // which the constant was created.
+  auto GetCanonicalConstantId(ConstantId const_id) const -> ConstantId {
+    if (!const_id.is_symbolic()) {
+      return const_id;
+    }
+    // Get the constant value from the instruction in the constants block.
+    return Get(GetInstId(const_id));
+  }
+
   // Returns the constant values mapping as an ArrayRef whose keys are
   // instruction indexes. Some of the elements in this mapping may be Invalid or
   // NotConstant.

@@ -8,6 +8,7 @@
 #include "toolchain/check/decl_introducer_state.h"
 #include "toolchain/check/decl_name_stack.h"
 #include "toolchain/check/function.h"
+#include "toolchain/check/generic.h"
 #include "toolchain/check/handle.h"
 #include "toolchain/check/interface.h"
 #include "toolchain/check/merge.h"
@@ -16,7 +17,6 @@
 #include "toolchain/sem_ir/builtin_function_kind.h"
 #include "toolchain/sem_ir/entry_point.h"
 #include "toolchain/sem_ir/function.h"
-#include "toolchain/sem_ir/generic.h"
 #include "toolchain/sem_ir/ids.h"
 #include "toolchain/sem_ir/typed_insts.h"
 
@@ -266,20 +266,10 @@ static auto BuildFunctionDecl(Context& context,
 
   // Create a new function if this isn't a valid redeclaration.
   if (!function_decl.function_id.is_valid()) {
-    // For a generic function, build the corresponding Generic entity.
-    if (!context.scope_stack().compile_time_binding_stack().empty()) {
-      function_info.generic_id = context.generics().Add(SemIR::Generic{
-          .decl_id = decl_id,
-          .bindings_id = context.inst_blocks().Add(
-              context.scope_stack().compile_time_binding_stack()),
-          .decl = context.generic_region_stack().PopGeneric()});
-    } else {
-      context.generic_region_stack().PopNotGeneric();
-    }
-
+    function_info.generic_id = FinishGenericDecl(context, decl_id);
     function_decl.function_id = context.functions().Add(function_info);
   } else {
-    context.generic_region_stack().PopAndDiscard();
+    FinishGenericRedecl(context, decl_id, function_info.generic_id);
     // TODO: Validate that the redeclaration doesn't set an access modifier.
   }
   function_decl.type_id = context.GetFunctionType(function_decl.function_id);
@@ -433,14 +423,7 @@ auto HandleFunctionDefinition(Context& context,
   // If this is a generic function, collect information about the definition
   // region.
   auto& function = context.functions().Get(function_id);
-  if (function.generic_id.is_valid()) {
-    auto& generic = context.generics().Get(function.generic_id);
-    generic.definition = context.generic_region_stack().PopGeneric();
-  } else {
-    // TODO: We can have symbolic constants here if the function has a local
-    // generic let declaration. Handle this case.
-    context.generic_region_stack().PopAndDiscard();
-  }
+  FinishGenericDefinition(context, function.generic_id);
 
   return true;
 }

@@ -35,6 +35,13 @@ class GenericRegionStack {
   // Pops a region that is not generic.
   auto PopNotGeneric() -> void;
 
+  // Returns the list of instructions with symbolic constant values in the top
+  // region on the stack.
+  auto PeekSymbolicConstantInsts() -> llvm::ArrayRef<SemIR::InstId> {
+    return llvm::ArrayRef(symbolic_constant_inst_ids_)
+        .drop_front(regions_.back().first_symbolic_constant_index);
+  }
+
   // Adds an instruction with a  symbolic constant value to the list of such
   // instructions used in the current region.
   auto AddSymbolicConstantInst(SemIR::InstId inst_id) -> void {

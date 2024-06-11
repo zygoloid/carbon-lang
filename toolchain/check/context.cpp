@@ -1050,6 +1050,7 @@ auto Context::GetTypeIdForTypeConstant(SemIR::ConstantId constant_id)
   CARBON_CHECK(constant_id.is_constant())
       << "Canonicalizing non-constant type: " << constant_id;
 
+  constant_id = constant_values().GetCanonicalConstantId(constant_id);
   auto [it, added] = type_ids_for_type_constants_.insert(
       {constant_id, SemIR::TypeId::Invalid});
   if (added) {
