@@ -13,11 +13,38 @@
 
 namespace Carbon::SemIR {
 
+// Information on a type that is used in a generic and will be substituted into
+// in generic instances.
+struct SubstitutedTypeInfo {
+  // The type prior to any substitutions. This is the type that was used when
+  // type-checking the generic itself.
+  TypeId pattern_id;
+  // The generic in which the type appeared.
+  GenericId generic_id;
+  // The index of this substituted type within the generic's list of substituted
+  // types.
+  uint32_t index;
+};
+
 // Provides a ValueStore wrapper with an API specific to types.
-class TypeStore : public ValueStore<TypeId> {
+class TypeStore : public Yaml::Printable<TypeStore> {
  public:
   explicit TypeStore(InstStore* insts, ConstantValueStore* constants)
       : insts_(insts), constants_(constants) {}
+
+  // Adds a type and returns an ID to reference it. Does not perform any
+  // canonicalization.
+  auto Add(TypeInfo value) -> TypeId { return types_.Add(value); }
+
+  // Returns information about a type.
+  auto Get(TypeId type_id) const -> const TypeInfo& {
+    return types_.Get(GetCanonicalTypeId(type_id));
+  }
+
+  // Returns information about a type.
+  auto Get(TypeId type_id) -> TypeInfo& {
+    return types_.Get(GetCanonicalTypeId(type_id));
+  }
 
   // Returns the ID of the constant used to define the specified type. Note that
   // for a symbolic type, this will be an abstract symbolic constant, not one
@@ -75,7 +102,7 @@ class TypeStore : public ValueStore<TypeId> {
   // Gets the value representation to use for a type. This returns an
   // invalid type if the given type is not complete.
   auto GetValueRepr(TypeId type_id) const -> ValueRepr {
-    if (type_id.index < 0) {
+    if (!type_id.is_substituted() && type_id.index < 0) {
       // TypeType and InvalidType are their own value representation.
       return {.kind = ValueRepr::Copy, .type_id = type_id};
     }
@@ -98,9 +125,52 @@ class TypeStore : public ValueStore<TypeId> {
     return int_type && int_type->int_kind.is_signed();
   }
 
+  // Adds a substituted type wrapping some existing type, and returns its ID.
+  auto AddSubstitutedType(SubstitutedTypeInfo info) -> TypeId {
+    CARBON_CHECK(!info.pattern_id.is_substituted());
+    int32_t index = substituted_types_.size();
+    substituted_types_.push_back(info);
+    return TypeId(TypeId::FirstSubstitutedTypeIndex - index);
+  }
+
+  // Gets information about a type that is known to be a substituted type.
+  auto GetSubstitutedTypeInfo(TypeId type_id) const -> const SubstitutedTypeInfo& {
+    CARBON_CHECK(type_id.is_substituted());
+    return substituted_types_[TypeId::FirstSubstitutedTypeIndex -
+                              type_id.index];
+  }
+
+  // Gets information about a type that is known to be a substituted type.
+  auto GetSubstitutedTypeInfo(TypeId type_id) -> SubstitutedTypeInfo& {
+    CARBON_CHECK(type_id.is_substituted());
+    return substituted_types_[TypeId::FirstSubstitutedTypeIndex -
+                              type_id.index];
+  }
+
+  // Given a type ID, produce a canonical version of that type. For substituted
+  // types, this discards the information about the context in which the type
+  // was created.
+  auto GetCanonicalTypeId(TypeId type_id) const -> TypeId {
+    if (type_id.is_substituted()) {
+      type_id = GetSubstitutedTypeInfo(type_id).pattern_id;
+    }
+    return type_id;
+  }
+
+  // Support printing the type store.
+  auto OutputYaml() const -> Yaml::OutputMapping {
+    // TODO: Also include the substituted type info in the YAML dump.
+    return types_.OutputYaml();
+  }
+
+  // Returns the number of canonical types.
+  auto size() const -> size_t { return types_.size(); }
+
  private:
   InstStore* insts_;
   ConstantValueStore* constants_;
+  ValueStore<TypeId> types_;
+  llvm::SmallVector<SubstitutedTypeInfo> substituted_types_;
 };
 
 }  // namespace Carbon::SemIR

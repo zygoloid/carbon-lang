@@ -8,6 +8,7 @@
 #include "toolchain/sem_ir/generic.h"
 #include "toolchain/sem_ir/ids.h"
 #include "toolchain/sem_ir/inst.h"
+#include "toolchain/sem_ir/type.h"
 
 namespace Carbon::Check {
 
@@ -15,7 +16,8 @@ namespace Carbon::Check {
 // entity. In such a region, we track the generic constructs that are used, such
 // as symbolic constants and types, and instructions that depend on a template
 // parameter.
-// TODO: For now we're just tracking symbolic constants.
+//
+// TODO: Track instructions depending on a template parameter.
 class GenericRegionStack {
  public:
   explicit GenericRegionStack(SemIR::InstBlockStore& inst_block_store)
@@ -42,7 +44,14 @@ class GenericRegionStack {
         .drop_front(regions_.back().first_symbolic_constant_index);
   }
 
-  // Adds an instruction with a  symbolic constant value to the list of such
+  // Returns the list of instructions with symbolic types in the top region on
+  // the stack.
+  auto PeekSymbolicTypeInsts() -> llvm::ArrayRef<SemIR::InstId> {
+    return llvm::ArrayRef(symbolic_type_inst_ids_)
+        .drop_front(regions_.back().first_symbolic_type_index);
+  }
+
+  // Adds an instruction with a symbolic constant value to the list of such
   // instructions used in the current region.
   auto AddSymbolicConstantInst(SemIR::InstId inst_id) -> void {
     CARBON_CHECK(!regions_.empty())
@@ -50,9 +59,18 @@ class GenericRegionStack {
     symbolic_constant_inst_ids_.push_back(inst_id);
   }
 
+  // Adds an instruction with a symbolic type to the list of such instructions
+  // used in the current region.
+  auto AddSymbolicTypeInst(SemIR::InstId inst_id) -> void {
+    CARBON_CHECK(!regions_.empty())
+        << "Formed a symbolic type while not in a generic region.";
+    symbolic_type_inst_ids_.push_back(inst_id);
+  }
+
  private:
   struct RegionInfo {
     int32_t first_symbolic_constant_index;
+    int32_t first_symbolic_type_index;
   };
 
   // Storage for instruction blocks.
@@ -64,6 +82,10 @@ class GenericRegionStack {
   // List of instructions with symbolic constant values used in any of the
   // enclosing generic regions.
   llvm::SmallVector<SemIR::InstId> symbolic_constant_inst_ids_;
+
+  // List of instructions with symbolic types used in any of the enclosing
+  // generic regions.
+  llvm::SmallVector<SemIR::InstId> symbolic_type_inst_ids_;
 };
 
 }  // namespace Carbon::Check

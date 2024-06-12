@@ -77,21 +77,34 @@ auto Context::VerifyOnFinish() -> void {
   param_and_arg_refs_stack_.VerifyOnFinish();
 }
 
-auto Context::AddInstInNoBlock(SemIR::LocIdAndInst loc_id_and_inst)
-    -> SemIR::InstId {
-  auto inst_id = sem_ir().insts().AddInNoBlock(loc_id_and_inst);
-  CARBON_VLOG() << "AddInst: " << loc_id_and_inst.inst << "\n";
+// Finish producing an instruction. Set its constant value, and register it in
+// any applicable instruction lists.
+auto Context::FinishInst(SemIR::InstId inst_id, SemIR::Inst inst) -> void {
+  // If the instruction has a symbolic constant type, register it for
+  // substitution.
+  if (types().GetConstantId(inst.type_id()).is_symbolic()) {
+    generic_region_stack().AddSymbolicTypeInst(inst_id);
+  }
 
-  auto const_id = TryEvalInst(*this, inst_id, loc_id_and_inst.inst);
+  // If the instruction has a constant value, compute it.
+  auto const_id = TryEvalInst(*this, inst_id, inst);
+  constant_values().Set(inst_id, const_id);
   if (const_id.is_constant()) {
-    CARBON_VLOG() << "Constant: " << loc_id_and_inst.inst << " -> "
+    CARBON_VLOG() << "Constant: " << inst << " -> "
                   << constant_values().GetInstId(const_id) << "\n";
-    constant_values().Set(inst_id, const_id);
+
+    // If the constant value is symbolic, register it for substitution.
     if (const_id.is_symbolic()) {
       generic_region_stack().AddSymbolicConstantInst(inst_id);
     }
   }
+}
 
+auto Context::AddInstInNoBlock(SemIR::LocIdAndInst loc_id_and_inst)
+    -> SemIR::InstId {
+  auto inst_id = sem_ir().insts().AddInNoBlock(loc_id_and_inst);
+  CARBON_VLOG() << "AddInst: " << loc_id_and_inst.inst << "\n";
+  FinishInst(inst_id, loc_id_and_inst.inst);
   return inst_id;
 }
 
@@ -126,36 +139,16 @@ auto Context::AddConstant(SemIR::Inst inst, bool is_symbolic)
 auto Context::ReplaceLocIdAndInstBeforeConstantUse(
     SemIR::InstId inst_id, SemIR::LocIdAndInst loc_id_and_inst) -> void {
   sem_ir().insts().SetLocIdAndInst(inst_id, loc_id_and_inst);
-
   CARBON_VLOG() << "ReplaceInst: " << inst_id << " -> " << loc_id_and_inst.inst
                 << "\n";
-
-  // Redo evaluation. This is only safe to do if this instruction has not
-  // already been used as a constant, which is the caller's responsibility to
-  // ensure.
-  auto const_id = TryEvalInst(*this, inst_id, loc_id_and_inst.inst);
-  if (const_id.is_constant()) {
-    CARBON_VLOG() << "Constant: " << loc_id_and_inst.inst << " -> "
-                  << constant_values().GetInstId(const_id) << "\n";
-  }
-  constant_values().Set(inst_id, const_id);
+  FinishInst(inst_id, loc_id_and_inst.inst);
 }
 
 auto Context::ReplaceInstBeforeConstantUse(SemIR::InstId inst_id,
                                            SemIR::Inst inst) -> void {
   sem_ir().insts().Set(inst_id, inst);
-
   CARBON_VLOG() << "ReplaceInst: " << inst_id << " -> " << inst << "\n";
-
-  // Redo evaluation. This is only safe to do if this instruction has not
-  // already been used as a constant, which is the caller's responsibility to
-  // ensure.
-  auto const_id = TryEvalInst(*this, inst_id, inst);
-  if (const_id.is_constant()) {
-    CARBON_VLOG() << "Constant: " << inst << " -> "
-                  << constant_values().GetInstId(const_id) << "\n";
-  }
-  constant_values().Set(inst_id, const_id);
+  FinishInst(inst_id, inst);
 }
 
 auto Context::DiagnoseDuplicateName(SemIRLoc dup_def, SemIRLoc prev_def)
@@ -1042,6 +1035,7 @@ auto Context::TryToCompleteType(
     SemIR::TypeId type_id,
     std::optional<llvm::function_ref<auto()->DiagnosticBuilder>> diagnoser)
     -> bool {
+  type_id = types().GetCanonicalTypeId(type_id);
   return TypeCompleter(*this, diagnoser).Complete(type_id);
 }
 

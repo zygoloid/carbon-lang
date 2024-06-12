@@ -20,8 +20,12 @@ struct Generic : public Printable<Generic> {
     // A block containing instructions that are used in this fragment and have
     // symbolic constant values.
     InstBlockId symbolic_constant_insts_id = InstBlockId::Invalid;
+    // A block containing instructions that are used in this fragment and have
+    // symbolic types that have been replaced with substituted types.
+    InstBlockId substituted_type_insts_id = InstBlockId::Invalid;
     // TODO: Also track:
-    // - Types required to be complete in this generic.
+    // - Types required to be complete in this generic?
+    //   Perhaps instead tracked as part of constraints on the generic.
     // - Template-dependent instructions in this generic.
   };
 
@@ -54,6 +58,7 @@ struct GenericInstance : Printable<GenericInstance> {
   // Values corresponding to a region of a generic.
   struct Region {
     InstBlockId symbolic_constant_values_id = InstBlockId::Invalid;
+    TypeBlockId substituted_types_id = TypeBlockId::Invalid;
   };
 
   auto Print(llvm::raw_ostream& out) const -> void {

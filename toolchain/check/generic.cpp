@@ -30,6 +30,34 @@ static auto RegisterSymbolicConstants(Context& context,
   }
 }
 
+// Register the instructions with symbolic types in the given list as having
+// their types substituted as part of the specified generic.
+static auto RegisterInstsWithSubstitutedTypes(Context& context,
+                                              SemIR::InstBlockId insts_id,
+                                              SemIR::GenericId generic_id,
+                                              uint32_t first_index) -> void {
+  for (auto [i, inst_id] :
+       llvm::enumerate(context.inst_blocks().Get(insts_id))) {
+    auto inst = context.insts().Get(inst_id);
+    auto pattern_id = inst.type_id();
+    if (pattern_id.is_substituted()) {
+      // We can end up with the same instruction listed multiple times if it
+      // gets replaced. We only need to set it as substituted once.
+      continue;
+    }
+    CARBON_CHECK(context.types().GetConstantId(pattern_id).is_symbolic())
+        << "Non-symbolic type " << pattern_id << " in type of " << inst
+        << " in list of instructions with symbolic types.";
+    uint32_t index = first_index + i;
+    CARBON_CHECK(index >= first_index) << "Overflow in symbolic type index";
+    inst.SetType(context.types().AddSubstitutedType(
+        {.pattern_id = pattern_id, .generic_id = generic_id, .index = index}));
+    // Access via sem_ir: context intentionally provides only a const handle to
+    // the instruction store.
+    context.sem_ir().insts().Set(inst_id, inst);
+  }
+}
+
 auto FinishGenericDecl(Context& context,
                        SemIR::InstId decl_id) -> SemIR::GenericId {
   // For a generic function, build the corresponding Generic entity.
@@ -46,6 +74,9 @@ auto FinishGenericDecl(Context& context,
       .decl_id = decl_id, .bindings_id = bindings_id, .decl = decl_region});
   RegisterSymbolicConstants(context, decl_region.symbolic_constant_insts_id,
                             generic_id, /*first_index=*/0);
+  RegisterInstsWithSubstitutedTypes(context,
+                                    decl_region.substituted_type_insts_id,
+                                    generic_id, /*first_index=*/0);
   return generic_id;
 }
 
@@ -70,16 +101,21 @@ auto FinishGenericDefinition(Context& context,
   }
 
   auto& generic = context.generics().Get(generic_id);
+  generic.definition = context.generic_region_stack().PopGeneric();
   // TODO: Indexing like this will be inefficient: we need to read the size of
   // the declaration's constants block to determine which block we index into.
   // Store the symbolic constant index as a discriminated union of a declaration
   // or definition index instead.
-  auto first_index_in_definition =
+  auto first_constant_index_in_definition =
       context.inst_blocks().Get(generic.decl.symbolic_constant_insts_id).size();
-  generic.definition = context.generic_region_stack().PopGeneric();
   RegisterSymbolicConstants(context,
                             generic.definition.symbolic_constant_insts_id,
-                            generic_id, first_index_in_definition);
+                            generic_id, first_constant_index_in_definition);
+  auto first_type_index_in_definition =
+      context.inst_blocks().Get(generic.decl.substituted_type_insts_id).size();
+  RegisterInstsWithSubstitutedTypes(
+      context, generic.definition.substituted_type_insts_id, generic_id,
+      first_type_index_in_definition);
 }
 
 }  // namespace Carbon::Check

@@ -215,6 +215,9 @@ class Inst : public Printable<Inst> {
   // Gets the type of the value produced by evaluating this instruction.
   auto type_id() const -> TypeId { return type_id_; }
 
+  // Sets the type of this instruction.
+  auto SetType(TypeId type_id) -> void { type_id_ = type_id; }
+
   // Gets the kinds of IDs used for arg0 and arg1 of the specified kind of
   // instruction.
   //

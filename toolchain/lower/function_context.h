@@ -69,6 +69,10 @@ class FunctionContext {
 
   // Returns a lowered type for the given type_id.
   auto GetType(SemIR::TypeId type_id) -> llvm::Type* {
+    if (type_id.is_substituted()) {
+      // TODO: Use replacement type in current generic instance.
+      type_id = file_context_->sem_ir().types().GetCanonicalTypeId(type_id);
+    }
     return file_context_->GetType(type_id);
   }
 
