@@ -89,11 +89,21 @@ class GenericInstanceStore {
 
   // Adds a new generic instance, or gets the existing generic instance for a
   // specified generic and argument list. Returns the ID of the generic
-  // instance.
+  // instance. The argument IDs must be for instructions in the constant block.
   //
   // This allocates a new InstBlock for the arguments if the instance is new.
   auto GetOrAdd(GenericId generic_id,
-                llvm::ArrayRef<ConstantId> arg_ids) -> GenericInstanceId;
+                llvm::ArrayRef<InstId> arg_ids) -> GenericInstanceId;
+
+  // Gets the specified generic instance.
+  auto Get(GenericInstanceId instance_id) const -> const GenericInstance& {
+    return generic_instances_.Get(instance_id);
+  }
+
+  // Gets the specified generic instance.
+  auto Get(GenericInstanceId instance_id) -> GenericInstance& {
+    return generic_instances_.Get(instance_id);
+  }
 
  private:
   // A deduplicated generic instance node in our folding set.
@@ -109,6 +119,12 @@ class GenericInstanceStore {
   InstBlockStore* inst_block_store_;
   llvm::ContextualFoldingSet<Node, GenericInstanceStore*> lookup_table_;
 };
+
+// Gets the instance of a substituted type within a specified generic
+// instance. Note that this does not perform substitution, and will return
+// `Invalid` if the substituted type is not yet known.
+auto GetTypeInstance(const File& file, GenericInstanceId instance_id,
+                     TypeId type_id) -> TypeId;
 
 }  // namespace Carbon::SemIR
 

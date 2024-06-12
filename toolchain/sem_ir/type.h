@@ -23,7 +23,7 @@ struct SubstitutedTypeInfo {
   GenericId generic_id;
   // The index of this substituted type within the generic's list of substituted
   // types.
-  uint32_t index;
+  int32_t index;
 };
 
 // Provides a ValueStore wrapper with an API specific to types.

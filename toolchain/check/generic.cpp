@@ -13,15 +13,14 @@ namespace Carbon::Check {
 static auto RegisterSymbolicConstants(Context& context,
                                       SemIR::InstBlockId insts_id,
                                       SemIR::GenericId generic_id,
-                                      uint32_t first_index) -> void {
+                                      bool definition) -> void {
   for (auto [i, inst_id] :
        llvm::enumerate(context.inst_blocks().Get(insts_id))) {
     auto const_inst_id = context.constant_values().GetConstantInstId(inst_id);
     CARBON_CHECK(const_inst_id.is_valid())
         << "Non-constant instruction " << context.insts().Get(inst_id)
         << " in symbolic constants list.";
-    uint32_t index = first_index + i;
-    CARBON_CHECK(index >= first_index) << "Overflow in symbolic constant index";
+    int32_t index = definition ? -i - 1 : i;
     context.constant_values().Set(
         inst_id,
         context.constant_values().AddSymbolicConstant({.inst_id = const_inst_id,
@@ -35,7 +34,7 @@ static auto RegisterSymbolicConstants(Context& context,
 static auto RegisterInstsWithSubstitutedTypes(Context& context,
                                               SemIR::InstBlockId insts_id,
                                               SemIR::GenericId generic_id,
-                                              uint32_t first_index) -> void {
+                                              bool definition) -> void {
   for (auto [i, inst_id] :
        llvm::enumerate(context.inst_blocks().Get(insts_id))) {
     auto inst = context.insts().Get(inst_id);
@@ -48,8 +47,7 @@ static auto RegisterInstsWithSubstitutedTypes(Context& context,
     CARBON_CHECK(context.types().GetConstantId(pattern_id).is_symbolic())
         << "Non-symbolic type " << pattern_id << " in type of " << inst
         << " in list of instructions with symbolic types.";
-    uint32_t index = first_index + i;
-    CARBON_CHECK(index >= first_index) << "Overflow in symbolic type index";
+    int32_t index = definition ? -i - 1 : i;
     inst.SetType(context.types().AddSubstitutedType(
         {.pattern_id = pattern_id, .generic_id = generic_id, .index = index}));
     // Access via sem_ir: context intentionally provides only a const handle to
@@ -73,10 +71,10 @@ auto FinishGenericDecl(Context& context,
   auto generic_id = context.generics().Add(SemIR::Generic{
       .decl_id = decl_id, .bindings_id = bindings_id, .decl = decl_region});
   RegisterSymbolicConstants(context, decl_region.symbolic_constant_insts_id,
-                            generic_id, /*first_index=*/0);
+                            generic_id, /*definition=*/false);
   RegisterInstsWithSubstitutedTypes(context,
                                     decl_region.substituted_type_insts_id,
-                                    generic_id, /*first_index=*/0);
+                                    generic_id, /*definition=*/false);
   return generic_id;
 }
 
@@ -102,20 +100,12 @@ auto FinishGenericDefinition(Context& context,
 
   auto& generic = context.generics().Get(generic_id);
   generic.definition = context.generic_region_stack().PopGeneric();
-  // TODO: Indexing like this will be inefficient: we need to read the size of
-  // the declaration's constants block to determine which block we index into.
-  // Store the symbolic constant index as a discriminated union of a declaration
-  // or definition index instead.
-  auto first_constant_index_in_definition =
-      context.inst_blocks().Get(generic.decl.symbolic_constant_insts_id).size();
   RegisterSymbolicConstants(context,
                             generic.definition.symbolic_constant_insts_id,
-                            generic_id, first_constant_index_in_definition);
-  auto first_type_index_in_definition =
-      context.inst_blocks().Get(generic.decl.substituted_type_insts_id).size();
+                            generic_id, /*definition=*/true);
   RegisterInstsWithSubstitutedTypes(
       context, generic.definition.substituted_type_insts_id, generic_id,
-      first_type_index_in_definition);
+      /*definition=*/true);
 }
 
 }  // namespace Carbon::Check

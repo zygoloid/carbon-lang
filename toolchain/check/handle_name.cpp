@@ -8,6 +8,7 @@
 #include "toolchain/check/name_component.h"
 #include "toolchain/check/pointer_dereference.h"
 #include "toolchain/lex/token_kind.h"
+#include "toolchain/sem_ir/ids.h"
 #include "toolchain/sem_ir/inst.h"
 #include "toolchain/sem_ir/typed_insts.h"
 
@@ -80,10 +81,14 @@ static auto GetIdentifierAsName(Context& context, Parse::NodeId node_id)
 static auto HandleNameAsExpr(Context& context, Parse::NodeId node_id,
                              SemIR::NameId name_id) -> bool {
   auto value_id = context.LookupUnqualifiedName(node_id, name_id);
+  // TODO: Lookup should produce this.
+  auto instance_id = SemIR::GenericInstanceId::Invalid;
   auto value = context.insts().Get(value_id);
+  auto type_id = GetTypeInstance(context.sem_ir(), instance_id, value.type_id());
+  CARBON_CHECK(type_id.is_valid()) << "Missing type for " << value;
+
   context.AddInstAndPush<SemIR::NameRef>(
-      node_id,
-      {.type_id = value.type_id(), .name_id = name_id, .value_id = value_id});
+      node_id, {.type_id = type_id, .name_id = name_id, .value_id = value_id});
   return true;
 }
 

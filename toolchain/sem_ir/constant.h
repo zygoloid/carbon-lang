@@ -20,7 +20,7 @@ struct SymbolicConstant {
   GenericId generic_id;
   // The index of this symbolic constant within the generic's list of symbolic
   // constants.
-  uint32_t index;
+  int32_t index;
 };
 
 // Provides a ValueStore wrapper for tracking the constant values of

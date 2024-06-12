@@ -38,11 +38,13 @@ auto GetCalleeFunction(const File& sem_ir, InstId callee_id) -> CalleeFunction {
   return result;
 }
 
-auto Function::declared_return_type(const File& file) const -> TypeId {
+auto Function::declared_return_type(
+    const File& file, GenericInstanceId instance_id) const -> TypeId {
   if (!return_storage_id.is_valid()) {
     return TypeId::Invalid;
   }
-  return file.insts().Get(return_storage_id).type_id();
+  auto type_id = file.insts().Get(return_storage_id).type_id();
+  return GetTypeInstance(file, instance_id, type_id);
 }
 
 }  // namespace Carbon::SemIR

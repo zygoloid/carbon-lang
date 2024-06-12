@@ -62,9 +62,13 @@ struct Function : public Printable<Function> {
   static auto GetParamFromParamRefId(const File& sem_ir, InstId param_ref_id)
       -> std::pair<InstId, Param>;
 
-  // Gets the declared return type of the function. Returns `Invalid` if no
-  // return type was specified,
-  auto declared_return_type(const File& file) const -> TypeId;
+  // Gets the declared return type of the function, for the specified generic
+  // instance. Returns `Invalid` if no return type was specified.
+  //
+  // TODO: Remove the default argument for the instance.
+  auto declared_return_type(const File& file,
+                            GenericInstanceId instance_id =
+                                GenericInstanceId::Invalid) const -> TypeId;
 
   // Returns whether the function has a return slot. Can only be called for a
   // function that has either been called or defined, otherwise this is not
