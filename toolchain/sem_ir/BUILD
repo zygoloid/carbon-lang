@@ -117,6 +117,7 @@ cc_library(
         "//common:enum_base",
         "//common:error",
         "//common:hashing",
+        "//common:set",
         "//toolchain/base:kind_switch",
         "//toolchain/base:value_store",
         "//toolchain/base:yaml",

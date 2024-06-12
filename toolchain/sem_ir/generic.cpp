@@ -2,55 +2,22 @@
 // Exceptions. See /LICENSE for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-#include "toolchain/sem_ir/constant.h"
 #include "toolchain/sem_ir/file.h"
 
 namespace Carbon::SemIR {
 
-// Profile a generic instance.
-static auto ProfileGenericInstance(llvm::FoldingSetNodeID& id,
-                                   GenericId generic_id,
-                                   llvm::ArrayRef<InstId> arg_ids) -> void {
-  id.AddInteger(generic_id.index);
-  for (auto arg_id : arg_ids) {
-    id.AddInteger(arg_id.index);
-  }
-}
-
-// Profile a GenericInstance that has already been created.
-auto GenericInstanceStore::Node::Profile(llvm::FoldingSetNodeID& id,
-                                         GenericInstanceStore* store) -> void {
-  auto& generic = store->generic_instances_.Get(generic_instance_id);
-  ProfileGenericInstance(id, generic.generic_id,
-                         store->inst_block_store_->Get(generic.args_id));
-}
-
 auto GenericInstanceStore::GetOrAdd(GenericId generic_id,
-                                    llvm::ArrayRef<InstId> arg_ids)
+                                    InstBlockId args_id)
     -> GenericInstanceId {
-  // Compute the generic instance's profile.
-  llvm::FoldingSetNodeID id;
-  ProfileGenericInstance(id, generic_id, arg_ids);
-
-  // Check if we have already created this generic instance.
-  void* insert_pos;
-  if (Node* found = lookup_table_.FindNodeOrInsertPos(id, insert_pos)) {
-    return found->generic_instance_id;
-  }
-
-  // Create the new instance and insert the new node.
-  llvm::SmallVector<InstId> arg_inst_ids;
-  arg_inst_ids.reserve(arg_ids.size());
-  for (auto arg_const_id : arg_ids) {
-    arg_inst_ids.push_back(arg_const_id);
-  }
-  auto generic_instance_id =
-      generic_instances_.Add({.generic_id = generic_id,
-                              .args_id = inst_block_store_->Add(arg_inst_ids)});
-  lookup_table_.InsertNode(new (*allocator_)
-                               Node{.generic_instance_id = generic_instance_id},
-                           insert_pos);
-  return generic_instance_id;
+  return lookup_table_
+      .Insert(
+          Key{.generic_id = generic_id, .args_id = args_id},
+          [&](Key /*key*/, void* storage) {
+            new (storage) GenericInstanceId(generic_instances_.Add(
+                {.generic_id = generic_id, .args_id = args_id}));
+          },
+          KeyContext{.instances = generic_instances_.array_ref()})
+      .key();
 }
 
 // Gets the instance of a substituted type within a specified generic
