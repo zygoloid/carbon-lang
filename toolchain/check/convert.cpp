@@ -1247,8 +1247,8 @@ auto ConvertCallArgs(Context& context, SemIR::LocId call_loc_id,
   return context.inst_blocks().Add(args);
 }
 
-auto ExprAsTypeExpr(Context& context, SemIR::LocId loc_id, SemIR::InstId value_id)
-    -> SemIR::InstId {
+auto ExprAsTypeExpr(Context& context, SemIR::LocId loc_id,
+                    SemIR::InstId value_id) -> SemIR::InstId {
   auto type_inst_id =
       ConvertToValueOfType(context, loc_id, value_id, SemIR::TypeId::TypeType);
   if (type_inst_id == SemIR::InstId::BuiltinError) {

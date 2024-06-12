@@ -104,9 +104,10 @@ auto ExprAsTypeExpr(Context& context, SemIR::LocId loc_id,
 
 // Converts an expression for use as a type, and returns the corresponding type.
 //
-// TODO: This loses track of the converted instruction, and so should not be used.
-auto ExprAsType(Context& context, SemIR::LocId loc_id,
-                SemIR::InstId value_id) -> SemIR::TypeId;
+// TODO: This loses track of the converted instruction, and so should not be
+// used.
+auto ExprAsType(Context& context, SemIR::LocId loc_id, SemIR::InstId value_id)
+    -> SemIR::TypeId;
 
 }  // namespace Carbon::Check
 

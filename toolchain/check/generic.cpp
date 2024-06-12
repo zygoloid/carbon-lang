@@ -56,8 +56,8 @@ static auto RegisterInstsWithSubstitutedTypes(Context& context,
   }
 }
 
-auto FinishGenericDecl(Context& context,
-                       SemIR::InstId decl_id) -> SemIR::GenericId {
+auto FinishGenericDecl(Context& context, SemIR::InstId decl_id)
+    -> SemIR::GenericId {
   // For a generic function, build the corresponding Generic entity.
   if (context.scope_stack().compile_time_binding_stack().empty()) {
     context.generic_region_stack().PopNotGeneric();
@@ -87,8 +87,8 @@ auto FinishGenericRedecl(Context& context, SemIR::InstId decl_id,
   context.generic_region_stack().PopAndDiscard();
 }
 
-auto FinishGenericDefinition(Context& context,
-                             SemIR::GenericId generic_id) -> void {
+auto FinishGenericDefinition(Context& context, SemIR::GenericId generic_id)
+    -> void {
   if (!generic_id.is_valid()) {
     // TODO: We can have symbolic constants in a context that had a non-generic
     // declaration, for example if there's a local generic let binding in a

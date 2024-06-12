@@ -134,7 +134,8 @@ class TypeStore : public Yaml::Printable<TypeStore> {
   }
 
   // Gets information about a type that is known to be a substituted type.
-  auto GetSubstitutedTypeInfo(TypeId type_id) const -> const SubstitutedTypeInfo& {
+  auto GetSubstitutedTypeInfo(TypeId type_id) const
+      -> const SubstitutedTypeInfo& {
     CARBON_CHECK(type_id.is_substituted());
     return substituted_types_[TypeId::FirstSubstitutedTypeIndex -
                               type_id.index];

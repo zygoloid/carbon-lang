@@ -3,15 +3,14 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 #include "toolchain/sem_ir/constant.h"
-
 #include "toolchain/sem_ir/file.h"
 
 namespace Carbon::SemIR {
 
 // Profile a generic instance.
-static auto ProfileGenericInstance(
-    llvm::FoldingSetNodeID& id, GenericId generic_id,
-    llvm::ArrayRef<InstId> arg_ids) -> void {
+static auto ProfileGenericInstance(llvm::FoldingSetNodeID& id,
+                                   GenericId generic_id,
+                                   llvm::ArrayRef<InstId> arg_ids) -> void {
   id.AddInteger(generic_id.index);
   for (auto arg_id : arg_ids) {
     id.AddInteger(arg_id.index);
@@ -26,8 +25,9 @@ auto GenericInstanceStore::Node::Profile(llvm::FoldingSetNodeID& id,
                          store->inst_block_store_->Get(generic.args_id));
 }
 
-auto GenericInstanceStore::GetOrAdd(
-    GenericId generic_id, llvm::ArrayRef<InstId> arg_ids) -> GenericInstanceId {
+auto GenericInstanceStore::GetOrAdd(GenericId generic_id,
+                                    llvm::ArrayRef<InstId> arg_ids)
+    -> GenericInstanceId {
   // Compute the generic instance's profile.
   llvm::FoldingSetNodeID id;
   ProfileGenericInstance(id, generic_id, arg_ids);

@@ -92,8 +92,8 @@ class GenericInstanceStore {
   // instance. The argument IDs must be for instructions in the constant block.
   //
   // This allocates a new InstBlock for the arguments if the instance is new.
-  auto GetOrAdd(GenericId generic_id,
-                llvm::ArrayRef<InstId> arg_ids) -> GenericInstanceId;
+  auto GetOrAdd(GenericId generic_id, llvm::ArrayRef<InstId> arg_ids)
+      -> GenericInstanceId;
 
   // Gets the specified generic instance.
   auto Get(GenericInstanceId instance_id) const -> const GenericInstance& {
@@ -110,8 +110,8 @@ class GenericInstanceStore {
   struct Node : llvm::FoldingSetNode {
     GenericInstanceId generic_instance_id;
 
-    auto Profile(llvm::FoldingSetNodeID& id,
-                 GenericInstanceStore* store) -> void;
+    auto Profile(llvm::FoldingSetNodeID& id, GenericInstanceStore* store)
+        -> void;
   };
 
   ValueStore<GenericInstanceId> generic_instances_;
