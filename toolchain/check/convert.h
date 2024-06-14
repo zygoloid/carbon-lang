@@ -99,8 +99,14 @@ auto ConvertCallArgs(Context& context, SemIR::LocId call_loc_id,
                      SemIR::InstBlockId param_refs_id) -> SemIR::InstBlockId;
 
 // Converts an expression for use as a type.
-auto ExprAsType(Context& context, SemIR::LocId loc_id, SemIR::InstId value_id)
-    -> SemIR::TypeId;
+auto ExprAsTypeExpr(Context& context, SemIR::LocId loc_id,
+                    SemIR::InstId value_id) -> SemIR::InstId;
+
+// Converts an expression for use as a type, and returns the corresponding type.
+//
+// TODO: This loses track of the converted instruction, and so should not be used.
+auto ExprAsType(Context& context, SemIR::LocId loc_id,
+                SemIR::InstId value_id) -> SemIR::TypeId;
 
 }  // namespace Carbon::Check
 

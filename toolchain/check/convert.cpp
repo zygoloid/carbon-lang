@@ -1247,12 +1247,12 @@ auto ConvertCallArgs(Context& context, SemIR::LocId call_loc_id,
   return context.inst_blocks().Add(args);
 }
 
-auto ExprAsType(Context& context, SemIR::LocId loc_id, SemIR::InstId value_id)
-    -> SemIR::TypeId {
+auto ExprAsTypeExpr(Context& context, SemIR::LocId loc_id, SemIR::InstId value_id)
+    -> SemIR::InstId {
   auto type_inst_id =
       ConvertToValueOfType(context, loc_id, value_id, SemIR::TypeId::TypeType);
   if (type_inst_id == SemIR::InstId::BuiltinError) {
-    return SemIR::TypeId::Error;
+    return SemIR::InstId::BuiltinError;
   }
 
   auto type_const_id = context.constant_values().Get(type_inst_id);
@@ -1260,10 +1260,19 @@ auto ExprAsType(Context& context, SemIR::LocId loc_id, SemIR::InstId value_id)
     CARBON_DIAGNOSTIC(TypeExprEvaluationFailure, Error,
                       "Cannot evaluate type expression.");
     context.emitter().Emit(loc_id, TypeExprEvaluationFailure);
-    return SemIR::TypeId::Error;
+    return SemIR::InstId::BuiltinError;
   }
 
-  return context.GetTypeIdForTypeConstant(type_const_id);
+  return type_inst_id;
+}
+
+auto ExprAsType(Context& context, SemIR::LocId loc_id, SemIR::InstId value_id)
+    -> SemIR::TypeId {
+  auto converted_inst_id = ExprAsTypeExpr(context, loc_id, value_id);
+  if (converted_inst_id == SemIR::InstId::BuiltinError) {
+    return SemIR::TypeId::Error;
+  }
+  return context.GetTypeIdForTypeInst(converted_inst_id);
 }
 
 }  // namespace Carbon::Check
