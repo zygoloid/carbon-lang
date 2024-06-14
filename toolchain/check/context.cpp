@@ -87,7 +87,6 @@ auto Context::AddInstInNoBlock(SemIR::LocIdAndInst loc_id_and_inst)
     CARBON_VLOG() << "Constant: " << loc_id_and_inst.inst << " -> "
                   << constant_values().GetInstId(const_id) << "\n";
     constant_values().Set(inst_id, const_id);
-
     if (const_id.is_symbolic()) {
       generic_region_stack().AddSymbolicConstantInst(inst_id);
     }

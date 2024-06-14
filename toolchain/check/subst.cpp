@@ -151,6 +151,8 @@ static auto Rebuild(Context& context, Worklist& worklist, SemIR::InstId inst_id)
   return context.constant_values().GetInstId(result_id);
 }
 
+// TODO: Change this to take a `GenericInstanceId`, and populate and return
+// the relevant slot within its symbolic constant table.
 auto SubstConstant(Context& context, SemIR::ConstantId const_id,
                    Substitutions substitutions) -> SemIR::ConstantId {
   CARBON_CHECK(const_id.is_constant()) << "Substituting into non-constant";
