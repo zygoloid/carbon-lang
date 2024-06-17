@@ -10,15 +10,21 @@
 
 namespace Carbon::Check {
 
-// A substitution that is being performed.
-struct Substitution {
-  // The index of a `BindSymbolicName` instruction that is being replaced.
-  SemIR::CompileTimeBindIndex bind_id;
-  // The replacement constant value to substitute.
-  SemIR::ConstantId replacement_id;
-};
+// A list of substitutions to perform. This is an array indexed by
+// `CompileTimeBindIndex`. The instruction indexes should be those of constant
+// instructions, or `Invalid` if substitution is not performed for a particular
+// index.
+using Substitutions = llvm::ArrayRef<SemIR::InstId>;
 
-using Substitutions = llvm::ArrayRef<Substitution>;
+// Build a list of substitutions that performs a single replacement.
+inline auto BuildSingleSubstitution(SemIR::CompileTimeBindIndex index,
+                                    SemIR::InstId replacement)
+    -> llvm::SmallVector<SemIR::InstId> {
+  llvm::SmallVector<SemIR::InstId> substitutions;
+  substitutions.resize(index.index + 1, SemIR::InstId::Invalid);
+  substitutions[index.index] = replacement;
+  return substitutions;
+}
 
 // Replaces the `BindSymbolicName` instruction `bind_id` with `replacement_id`
 // throughout the constant `const_id`, and returns the substituted value.

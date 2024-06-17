@@ -4,6 +4,7 @@
 
 #include "toolchain/check/generic.h"
 
+#include "toolchain/check/subst.h"
 #include "toolchain/sem_ir/ids.h"
 
 namespace Carbon::Check {
@@ -106,6 +107,46 @@ auto FinishGenericDefinition(Context& context, SemIR::GenericId generic_id)
   RegisterInstsWithSubstitutedTypes(
       context, generic.definition.substituted_type_insts_id, generic_id,
       /*definition=*/true);
+}
+
+static auto SubstituteRegion(Context& context,
+                             SemIR::Generic::Region& generic_region,
+                             SemIR::GenericInstance::Region& instance_region,
+                             Substitutions substitutions) -> void {
+  auto types_in_generic =
+      context.inst_blocks().Get(generic_region.substituted_type_insts_id);
+  llvm::SmallVector<SemIR::TypeId> types_in_instance;
+  types_in_instance.reserve(types_in_generic.size());
+  for (auto inst_id : types_in_generic) {
+    // TODO: We do a lot of repeated work here. Cache the values we substitute
+    // into so we only substitute into each once.
+    types_in_instance.push_back(SubstType(
+        context, context.insts().Get(inst_id).type_id(), substitutions));
+  }
+  instance_region.substituted_types_id =
+      context.type_blocks().Add(types_in_instance);
+
+    // TODO: Substitute into constants.
+}
+
+auto MakeGenericInstance(Context& context, SemIR::GenericId generic_id,
+                         SemIR::InstBlockId args_id)
+    -> SemIR::GenericInstanceId {
+  auto instance_id = context.generic_instances().GetOrAdd(generic_id, args_id);
+  auto& instance = context.generic_instances().Get(instance_id);
+
+  // TODO: Remove this once we import generics properly.
+  if (!generic_id.is_valid()) {
+    return instance_id;
+  }
+
+  if (!instance.decl.substituted_types_id.is_valid()) {
+    // Perform substitution into the declaration.
+    auto substitutions = context.inst_blocks().Get(args_id);
+    auto& generic = context.generics().Get(generic_id);
+    SubstituteRegion(context, generic.decl, instance.decl, substitutions);
+  }
+  return instance_id;
 }
 
 }  // namespace Carbon::Check
