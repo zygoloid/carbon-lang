@@ -149,4 +149,27 @@ auto MakeGenericInstance(Context& context, SemIR::GenericId generic_id,
   return instance_id;
 }
 
+auto ResolveGenericInstance(Context& context,
+                            SemIR::GenericInstanceId instance_id) -> bool {
+  auto& instance = context.generic_instances().Get(instance_id);
+  auto generic_id = instance.generic_id;
+
+  // TODO: Remove this once we import generics properly.
+  if (!generic_id.is_valid()) {
+    return true;
+  }
+
+  if (!instance.definition.substituted_types_id.is_valid()) {
+    // Perform substitution into the declaration.
+    auto substitutions = context.inst_blocks().Get(instance.args_id);
+    auto& generic = context.generics().Get(generic_id);
+    if (!generic.definition.substituted_type_insts_id.is_valid()) {
+      return false;
+    }
+    SubstituteRegion(context, generic.definition, instance.definition,
+                     substitutions);
+  }
+  return true;
+}
+
 }  // namespace Carbon::Check

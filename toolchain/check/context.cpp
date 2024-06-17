@@ -13,6 +13,7 @@
 #include "toolchain/base/kind_switch.h"
 #include "toolchain/check/decl_name_stack.h"
 #include "toolchain/check/eval.h"
+#include "toolchain/check/generic.h"
 #include "toolchain/check/import_ref.h"
 #include "toolchain/check/inst_block_stack.h"
 #include "toolchain/check/merge.h"
@@ -774,6 +775,9 @@ class TypeCompleter {
             builder.Emit();
           }
           return false;
+        }
+        if (inst.instance_id.is_valid()) {
+          ResolveGenericInstance(context_, inst.instance_id);
         }
         Push(class_info.object_repr_id);
         break;

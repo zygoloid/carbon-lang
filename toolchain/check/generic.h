@@ -44,6 +44,11 @@ auto MakeGenericInstance(Context& context, SemIR::GenericId generic_id,
                          SemIR::InstBlockId args_id)
     -> SemIR::GenericInstanceId;
 
+// Attempts to resolve the given generic instance, by substituting into its
+// definition. Returns false if a definition is not available.
+auto ResolveGenericInstance(Context& context,
+                            SemIR::GenericInstanceId instance_id) -> bool;
+
 }  // namespace Carbon::Check
 
 #endif  // CARBON_TOOLCHAIN_CHECK_GENERIC_H_
