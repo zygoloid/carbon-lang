@@ -19,8 +19,29 @@ auto GenericInstanceStore::GetOrAdd(GenericId generic_id, InstBlockId args_id)
       .key();
 }
 
-// Gets the instance of a substituted type within a specified generic
-// instance.
+auto GetConstantValueInInstance(const File& file, GenericInstanceId instance_id,
+                                InstId inst_id) -> ConstantId {
+  auto const_id = file.constant_values().Get(inst_id);
+  if (!const_id.is_symbolic() || !instance_id.is_valid()) {
+    return const_id;
+  }
+
+  const auto& info = file.constant_values().GetSymbolicConstant(const_id);
+  const auto& instance = file.generic_instances().Get(instance_id);
+  CARBON_CHECK(info.generic_id == instance.generic_id)
+      << "Given instance for wrong generic.";
+
+  const auto& region = info.index >= 0 ? instance.decl : instance.definition;
+  if (!region.substituted_types_id.is_valid()) {
+    // TODO: Can we CHECK-fail here?
+    return ConstantId::Invalid;
+  }
+
+  auto constants = file.inst_blocks().Get(region.symbolic_constant_values_id);
+  return file.constant_values().Get(
+      constants[info.index >= 0 ? info.index : -info.index - 1]);
+}
+
 auto GetTypeInstance(const File& file, GenericInstanceId instance_id,
                      TypeId type_id) -> TypeId {
   if (!type_id.is_substituted()) {

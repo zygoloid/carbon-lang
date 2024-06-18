@@ -132,6 +132,12 @@ class GenericInstanceStore {
   Carbon::Set<GenericInstanceId, 0, KeyContext> lookup_table_;
 };
 
+// Gets the constant value of an instruction within a specified generic
+// instance. Note that this does not perform substitution, and will return
+// `Invalid` if the substituted type is not yet known.
+auto GetConstantValueInInstance(const File& file, GenericInstanceId instance_id,
+                                InstId inst_id) -> ConstantId;
+
 // Gets the instance of a substituted type within a specified generic
 // instance. Note that this does not perform substitution, and will return
 // `Invalid` if the substituted type is not yet known.
