@@ -8,7 +8,9 @@ namespace Carbon::Check {
 
 auto GenericRegionStack::Push() -> void {
   regions_.push_back({.first_symbolic_constant_index = static_cast<int32_t>(
-                          symbolic_constant_inst_ids_.size())});
+                          symbolic_constant_inst_ids_.size()),
+                      .first_symbolic_type_index = static_cast<int32_t>(
+                          symbolic_type_inst_ids_.size())});
 }
 
 auto GenericRegionStack::PopGeneric() -> SemIR::Generic::Region {
