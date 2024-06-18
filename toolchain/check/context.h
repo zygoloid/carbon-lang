@@ -287,7 +287,8 @@ class Context {
   auto GetBuiltinType(SemIR::BuiltinKind kind) -> SemIR::TypeId;
 
   // Gets a function type. The returned type will be complete.
-  auto GetFunctionType(SemIR::FunctionId fn_id) -> SemIR::TypeId;
+  auto GetFunctionType(SemIR::FunctionId fn_id,
+                       SemIR::GenericInstanceId instance_id) -> SemIR::TypeId;
 
   // Gets a generic class type, which is the type of a name of a generic class,
   // such as the type of `Vector` given `class Vector(T:! type)`. The returned

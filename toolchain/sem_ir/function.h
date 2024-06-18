@@ -132,6 +132,8 @@ class File;
 struct CalleeFunction {
   // The function. Invalid if not a function.
   SemIR::FunctionId function_id;
+  // The generic instance that contains the function.
+  SemIR::GenericInstanceId instance_id;
   // The bound `self` parameter. Invalid if not a method.
   SemIR::InstId self_id;
   // True if an error instruction was found.

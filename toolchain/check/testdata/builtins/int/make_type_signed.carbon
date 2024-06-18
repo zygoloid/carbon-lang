@@ -118,7 +118,7 @@ var m: Int(1000000000);
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
 // CHECK:STDOUT:   %N: i32 = bind_symbolic_name N 0 [symbolic]
 // CHECK:STDOUT:   %.6: type = int_type signed, %N [symbolic]
-// CHECK:STDOUT:   %Symbolic.type: type = fn_type @Symbolic [template]
+// CHECK:STDOUT:   %Symbolic.type: type = fn_type @Symbolic, (%N) [template]
 // CHECK:STDOUT:   %Symbolic: %Symbolic.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -174,14 +174,14 @@ var m: Int(1000000000);
 // CHECK:STDOUT:     %int.make_type_signed.loc14_28: init type = call %Int.ref.loc14_25(%N.ref.loc14_29) [symbolic = constants.%.6]
 // CHECK:STDOUT:     %.loc14_30.1: type = value_of_initializer %int.make_type_signed.loc14_28 [symbolic = constants.%.6]
 // CHECK:STDOUT:     %.loc14_30.2: type = converted %int.make_type_signed.loc14_28, %.loc14_30.1 [symbolic = constants.%.6]
-// CHECK:STDOUT:     %x.loc14_22.1: %.6 = param x
-// CHECK:STDOUT:     @Symbolic.%x: %.6 = bind_name x, %x.loc14_22.1
+// CHECK:STDOUT:     %x.loc14_22.1: %.6[0.0] = param x
+// CHECK:STDOUT:     @Symbolic.%x: %.6[0.1] = bind_name x, %x.loc14_22.1
 // CHECK:STDOUT:     %Int.ref.loc14_36: %Int.type = name_ref Int, %import_ref.1 [template = constants.%Int]
 // CHECK:STDOUT:     %N.ref.loc14_40: i32 = name_ref N, @Symbolic.%N [symbolic = constants.%N]
 // CHECK:STDOUT:     %int.make_type_signed.loc14_39: init type = call %Int.ref.loc14_36(%N.ref.loc14_40) [symbolic = constants.%.6]
 // CHECK:STDOUT:     %.loc14_41.1: type = value_of_initializer %int.make_type_signed.loc14_39 [symbolic = constants.%.6]
 // CHECK:STDOUT:     %.loc14_41.2: type = converted %int.make_type_signed.loc14_39, %.loc14_41.1 [symbolic = constants.%.6]
-// CHECK:STDOUT:     @Symbolic.%return: ref %.6 = var <return slot>
+// CHECK:STDOUT:     @Symbolic.%return: ref %.6[0.2] = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -201,9 +201,9 @@ var m: Int(1000000000);
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Int32() -> type = "int.make_type_32";
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @Symbolic(%N: i32, %x: %.6) -> %.6 {
+// CHECK:STDOUT: fn @Symbolic(%N: i32, %x: %.6[0.1]) -> %.6[0.2] {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %x.ref: %.6 = name_ref x, %x
+// CHECK:STDOUT:   %x.ref: %.6[0.-1] = name_ref x, %x
 // CHECK:STDOUT:   return %x.ref
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

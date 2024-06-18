@@ -989,6 +989,9 @@ auto TryEvalInst(Context& context, SemIR::InstId inst_id, SemIR::Inst inst)
     case SemIR::ClassType::Kind:
       return RebuildIfFieldsAreConstant(context, inst,
                                         &SemIR::ClassType::instance_id);
+    case SemIR::FunctionType::Kind:
+      return RebuildIfFieldsAreConstant(context, inst,
+                                        &SemIR::FunctionType::instance_id);
     case SemIR::InterfaceType::Kind:
       return RebuildIfFieldsAreConstant(context, inst,
                                         &SemIR::InterfaceType::instance_id);
@@ -1050,7 +1053,6 @@ auto TryEvalInst(Context& context, SemIR::InstId inst_id, SemIR::Inst inst)
 
     case SemIR::AssociatedEntity::Kind:
     case SemIR::Builtin::Kind:
-    case SemIR::FunctionType::Kind:
     case SemIR::GenericClassType::Kind:
     case SemIR::GenericInterfaceType::Kind:
       // Builtins are always template constants.

@@ -272,7 +272,13 @@ static auto BuildFunctionDecl(Context& context,
     FinishGenericRedecl(context, decl_id, function_info.generic_id);
     // TODO: Validate that the redeclaration doesn't set an access modifier.
   }
-  function_decl.type_id = context.GetFunctionType(function_decl.function_id);
+  auto instance_id = SemIR::GenericInstanceId::Invalid;
+  if (function_info.generic_id.is_valid()) {
+    instance_id =
+        MakeUnsubstitutedGenericInstance(context, function_info.generic_id);
+  }
+  function_decl.type_id =
+      context.GetFunctionType(function_decl.function_id, instance_id);
 
   // Write the function ID into the FunctionDecl.
   context.ReplaceInstBeforeConstantUse(decl_id, function_decl);

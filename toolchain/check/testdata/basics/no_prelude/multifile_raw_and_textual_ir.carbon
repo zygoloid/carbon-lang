@@ -41,7 +41,7 @@ fn B() {}
 // CHECK:STDOUT:   insts:
 // CHECK:STDOUT:     'inst+0':          {kind: Namespace, arg0: name_scope0, arg1: inst<invalid>, type: type0}
 // CHECK:STDOUT:     'inst+1':          {kind: FunctionDecl, arg0: function0, arg1: empty, type: type1}
-// CHECK:STDOUT:     'inst+2':          {kind: FunctionType, arg0: function0, type: typeTypeType}
+// CHECK:STDOUT:     'inst+2':          {kind: FunctionType, arg0: function0, arg1: genericInstance<invalid>, type: typeTypeType}
 // CHECK:STDOUT:     'inst+3':          {kind: TupleType, arg0: typeBlock0, type: typeTypeType}
 // CHECK:STDOUT:     'inst+4':          {kind: StructValue, arg0: empty, type: type1}
 // CHECK:STDOUT:     'inst+5':          {kind: Return}
@@ -102,7 +102,7 @@ fn B() {}
 // CHECK:STDOUT:   insts:
 // CHECK:STDOUT:     'inst+0':          {kind: Namespace, arg0: name_scope0, arg1: inst<invalid>, type: type0}
 // CHECK:STDOUT:     'inst+1':          {kind: FunctionDecl, arg0: function0, arg1: empty, type: type1}
-// CHECK:STDOUT:     'inst+2':          {kind: FunctionType, arg0: function0, type: typeTypeType}
+// CHECK:STDOUT:     'inst+2':          {kind: FunctionType, arg0: function0, arg1: genericInstance<invalid>, type: typeTypeType}
 // CHECK:STDOUT:     'inst+3':          {kind: TupleType, arg0: typeBlock0, type: typeTypeType}
 // CHECK:STDOUT:     'inst+4':          {kind: StructValue, arg0: empty, type: type1}
 // CHECK:STDOUT:     'inst+5':          {kind: Return}

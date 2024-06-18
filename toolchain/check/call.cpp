@@ -89,7 +89,8 @@ auto PerformCall(Context& context, Parse::NodeId node_id,
 
   // For functions with an implicit return type, the return type is the empty
   // tuple type.
-  SemIR::TypeId type_id = callable.declared_return_type(context.sem_ir());
+  SemIR::TypeId type_id = callable.declared_return_type(
+      context.sem_ir(), callee_function.instance_id);
   if (!type_id.is_valid()) {
     type_id = context.GetTupleType({});
   }
@@ -123,6 +124,7 @@ auto PerformCall(Context& context, Parse::NodeId node_id,
   }
 
   // Convert the arguments to match the parameters.
+  // TODO: Pass in the instance.
   auto converted_args_id =
       ConvertCallArgs(context, node_id, callee_function.self_id, arg_ids,
                       return_storage_id, callable.decl_id,

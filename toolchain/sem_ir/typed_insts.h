@@ -511,6 +511,7 @@ struct FunctionType {
 
   TypeId type_id;
   FunctionId function_id;
+  GenericInstanceId instance_id;
 };
 
 // The type of the name of a generic class. The corresponding value is an empty

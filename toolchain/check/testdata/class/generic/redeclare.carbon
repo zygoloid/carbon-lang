@@ -186,8 +186,8 @@ class E(U:! type) {}
 // CHECK:STDOUT:     %T.loc12_9.1: type = param T
 // CHECK:STDOUT:     %T.loc12_9.2: type = bind_symbolic_name T 0, %T.loc12_9.1 [symbolic = constants.%T]
 // CHECK:STDOUT:     %T.ref: type = name_ref T, %T.loc12_9.2 [symbolic = constants.%T]
-// CHECK:STDOUT:     %N.loc12_19.1: %T = param N
-// CHECK:STDOUT:     %N.loc12_19.2: %T = bind_symbolic_name N 1, %N.loc12_19.1 [symbolic = constants.%N.2]
+// CHECK:STDOUT:     %N.loc12_19.1: %T[1.0] = param N
+// CHECK:STDOUT:     %N.loc12_19.2: %T[1.1] = bind_symbolic_name N 1, %N.loc12_19.1 [symbolic = constants.%N.2]
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

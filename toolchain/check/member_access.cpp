@@ -225,7 +225,9 @@ static auto LookupMemberNameInScope(Context& context, Parse::NodeId node_id,
   }
 
   auto inst = context.insts().Get(result.inst_id);
-  auto type_id = SemIR::GetTypeInstance(context.sem_ir(), result.instance_id, inst.type_id());
+  auto type_id = SemIR::GetTypeInstance(context.sem_ir(), result.instance_id,
+                                        inst.type_id());
+  CARBON_CHECK(type_id.is_valid()) << "Missing type for member " << inst;
   // TODO: Use a different kind of instruction that also references the
   // `base_id` so that `SemIR` consumers can find it.
   auto member_id = context.AddInst<SemIR::NameRef>(

@@ -46,7 +46,7 @@ fn Run() -> i32 {
 // CHECK:STDOUT:   %Class.2: type = class_type @Class, (%T) [symbolic]
 // CHECK:STDOUT:   %.2: type = ptr_type %Class.2 [symbolic]
 // CHECK:STDOUT:   %.3: type = ptr_type %T [symbolic]
-// CHECK:STDOUT:   %Get.type: type = fn_type @Get [template]
+// CHECK:STDOUT:   %Get.type: type = fn_type @Get, (%T) [template]
 // CHECK:STDOUT:   %Get: %Get.type = struct_value () [template]
 // CHECK:STDOUT:   %.4: type = unbound_element_type %Class.2, %T [symbolic]
 // CHECK:STDOUT:   %.5: type = struct_type {.k: %T} [symbolic]
@@ -87,15 +87,15 @@ fn Run() -> i32 {
 // CHECK:STDOUT:   %Get.decl: %Get.type = fn_decl @Get [template = constants.%Get] {
 // CHECK:STDOUT:     %Self.ref: type = name_ref Self, constants.%Class.2 [symbolic = constants.%Class.2]
 // CHECK:STDOUT:     %.loc12_25: type = ptr_type %Class.2 [symbolic = constants.%.2]
-// CHECK:STDOUT:     %self.loc12_15.1: %.2 = param self
-// CHECK:STDOUT:     %self.loc12_15.3: %.2 = bind_name self, %self.loc12_15.1
-// CHECK:STDOUT:     %.loc12_10: %.2 = addr_pattern %self.loc12_15.3
+// CHECK:STDOUT:     %self.loc12_15.1: %.2[1.0] = param self
+// CHECK:STDOUT:     %self.loc12_15.3: %.2[1.1] = bind_name self, %self.loc12_15.1
+// CHECK:STDOUT:     %.loc12_10: %.2[1.2] = addr_pattern %self.loc12_15.3
 // CHECK:STDOUT:     %T.ref.loc12: type = name_ref T, file.%T.loc11_13.2 [symbolic = constants.%T]
 // CHECK:STDOUT:     %.loc12_34: type = ptr_type %T [symbolic = constants.%.3]
-// CHECK:STDOUT:     %return.var: ref %.3 = var <return slot>
+// CHECK:STDOUT:     %return.var: ref %.3[1.3] = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %T.ref.loc16: type = name_ref T, file.%T.loc11_13.2 [symbolic = constants.%T]
-// CHECK:STDOUT:   %.loc16: %.4 = field_decl k, element0 [template]
+// CHECK:STDOUT:   %.loc16: %.4[0.-1] = field_decl k, element0 [template]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = constants.%Class.2
@@ -103,13 +103,13 @@ fn Run() -> i32 {
 // CHECK:STDOUT:   .k = %.loc16
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @Get[addr @Class.%self.loc12_15.3: %.2]() -> %.3 {
+// CHECK:STDOUT: fn @Get[addr @Class.%self.loc12_15.3: %.2[1.1]]() -> %.3[1.3] {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %self.ref: %.2 = name_ref self, @Class.%self.loc12_15.3
-// CHECK:STDOUT:   %.loc13_17.1: ref %Class.2 = deref %self.ref
-// CHECK:STDOUT:   %k.ref: %.4 = name_ref k, @Class.%.loc16 [template = @Class.%.loc16]
-// CHECK:STDOUT:   %.loc13_17.2: ref %T = class_element_access %.loc13_17.1, element0
-// CHECK:STDOUT:   %.loc13_12: %.3 = addr_of %.loc13_17.2
+// CHECK:STDOUT:   %self.ref: %.2[1.-1] = name_ref self, @Class.%self.loc12_15.3
+// CHECK:STDOUT:   %.loc13_17.1: ref %Class.2[1.-2] = deref %self.ref
+// CHECK:STDOUT:   %k.ref: %.4[1.-3] = name_ref k, @Class.%.loc16 [template = @Class.%.loc16]
+// CHECK:STDOUT:   %.loc13_17.2: ref %T[1.-4] = class_element_access %.loc13_17.1, element0
+// CHECK:STDOUT:   %.loc13_12: %.3[1.-5] = addr_of %.loc13_17.2
 // CHECK:STDOUT:   return %.loc13_12
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

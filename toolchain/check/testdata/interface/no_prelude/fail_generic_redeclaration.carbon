@@ -91,7 +91,7 @@ interface DifferentParams(T:! ()) {}
 // CHECK:STDOUT: interface @NotGeneric;
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @.1 {
-// CHECK:STDOUT:   %Self: %.4 = bind_symbolic_name Self 1 [symbolic = constants.%Self.1]
+// CHECK:STDOUT:   %Self: %.4[0.-1] = bind_symbolic_name Self 1 [symbolic = constants.%Self.1]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = %Self
@@ -111,7 +111,7 @@ interface DifferentParams(T:! ()) {}
 // CHECK:STDOUT: interface @DifferentParams;
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @.3 {
-// CHECK:STDOUT:   %Self: %.7 = bind_symbolic_name Self 1 [symbolic = constants.%Self.3]
+// CHECK:STDOUT:   %Self: %.7[3.-1] = bind_symbolic_name Self 1 [symbolic = constants.%Self.3]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = %Self

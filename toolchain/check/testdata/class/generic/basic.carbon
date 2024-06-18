@@ -32,9 +32,9 @@ class Class(T:! type) {
 // CHECK:STDOUT:   %Class.2: type = class_type @Class, (%T) [symbolic]
 // CHECK:STDOUT:   %.2: type = ptr_type %Class.2 [symbolic]
 // CHECK:STDOUT:   %.3: type = ptr_type %T [symbolic]
-// CHECK:STDOUT:   %GetAddr.type: type = fn_type @GetAddr [template]
+// CHECK:STDOUT:   %GetAddr.type: type = fn_type @GetAddr, (%T) [symbolic]
 // CHECK:STDOUT:   %GetAddr: %GetAddr.type = struct_value () [template]
-// CHECK:STDOUT:   %GetValue.type: type = fn_type @GetValue [template]
+// CHECK:STDOUT:   %GetValue.type: type = fn_type @GetValue, (%T) [symbolic]
 // CHECK:STDOUT:   %GetValue: %GetValue.type = struct_value () [template]
 // CHECK:STDOUT:   %.4: type = unbound_element_type %Class.2, %T [symbolic]
 // CHECK:STDOUT:   %.5: type = struct_type {.k: %T} [symbolic]
@@ -54,25 +54,25 @@ class Class(T:! type) {
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Class {
-// CHECK:STDOUT:   %GetAddr.decl: %GetAddr.type = fn_decl @GetAddr [template = constants.%GetAddr] {
+// CHECK:STDOUT:   %GetAddr.decl: %GetAddr.type[0.-1] = fn_decl @GetAddr [template = constants.%GetAddr] {
 // CHECK:STDOUT:     %Self.ref.loc12: type = name_ref Self, constants.%Class.2 [symbolic = constants.%Class.2]
 // CHECK:STDOUT:     %.loc12_29: type = ptr_type %Class.2 [symbolic = constants.%.2]
-// CHECK:STDOUT:     %self.loc12_19.1: %.2 = param self
-// CHECK:STDOUT:     %self.loc12_19.3: %.2 = bind_name self, %self.loc12_19.1
-// CHECK:STDOUT:     %.loc12_14: %.2 = addr_pattern %self.loc12_19.3
+// CHECK:STDOUT:     %self.loc12_19.1: %.2[1.0] = param self
+// CHECK:STDOUT:     %self.loc12_19.3: %.2[1.1] = bind_name self, %self.loc12_19.1
+// CHECK:STDOUT:     %.loc12_14: %.2[1.2] = addr_pattern %self.loc12_19.3
 // CHECK:STDOUT:     %T.ref.loc12: type = name_ref T, file.%T.loc11_13.2 [symbolic = constants.%T]
 // CHECK:STDOUT:     %.loc12_38: type = ptr_type %T [symbolic = constants.%.3]
-// CHECK:STDOUT:     %return.var.loc12: ref %.3 = var <return slot>
+// CHECK:STDOUT:     %return.var.loc12: ref %.3[1.3] = var <return slot>
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %GetValue.decl: %GetValue.type = fn_decl @GetValue [template = constants.%GetValue] {
+// CHECK:STDOUT:   %GetValue.decl: %GetValue.type[0.-2] = fn_decl @GetValue [template = constants.%GetValue] {
 // CHECK:STDOUT:     %Self.ref.loc17: type = name_ref Self, constants.%Class.2 [symbolic = constants.%Class.2]
-// CHECK:STDOUT:     %self.loc17_15.1: %Class.2 = param self
-// CHECK:STDOUT:     %self.loc17_15.2: %Class.2 = bind_name self, %self.loc17_15.1
+// CHECK:STDOUT:     %self.loc17_15.1: %Class.2[2.0] = param self
+// CHECK:STDOUT:     %self.loc17_15.2: %Class.2[2.1] = bind_name self, %self.loc17_15.1
 // CHECK:STDOUT:     %T.ref.loc17: type = name_ref T, file.%T.loc11_13.2 [symbolic = constants.%T]
-// CHECK:STDOUT:     %return.var.loc17: ref %T = var <return slot>
+// CHECK:STDOUT:     %return.var.loc17: ref %T[2.2] = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %T.ref.loc21: type = name_ref T, file.%T.loc11_13.2 [symbolic = constants.%T]
-// CHECK:STDOUT:   %.loc21: %.4 = field_decl k, element0 [template]
+// CHECK:STDOUT:   %.loc21: %.4[0.-3] = field_decl k, element0 [template]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = constants.%Class.2
@@ -81,22 +81,22 @@ class Class(T:! type) {
 // CHECK:STDOUT:   .k = %.loc21
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @GetAddr[addr @Class.%self.loc12_19.3: %.2]() -> %.3 {
+// CHECK:STDOUT: fn @GetAddr[addr @Class.%self.loc12_19.3: %.2[1.1]]() -> %.3[1.3] {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %self.ref: %.2 = name_ref self, @Class.%self.loc12_19.3
-// CHECK:STDOUT:   %.loc13_17.1: ref %Class.2 = deref %self.ref
-// CHECK:STDOUT:   %k.ref: %.4 = name_ref k, @Class.%.loc21 [template = @Class.%.loc21]
-// CHECK:STDOUT:   %.loc13_17.2: ref %T = class_element_access %.loc13_17.1, element0
-// CHECK:STDOUT:   %.loc13_12: %.3 = addr_of %.loc13_17.2
+// CHECK:STDOUT:   %self.ref: %.2[1.-1] = name_ref self, @Class.%self.loc12_19.3
+// CHECK:STDOUT:   %.loc13_17.1: ref %Class.2[1.-2] = deref %self.ref
+// CHECK:STDOUT:   %k.ref: %.4[1.-3] = name_ref k, @Class.%.loc21 [template = @Class.%.loc21]
+// CHECK:STDOUT:   %.loc13_17.2: ref %T[1.-4] = class_element_access %.loc13_17.1, element0
+// CHECK:STDOUT:   %.loc13_12: %.3[1.-5] = addr_of %.loc13_17.2
 // CHECK:STDOUT:   return %.loc13_12
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @GetValue[@Class.%self.loc17_15.2: %Class.2]() -> %T {
+// CHECK:STDOUT: fn @GetValue[@Class.%self.loc17_15.2: %Class.2[2.1]]() -> %T[2.2] {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %self.ref: %Class.2 = name_ref self, @Class.%self.loc17_15.2
-// CHECK:STDOUT:   %k.ref: %.4 = name_ref k, @Class.%.loc21 [template = @Class.%.loc21]
-// CHECK:STDOUT:   %.loc18_16.1: ref %T = class_element_access %self.ref, element0
-// CHECK:STDOUT:   %.loc18_16.2: %T = bind_value %.loc18_16.1
+// CHECK:STDOUT:   %self.ref: %Class.2[2.-1] = name_ref self, @Class.%self.loc17_15.2
+// CHECK:STDOUT:   %k.ref: %.4[2.-2] = name_ref k, @Class.%.loc21 [template = @Class.%.loc21]
+// CHECK:STDOUT:   %.loc18_16.1: ref %T[2.-3] = class_element_access %self.ref, element0
+// CHECK:STDOUT:   %.loc18_16.2: %T[2.-4] = bind_value %.loc18_16.1
 // CHECK:STDOUT:   return %.loc18_16.2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

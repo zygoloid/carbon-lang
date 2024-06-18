@@ -43,9 +43,9 @@ interface Outer {
 // CHECK:STDOUT:   %Self.2: %.3 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %.4: type = interface_type @Inner [template]
 // CHECK:STDOUT:   %Self.3: %.4 = bind_symbolic_name Self 1 [symbolic]
-// CHECK:STDOUT:   %.type: type = fn_type @.1 [template]
+// CHECK:STDOUT:   %.type: type = fn_type @.1, (%Self.2, %Self.3) [template]
 // CHECK:STDOUT:   %.5: %.type = struct_value () [template]
-// CHECK:STDOUT:   %F.type.2: type = fn_type @F.2 [template]
+// CHECK:STDOUT:   %F.type.2: type = fn_type @F.2, (%Self.2) [template]
 // CHECK:STDOUT:   %F.2: %F.type.2 = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

@@ -628,6 +628,14 @@ class Formatter {
     }
   }
 
+  auto FormatInstructionRHS(FunctionType inst) -> void {
+    if (inst.instance_id.is_valid()) {
+      FormatArgs(inst.function_id, inst.instance_id);
+    } else {
+      FormatArgs(inst.function_id);
+    }
+  }
+
   auto FormatInstructionRHS(ImplDecl inst) -> void {
     FormatArgs(inst.impl_id);
     FormatTrailingBlock(inst.decl_block_id);
@@ -777,8 +785,12 @@ class Formatter {
   }
 
   auto FormatArg(GenericInstanceId id) -> void {
-    const auto& instance = sem_ir_.generic_instances().Get(id);
-    FormatArg(instance.args_id);
+    if (!id.is_valid()) {
+      out_ << "invalid";
+    } else {
+      const auto& instance = sem_ir_.generic_instances().Get(id);
+      FormatArg(instance.args_id);
+    }
   }
 
   auto FormatArg(RealId id) -> void {

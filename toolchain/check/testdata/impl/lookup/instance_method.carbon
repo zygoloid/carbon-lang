@@ -33,7 +33,7 @@ fn F(c: C) -> i32 {
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
-// CHECK:STDOUT:   %F.type.1: type = fn_type @F.1 [template]
+// CHECK:STDOUT:   %F.type.1: type = fn_type @F.1, (%Self) [template]
 // CHECK:STDOUT:   %F.1: %F.type.1 = struct_value () [template]
 // CHECK:STDOUT:   %.3: type = assoc_entity_type @I, %F.type.1 [template]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @I.%F.decl [template]
@@ -77,8 +77,8 @@ fn F(c: C) -> i32 {
 // CHECK:STDOUT:     %Self.ref: %.1 = name_ref Self, %Self [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc14_14.1: type = facet_type_access %Self.ref [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc14_14.2: type = converted %Self.ref, %.loc14_14.1 [symbolic = constants.%Self]
-// CHECK:STDOUT:     %self.loc14_8.1: %Self = param self
-// CHECK:STDOUT:     %self.loc14_8.2: %Self = bind_name self, %self.loc14_8.1
+// CHECK:STDOUT:     %self.loc14_8.1: %Self[0.0] = param self
+// CHECK:STDOUT:     %self.loc14_8.2: %Self[0.1] = bind_name self, %self.loc14_8.1
 // CHECK:STDOUT:     %int.make_type_32: init type = call constants.%Int32() [template = i32]
 // CHECK:STDOUT:     %.loc14_25.1: type = value_of_initializer %int.make_type_32 [template = i32]
 // CHECK:STDOUT:     %.loc14_25.2: type = converted %int.make_type_32, %.loc14_25.1 [template = i32]
@@ -121,7 +121,7 @@ fn F(c: C) -> i32 {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Int32() -> type = "int.make_type_32";
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @F.1[@I.%self.loc14_8.2: %Self]() -> i32;
+// CHECK:STDOUT: fn @F.1[@I.%self.loc14_8.2: %Self[0.1]]() -> i32;
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @F.2[@impl.%self.loc19_10.2: %C]() -> i32;
 // CHECK:STDOUT:

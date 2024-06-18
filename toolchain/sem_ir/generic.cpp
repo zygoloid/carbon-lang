@@ -32,7 +32,7 @@ auto GetConstantValueInInstance(const File& file, GenericInstanceId instance_id,
       << "Given instance for wrong generic.";
 
   const auto& region = info.index >= 0 ? instance.decl : instance.definition;
-  if (!region.substituted_types_id.is_valid()) {
+  if (!region.symbolic_constant_values_id.is_valid()) {
     // TODO: Can we CHECK-fail here?
     return ConstantId::Invalid;
   }

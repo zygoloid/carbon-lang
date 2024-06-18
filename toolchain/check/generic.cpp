@@ -185,10 +185,11 @@ auto ResolveGenericInstance(Context& context,
   }
 
   if (!instance.definition.substituted_types_id.is_valid()) {
-    // Perform substitution into the declaration.
+    // Perform substitution into the definition.
     auto substitutions = context.inst_blocks().Get(instance.args_id);
     auto& generic = context.generics().Get(generic_id);
     if (!generic.definition.substituted_type_insts_id.is_valid()) {
+      // The generic is not defined yet.
       return false;
     }
     SubstituteRegion(context, generic.definition, instance.definition,

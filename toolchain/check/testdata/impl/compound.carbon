@@ -39,12 +39,12 @@ fn InstanceCallIndirect(p: i32*) {
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %.1: type = interface_type @Simple [template]
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic]
-// CHECK:STDOUT:   %F.type.1: type = fn_type @F.1 [template]
+// CHECK:STDOUT:   %F.type.1: type = fn_type @F.1, (%Self) [template]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
 // CHECK:STDOUT:   %F.1: %F.type.1 = struct_value () [template]
 // CHECK:STDOUT:   %.3: type = assoc_entity_type @Simple, %F.type.1 [template]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @Simple.%F.decl [template]
-// CHECK:STDOUT:   %G.type.1: type = fn_type @G.1 [template]
+// CHECK:STDOUT:   %G.type.1: type = fn_type @G.1, (%Self) [template]
 // CHECK:STDOUT:   %G.1: %G.type.1 = struct_value () [template]
 // CHECK:STDOUT:   %.5: type = assoc_entity_type @Simple, %G.type.1 [template]
 // CHECK:STDOUT:   %.6: %.5 = assoc_entity element1, @Simple.%G.decl [template]
@@ -129,8 +129,8 @@ fn InstanceCallIndirect(p: i32*) {
 // CHECK:STDOUT:     %Self.ref: %.1 = name_ref Self, %Self [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc13_14.1: type = facet_type_access %Self.ref [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc13_14.2: type = converted %Self.ref, %.loc13_14.1 [symbolic = constants.%Self]
-// CHECK:STDOUT:     %self.loc13_8.1: %Self = param self
-// CHECK:STDOUT:     %self.loc13_8.2: %Self = bind_name self, %self.loc13_8.1
+// CHECK:STDOUT:     %self.loc13_8.1: %Self[1.0] = param self
+// CHECK:STDOUT:     %self.loc13_8.2: %Self[1.1] = bind_name self, %self.loc13_8.1
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %.loc13_21: %.5 = assoc_entity element1, %G.decl [template = constants.%.6]
 // CHECK:STDOUT:
@@ -160,7 +160,7 @@ fn InstanceCallIndirect(p: i32*) {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @F.1();
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @G.1[@Simple.%self.loc13_8.2: %Self]();
+// CHECK:STDOUT: fn @G.1[@Simple.%self.loc13_8.2: %Self[1.1]]();
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Int32() -> type = "int.make_type_32";
 // CHECK:STDOUT:
