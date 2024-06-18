@@ -6,7 +6,6 @@
 #define CARBON_TOOLCHAIN_CHECK_GENERIC_H_
 
 #include "toolchain/check/context.h"
-#include "toolchain/sem_ir/generic.h"
 #include "toolchain/sem_ir/ids.h"
 
 namespace Carbon::Check {
@@ -43,6 +42,11 @@ auto FinishGenericDefinition(Context& context, SemIR::GenericId generic_id)
 auto MakeGenericInstance(Context& context, SemIR::GenericId generic_id,
                          SemIR::InstBlockId args_id)
     -> SemIR::GenericInstanceId;
+
+// Builds the generic instance corresponding to the generic itself. For example,
+// for a generic `G(T:! type)`, this is `G(T)`.
+auto MakeUnsubstitutedGenericInstance(
+    Context& context, SemIR::GenericId generic_id) -> SemIR::GenericInstanceId;
 
 // Attempts to resolve the given generic instance, by substituting into its
 // definition. Returns false if a definition is not available.

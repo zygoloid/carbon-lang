@@ -106,7 +106,7 @@ fn Generic(T:! ()).WrongType() {}
 // CHECK:STDOUT:   %Class.type: type = generic_class_type @Class [template]
 // CHECK:STDOUT:   %.1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Class.1: %Class.type = struct_value () [template]
-// CHECK:STDOUT:   %Class.2: type = class_type @Class [template]
+// CHECK:STDOUT:   %Class.2: type = class_type @Class, (%T) [symbolic]
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
 // CHECK:STDOUT:   %.2: type = struct_type {} [template]
@@ -160,11 +160,11 @@ fn Generic(T:! ()).WrongType() {}
 // CHECK:STDOUT:   %A.type: type = generic_class_type @A [template]
 // CHECK:STDOUT:   %.1: type = tuple_type () [template]
 // CHECK:STDOUT:   %A.1: %A.type = struct_value () [template]
-// CHECK:STDOUT:   %A.2: type = class_type @A [template]
+// CHECK:STDOUT:   %A.2: type = class_type @A, (%T) [symbolic]
 // CHECK:STDOUT:   %N: %T = bind_symbolic_name N 1 [symbolic]
 // CHECK:STDOUT:   %B.type: type = generic_class_type @B [template]
 // CHECK:STDOUT:   %B.1: %B.type = struct_value () [template]
-// CHECK:STDOUT:   %B.2: type = class_type @B [template]
+// CHECK:STDOUT:   %B.2: type = class_type @B, (%T, %N) [symbolic]
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
 // CHECK:STDOUT:   %.2: type = struct_type {} [template]
@@ -187,7 +187,7 @@ fn Generic(T:! ()).WrongType() {}
 // CHECK:STDOUT:     %T.ref.loc10_22: type = name_ref T, %T.loc10_6.2 [symbolic = constants.%T]
 // CHECK:STDOUT:     %N.loc10_18.1: %T = param N
 // CHECK:STDOUT:     %N.loc10_18.2: %T = bind_symbolic_name N 1, %N.loc10_18.1 [symbolic = constants.%N]
-// CHECK:STDOUT:     %Self.ref: type = name_ref Self, constants.%B.2 [template = constants.%B.2]
+// CHECK:STDOUT:     %Self.ref: type = name_ref Self, constants.%B.2 [symbolic = constants.%B.2]
 // CHECK:STDOUT:     %self.loc10_27.1: %B.2 = param self
 // CHECK:STDOUT:     @F.%self: %B.2 = bind_name self, %self.loc10_27.1
 // CHECK:STDOUT:     %T.ref.loc10_42: type = name_ref T, %T.loc10_6.2 [symbolic = constants.%T]
@@ -210,7 +210,7 @@ fn Generic(T:! ()).WrongType() {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @B {
 // CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
-// CHECK:STDOUT:     %Self.ref: type = name_ref Self, constants.%B.2 [template = constants.%B.2]
+// CHECK:STDOUT:     %Self.ref: type = name_ref Self, constants.%B.2 [symbolic = constants.%B.2]
 // CHECK:STDOUT:     %self.loc6_10.1: %B.2 = param self
 // CHECK:STDOUT:     %self.loc6_10.2: %B.2 = bind_name self, %self.loc6_10.1
 // CHECK:STDOUT:     %T.ref: type = name_ref T, file.%T.loc4_9.2 [symbolic = constants.%T]
@@ -276,7 +276,7 @@ fn Generic(T:! ()).WrongType() {}
 // CHECK:STDOUT:   %Generic.type: type = generic_class_type @Generic [template]
 // CHECK:STDOUT:   %.1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Generic.1: %Generic.type = struct_value () [template]
-// CHECK:STDOUT:   %Generic.2: type = class_type @Generic [template]
+// CHECK:STDOUT:   %Generic.2: type = class_type @Generic, (%T) [symbolic]
 // CHECK:STDOUT:   %TooFew.type: type = fn_type @TooFew [template]
 // CHECK:STDOUT:   %TooFew: %TooFew.type = struct_value () [template]
 // CHECK:STDOUT:   %.2: type = struct_type {} [template]
@@ -319,7 +319,7 @@ fn Generic(T:! ()).WrongType() {}
 // CHECK:STDOUT:   %Generic.type: type = generic_class_type @Generic [template]
 // CHECK:STDOUT:   %.1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Generic.1: %Generic.type = struct_value () [template]
-// CHECK:STDOUT:   %Generic.2: type = class_type @Generic [template]
+// CHECK:STDOUT:   %Generic.2: type = class_type @Generic, (%T) [symbolic]
 // CHECK:STDOUT:   %TooMany.type: type = fn_type @TooMany [template]
 // CHECK:STDOUT:   %TooMany: %TooMany.type = struct_value () [template]
 // CHECK:STDOUT:   %.2: type = struct_type {} [template]
@@ -368,7 +368,7 @@ fn Generic(T:! ()).WrongType() {}
 // CHECK:STDOUT:   %Generic.type: type = generic_class_type @Generic [template]
 // CHECK:STDOUT:   %.1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Generic.1: %Generic.type = struct_value () [template]
-// CHECK:STDOUT:   %Generic.2: type = class_type @Generic [template]
+// CHECK:STDOUT:   %Generic.2: type = class_type @Generic, (%T.1) [symbolic]
 // CHECK:STDOUT:   %WrongType.type: type = fn_type @WrongType [template]
 // CHECK:STDOUT:   %WrongType: %WrongType.type = struct_value () [template]
 // CHECK:STDOUT:   %.2: type = struct_type {} [template]

@@ -89,12 +89,12 @@ interface BeingDefined {
 // CHECK:STDOUT:     %T.ref: <error> = name_ref T, <error> [template = <error>]
 // CHECK:STDOUT:     %return.var: ref <error> = var <return slot>
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.loc31: %.5 = assoc_entity element0, %H.decl [template = constants.%.6]
+// CHECK:STDOUT:   %.loc45: %.5 = assoc_entity element0, %H.decl [template = constants.%.6]
 // CHECK:STDOUT:   %.decl: %.type.2 = fn_decl @.2 [template = constants.%.7] {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = %Self
-// CHECK:STDOUT:   .H = %.loc31
+// CHECK:STDOUT:   .H = %.loc45
 // CHECK:STDOUT:   witness = (%H.decl)
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
