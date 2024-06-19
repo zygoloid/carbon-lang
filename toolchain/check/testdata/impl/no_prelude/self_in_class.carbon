@@ -27,10 +27,10 @@ class A {
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %.1: type = interface_type @DefaultConstructible [template]
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic]
-// CHECK:STDOUT:   %Make.type.1: type = fn_type @Make.1, (%Self) [template]
+// CHECK:STDOUT:   %Make.type.1: type = fn_type @Make.1, (%Self) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Make.1: %Make.type.1 = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = assoc_entity_type @DefaultConstructible, %Make.type.1 [template]
+// CHECK:STDOUT:   %.3: type = assoc_entity_type @DefaultConstructible, %Make.type.1 [symbolic]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @DefaultConstructible.%Make.decl [template]
 // CHECK:STDOUT:   %C: type = class_type @C [template]
 // CHECK:STDOUT:   %.5: type = struct_type {} [template]
@@ -59,7 +59,7 @@ class A {
 // CHECK:STDOUT:     %Self.ref: %.1 = name_ref Self, %Self [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc12_16.1: type = facet_type_access %Self.ref [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc12_16.2: type = converted %Self.ref, %.loc12_16.1 [symbolic = constants.%Self]
-// CHECK:STDOUT:     %return.var: ref %Self[0.0] = var <return slot>
+// CHECK:STDOUT:     %return.var: ref %Self = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %.loc12_20: %.3 = assoc_entity element0, %Make.decl [template = constants.%.4]
 // CHECK:STDOUT:
@@ -96,7 +96,7 @@ class A {
 // CHECK:STDOUT:   .Self = constants.%A
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @Make.1() -> %Self[0.0];
+// CHECK:STDOUT: fn @Make.1() -> %Self;
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Make.2() -> @impl.%return.var: %C {
 // CHECK:STDOUT: !entry:

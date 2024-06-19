@@ -20,7 +20,7 @@ fn F(T:! Empty) {
 // CHECK:STDOUT:   %.1: type = interface_type @Empty [template]
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %T: %.1 = bind_symbolic_name T 0 [symbolic]
-// CHECK:STDOUT:   %F.type: type = fn_type @F, (%T) [template]
+// CHECK:STDOUT:   %F.type: type = fn_type @F, (%T) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
 // CHECK:STDOUT: }
@@ -51,8 +51,8 @@ fn F(T:! Empty) {
 // CHECK:STDOUT:   %T.ref: %.1 = name_ref T, %T [symbolic = constants.%T]
 // CHECK:STDOUT:   %.loc14_10.1: type = facet_type_access %T.ref [symbolic = constants.%T]
 // CHECK:STDOUT:   %.loc14_10.2: type = converted %T.ref, %.loc14_10.1 [symbolic = constants.%T]
-// CHECK:STDOUT:   %x.var: ref %T[0.-1] = var x
-// CHECK:STDOUT:   %x: ref %T[0.-2] = bind_name x, %x.var
+// CHECK:STDOUT:   %x.var: ref %T = var x
+// CHECK:STDOUT:   %x: ref %T = bind_name x, %x.var
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

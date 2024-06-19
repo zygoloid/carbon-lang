@@ -24,12 +24,12 @@ interface Interface {
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %.1: type = interface_type @Interface [template]
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic]
-// CHECK:STDOUT:   %F.type: type = fn_type @F, (%Self) [template]
+// CHECK:STDOUT:   %F.type: type = fn_type @F, (%Self) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = assoc_entity_type @Interface, %F.type [template]
+// CHECK:STDOUT:   %.3: type = assoc_entity_type @Interface, %F.type [symbolic]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @Interface.%F.decl [template]
-// CHECK:STDOUT:   %.type: type = fn_type @.1, (%Self) [template]
+// CHECK:STDOUT:   %.type: type = fn_type @.1, (%Self) [symbolic]
 // CHECK:STDOUT:   %.5: %.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

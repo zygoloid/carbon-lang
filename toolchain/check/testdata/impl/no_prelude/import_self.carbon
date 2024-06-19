@@ -35,10 +35,10 @@ fn F(x: (), y: ()) -> () {
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %.1: type = interface_type @Add [template]
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic]
-// CHECK:STDOUT:   %Op.type: type = fn_type @Op, (%Self) [template]
+// CHECK:STDOUT:   %Op.type: type = fn_type @Op, (%Self) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Op: %Op.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = assoc_entity_type @Add, %Op.type [template]
+// CHECK:STDOUT:   %.3: type = assoc_entity_type @Add, %Op.type [symbolic]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @Add.%Op.decl [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -55,17 +55,17 @@ fn F(x: (), y: ()) -> () {
 // CHECK:STDOUT:     %Self.ref.loc5_15: %.1 = name_ref Self, %Self [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc5_15.1: type = facet_type_access %Self.ref.loc5_15 [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc5_15.2: type = converted %Self.ref.loc5_15, %.loc5_15.1 [symbolic = constants.%Self]
-// CHECK:STDOUT:     %self.loc5_9.1: %Self[0.0] = param self
-// CHECK:STDOUT:     %self.loc5_9.2: %Self[0.1] = bind_name self, %self.loc5_9.1
+// CHECK:STDOUT:     %self.loc5_9.1: %Self = param self
+// CHECK:STDOUT:     %self.loc5_9.2: %Self = bind_name self, %self.loc5_9.1
 // CHECK:STDOUT:     %Self.ref.loc5_28: %.1 = name_ref Self, %Self [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc5_28.1: type = facet_type_access %Self.ref.loc5_28 [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc5_28.2: type = converted %Self.ref.loc5_28, %.loc5_28.1 [symbolic = constants.%Self]
-// CHECK:STDOUT:     %other.loc5_21.1: %Self[0.2] = param other
-// CHECK:STDOUT:     %other.loc5_21.2: %Self[0.3] = bind_name other, %other.loc5_21.1
+// CHECK:STDOUT:     %other.loc5_21.1: %Self = param other
+// CHECK:STDOUT:     %other.loc5_21.2: %Self = bind_name other, %other.loc5_21.1
 // CHECK:STDOUT:     %Self.ref.loc5_37: %.1 = name_ref Self, %Self [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc5_37.1: type = facet_type_access %Self.ref.loc5_37 [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc5_37.2: type = converted %Self.ref.loc5_37, %.loc5_37.1 [symbolic = constants.%Self]
-// CHECK:STDOUT:     %return.var: ref %Self[0.4] = var <return slot>
+// CHECK:STDOUT:     %return.var: ref %Self = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %.loc5_41: %.3 = assoc_entity element0, %Op.decl [template = constants.%.4]
 // CHECK:STDOUT:
@@ -75,7 +75,7 @@ fn F(x: (), y: ()) -> () {
 // CHECK:STDOUT:   witness = (%Op.decl)
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @Op[@Add.%self.loc5_9.2: %Self[0.1]](@Add.%other.loc5_21.2: %Self[0.3]) -> %Self[0.4];
+// CHECK:STDOUT: fn @Op[@Add.%self.loc5_9.2: %Self](@Add.%other.loc5_21.2: %Self) -> %Self;
 // CHECK:STDOUT:
 // CHECK:STDOUT: --- b.carbon
 // CHECK:STDOUT:

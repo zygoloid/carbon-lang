@@ -23,10 +23,10 @@ var arr: [i32; 1.(I.F)(2)];
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %.1: type = interface_type @I [template]
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic]
-// CHECK:STDOUT:   %F.type.1: type = fn_type @F.1, (%Self) [template]
+// CHECK:STDOUT:   %F.type.1: type = fn_type @F.1, (%Self) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
 // CHECK:STDOUT:   %F.1: %F.type.1 = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = assoc_entity_type @I, %F.type.1 [template]
+// CHECK:STDOUT:   %.3: type = assoc_entity_type @I, %F.type.1 [symbolic]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @I.%F.decl [template]
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
@@ -34,6 +34,7 @@ var arr: [i32; 1.(I.F)(2)];
 // CHECK:STDOUT:   %F.2: %F.type.2 = struct_value () [template]
 // CHECK:STDOUT:   %.5: <witness> = interface_witness (%F.2) [template]
 // CHECK:STDOUT:   %.6: i32 = int_literal 1 [template]
+// CHECK:STDOUT:   %F.type.3: type = fn_type @F.1, (i32) [template]
 // CHECK:STDOUT:   %.7: <bound method> = bound_method %.6, %F.2 [template]
 // CHECK:STDOUT:   %.8: i32 = int_literal 2 [template]
 // CHECK:STDOUT:   %.9: i32 = int_literal 3 [template]
@@ -64,7 +65,7 @@ var arr: [i32; 1.(I.F)(2)];
 // CHECK:STDOUT:   %.loc19_16: i32 = int_literal 1 [template = constants.%.6]
 // CHECK:STDOUT:   %I.ref.loc19: type = name_ref I, %I.decl [template = constants.%.1]
 // CHECK:STDOUT:   %F.ref: %.3 = name_ref F, @I.%.loc12_40 [template = constants.%.4]
-// CHECK:STDOUT:   %.1: %F.type.1 = interface_witness_access @impl.%.1, element0 [template = constants.%F.2]
+// CHECK:STDOUT:   %.1: %F.type.3 = interface_witness_access @impl.%.1, element0 [template = constants.%F.2]
 // CHECK:STDOUT:   %.loc19_17: <bound method> = bound_method %.loc19_16, %.1 [template = constants.%.7]
 // CHECK:STDOUT:   %.loc19_24: i32 = int_literal 2 [template = constants.%.8]
 // CHECK:STDOUT:   %int.sadd: init i32 = call %.loc19_17(%.loc19_16, %.loc19_24) [template = constants.%.9]
@@ -81,17 +82,17 @@ var arr: [i32; 1.(I.F)(2)];
 // CHECK:STDOUT:     %Self.ref.loc12_14: %.1 = name_ref Self, %Self [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc12_14.1: type = facet_type_access %Self.ref.loc12_14 [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc12_14.2: type = converted %Self.ref.loc12_14, %.loc12_14.1 [symbolic = constants.%Self]
-// CHECK:STDOUT:     %self.loc12_8.1: %Self[0.0] = param self
-// CHECK:STDOUT:     %self.loc12_8.2: %Self[0.1] = bind_name self, %self.loc12_8.1
+// CHECK:STDOUT:     %self.loc12_8.1: %Self = param self
+// CHECK:STDOUT:     %self.loc12_8.2: %Self = bind_name self, %self.loc12_8.1
 // CHECK:STDOUT:     %Self.ref.loc12_27: %.1 = name_ref Self, %Self [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc12_27.1: type = facet_type_access %Self.ref.loc12_27 [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc12_27.2: type = converted %Self.ref.loc12_27, %.loc12_27.1 [symbolic = constants.%Self]
-// CHECK:STDOUT:     %other.loc12_20.1: %Self[0.2] = param other
-// CHECK:STDOUT:     %other.loc12_20.2: %Self[0.3] = bind_name other, %other.loc12_20.1
+// CHECK:STDOUT:     %other.loc12_20.1: %Self = param other
+// CHECK:STDOUT:     %other.loc12_20.2: %Self = bind_name other, %other.loc12_20.1
 // CHECK:STDOUT:     %Self.ref.loc12_36: %.1 = name_ref Self, %Self [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc12_36.1: type = facet_type_access %Self.ref.loc12_36 [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc12_36.2: type = converted %Self.ref.loc12_36, %.loc12_36.1 [symbolic = constants.%Self]
-// CHECK:STDOUT:     %return.var: ref %Self[0.4] = var <return slot>
+// CHECK:STDOUT:     %return.var: ref %Self = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %.loc12_40: %.3 = assoc_entity element0, %F.decl [template = constants.%.4]
 // CHECK:STDOUT:
@@ -125,7 +126,7 @@ var arr: [i32; 1.(I.F)(2)];
 // CHECK:STDOUT:   witness = %.1
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @F.1[@I.%self.loc12_8.2: %Self[0.1]](@I.%other.loc12_20.2: %Self[0.3]) -> %Self[0.4];
+// CHECK:STDOUT: fn @F.1[@I.%self.loc12_8.2: %Self](@I.%other.loc12_20.2: %Self) -> %Self;
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Int32() -> type = "int.make_type_32";
 // CHECK:STDOUT:

@@ -47,7 +47,7 @@ fn D(T:! type).F() {}
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
 // CHECK:STDOUT:   %T: type = bind_symbolic_name T 0 [symbolic]
-// CHECK:STDOUT:   %.type: type = fn_type @.1, (%T) [template]
+// CHECK:STDOUT:   %.type: type = fn_type @.1, (%T) [symbolic]
 // CHECK:STDOUT:   %.2: %.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

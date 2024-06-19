@@ -20,7 +20,7 @@ fn F(N:! i32, a: [i32; N]*);
 // CHECK:STDOUT:   %.1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
 // CHECK:STDOUT:   %N: i32 = bind_symbolic_name N 0 [symbolic]
-// CHECK:STDOUT:   %F.type: type = fn_type @F, (%N) [template]
+// CHECK:STDOUT:   %F.type: type = fn_type @F, (%N) [symbolic]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

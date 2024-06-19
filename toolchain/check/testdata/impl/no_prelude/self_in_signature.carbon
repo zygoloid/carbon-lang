@@ -41,10 +41,10 @@ impl D as SelfNested {
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %.1: type = interface_type @UseSelf [template]
 // CHECK:STDOUT:   %Self.1: %.1 = bind_symbolic_name Self 0 [symbolic]
-// CHECK:STDOUT:   %F.type.1: type = fn_type @F.1, (%Self.1) [template]
+// CHECK:STDOUT:   %F.type.1: type = fn_type @F.1, (%Self.1) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
 // CHECK:STDOUT:   %F.1: %F.type.1 = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = assoc_entity_type @UseSelf, %F.type.1 [template]
+// CHECK:STDOUT:   %.3: type = assoc_entity_type @UseSelf, %F.type.1 [symbolic]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @UseSelf.%F.decl [template]
 // CHECK:STDOUT:   %C: type = class_type @C [template]
 // CHECK:STDOUT:   %.5: type = struct_type {} [template]
@@ -64,9 +64,9 @@ impl D as SelfNested {
 // CHECK:STDOUT:   %.11: type = struct_type {.x: %Self.2, .y: %.2} [symbolic]
 // CHECK:STDOUT:   %.12: type = tuple_type (type, type) [template]
 // CHECK:STDOUT:   %.13: type = tuple_type (%.10, %.11) [symbolic]
-// CHECK:STDOUT:   %F.type.4: type = fn_type @F.4, (%Self.2) [template]
+// CHECK:STDOUT:   %F.type.4: type = fn_type @F.4, (%Self.2) [symbolic]
 // CHECK:STDOUT:   %F.4: %F.type.4 = struct_value () [template]
-// CHECK:STDOUT:   %.14: type = assoc_entity_type @SelfNested, %F.type.4 [template]
+// CHECK:STDOUT:   %.14: type = assoc_entity_type @SelfNested, %F.type.4 [symbolic]
 // CHECK:STDOUT:   %.15: %.14 = assoc_entity element0, @SelfNested.%F.decl [template]
 // CHECK:STDOUT:   %.16: type = ptr_type %C [template]
 // CHECK:STDOUT:   %.17: type = struct_type {.x: %C, .y: %.2} [template]
@@ -117,17 +117,17 @@ impl D as SelfNested {
 // CHECK:STDOUT:     %Self.ref.loc12_14: %.1 = name_ref Self, %Self [symbolic = constants.%Self.1]
 // CHECK:STDOUT:     %.loc12_14.1: type = facet_type_access %Self.ref.loc12_14 [symbolic = constants.%Self.1]
 // CHECK:STDOUT:     %.loc12_14.2: type = converted %Self.ref.loc12_14, %.loc12_14.1 [symbolic = constants.%Self.1]
-// CHECK:STDOUT:     %self.loc12_8.1: %Self.1[0.0] = param self
-// CHECK:STDOUT:     %self.loc12_8.2: %Self.1[0.1] = bind_name self, %self.loc12_8.1
+// CHECK:STDOUT:     %self.loc12_8.1: %Self.1 = param self
+// CHECK:STDOUT:     %self.loc12_8.2: %Self.1 = bind_name self, %self.loc12_8.1
 // CHECK:STDOUT:     %Self.ref.loc12_23: %.1 = name_ref Self, %Self [symbolic = constants.%Self.1]
 // CHECK:STDOUT:     %.loc12_23.1: type = facet_type_access %Self.ref.loc12_23 [symbolic = constants.%Self.1]
 // CHECK:STDOUT:     %.loc12_23.2: type = converted %Self.ref.loc12_23, %.loc12_23.1 [symbolic = constants.%Self.1]
-// CHECK:STDOUT:     %x.loc12_20.1: %Self.1[0.2] = param x
-// CHECK:STDOUT:     %x.loc12_20.2: %Self.1[0.3] = bind_name x, %x.loc12_20.1
+// CHECK:STDOUT:     %x.loc12_20.1: %Self.1 = param x
+// CHECK:STDOUT:     %x.loc12_20.2: %Self.1 = bind_name x, %x.loc12_20.1
 // CHECK:STDOUT:     %Self.ref.loc12_32: %.1 = name_ref Self, %Self [symbolic = constants.%Self.1]
 // CHECK:STDOUT:     %.loc12_32.1: type = facet_type_access %Self.ref.loc12_32 [symbolic = constants.%Self.1]
 // CHECK:STDOUT:     %.loc12_32.2: type = converted %Self.ref.loc12_32, %.loc12_32.1 [symbolic = constants.%Self.1]
-// CHECK:STDOUT:     %return.var: ref %Self.1[0.4] = var <return slot>
+// CHECK:STDOUT:     %return.var: ref %Self.1 = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %.loc12_36: %.3 = assoc_entity element0, %F.decl [template = constants.%.4]
 // CHECK:STDOUT:
@@ -152,8 +152,8 @@ impl D as SelfNested {
 // CHECK:STDOUT:     %.loc28_36: type = struct_type {.x: %Self.2, .y: %.2} [symbolic = constants.%.11]
 // CHECK:STDOUT:     %.loc28_37.1: %.12 = tuple_literal (%.loc28_16.3, %.loc28_36)
 // CHECK:STDOUT:     %.loc28_37.2: type = converted %.loc28_37.1, constants.%.13 [symbolic = constants.%.13]
-// CHECK:STDOUT:     %x.loc28_8.1: %.13[1.0] = param x
-// CHECK:STDOUT:     %x.loc28_8.2: %.13[1.1] = bind_name x, %x.loc28_8.1
+// CHECK:STDOUT:     %x.loc28_8.1: %.13 = param x
+// CHECK:STDOUT:     %x.loc28_8.2: %.13 = bind_name x, %x.loc28_8.1
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %.loc28_39: %.14 = assoc_entity element0, %F.decl [template = constants.%.15]
 // CHECK:STDOUT:
@@ -249,7 +249,7 @@ impl D as SelfNested {
 // CHECK:STDOUT:   .Self = constants.%D
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @F.1[@UseSelf.%self.loc12_8.2: %Self.1[0.1]](@UseSelf.%x.loc12_20.2: %Self.1[0.3]) -> %Self.1[0.4];
+// CHECK:STDOUT: fn @F.1[@UseSelf.%self.loc12_8.2: %Self.1](@UseSelf.%x.loc12_20.2: %Self.1) -> %Self.1;
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @F.2[@impl.1.%self.loc20_8.2: %C](@impl.1.%x.loc20_17.2: %C) -> @impl.1.%return.var: %C {
 // CHECK:STDOUT: !entry:
@@ -267,7 +267,7 @@ impl D as SelfNested {
 // CHECK:STDOUT:   return %.loc24_48 to @impl.2.%return.var
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @F.4(@SelfNested.%x.loc28_8.2: %.13[1.1]);
+// CHECK:STDOUT: fn @F.4(@SelfNested.%x.loc28_8.2: %.13);
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @F.5(@impl.3.%x.loc32_8.2: %.18);
 // CHECK:STDOUT:

@@ -73,9 +73,9 @@ fn G(T:! Generic(B)) {
 // CHECK:STDOUT:   %WithAssocFn: %WithAssocFn.type = struct_value () [template]
 // CHECK:STDOUT:   %.4: type = interface_type @WithAssocFn, (%T.1) [symbolic]
 // CHECK:STDOUT:   %Self.2: %.4 = bind_symbolic_name Self 1 [symbolic]
-// CHECK:STDOUT:   %F.type.1: type = fn_type @F.1, (%T.1, %Self.2) [template]
+// CHECK:STDOUT:   %F.type.1: type = fn_type @F.1, (%T.1, %Self.2) [symbolic]
 // CHECK:STDOUT:   %F.1: %F.type.1 = struct_value () [template]
-// CHECK:STDOUT:   %.5: type = assoc_entity_type @WithAssocFn, %F.type.1 [template]
+// CHECK:STDOUT:   %.5: type = assoc_entity_type @WithAssocFn, %F.type.1 [symbolic]
 // CHECK:STDOUT:   %.6: %.5 = assoc_entity element0, @WithAssocFn.%F.decl [template]
 // CHECK:STDOUT:   %C: type = class_type @C [template]
 // CHECK:STDOUT:   %.7: type = interface_type @Simple, (%C) [template]
@@ -90,9 +90,9 @@ fn G(T:! Generic(B)) {
 // CHECK:STDOUT:   %WithImplicitArgs.type: type = generic_interface_type @WithImplicitArgs [template]
 // CHECK:STDOUT:   %WithImplicitArgs: %WithImplicitArgs.type = struct_value () [template]
 // CHECK:STDOUT:   %T.2: %.7 = bind_symbolic_name T 0 [symbolic]
-// CHECK:STDOUT:   %Receive.type: type = fn_type @Receive, (%T.2) [template]
+// CHECK:STDOUT:   %Receive.type: type = fn_type @Receive, (%T.2) [symbolic]
 // CHECK:STDOUT:   %Receive: %Receive.type = struct_value () [template]
-// CHECK:STDOUT:   %Pass.type: type = fn_type @Pass, (%T.2) [template]
+// CHECK:STDOUT:   %Pass.type: type = fn_type @Pass, (%T.2) [symbolic]
 // CHECK:STDOUT:   %Pass: %Pass.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -120,8 +120,8 @@ fn G(T:! Generic(B)) {
 // CHECK:STDOUT:     %T.loc22_28.1: type = param T
 // CHECK:STDOUT:     %T.loc22_28.2: type = bind_symbolic_name T 0, %T.loc22_28.1 [symbolic = constants.%T.1]
 // CHECK:STDOUT:     %T.ref: type = name_ref T, %T.loc22_28.2 [symbolic = constants.%T.1]
-// CHECK:STDOUT:     %N.loc22_38.1: %T.1[3.0] = param N
-// CHECK:STDOUT:     %N.loc22_38.2: %T.1[3.1] = bind_symbolic_name N 1, %N.loc22_38.1 [symbolic = constants.%N]
+// CHECK:STDOUT:     %N.loc22_38.1: %T.1 = param N
+// CHECK:STDOUT:     %N.loc22_38.2: %T.1 = bind_symbolic_name N 1, %N.loc22_38.1 [symbolic = constants.%N]
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Receive.decl: %Receive.type = fn_decl @Receive [template = constants.%Receive] {
 // CHECK:STDOUT:     %Simple.ref.loc24: %Simple.type = name_ref Simple, %Simple.decl [template = constants.%Simple]
@@ -144,7 +144,7 @@ fn G(T:! Generic(B)) {
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @Simple {
-// CHECK:STDOUT:   %Self: %.2[0.-1] = bind_symbolic_name Self 1 [symbolic = constants.%Self.1]
+// CHECK:STDOUT:   %Self: %.2 = bind_symbolic_name Self 1 [symbolic = constants.%Self.1]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = %Self
@@ -152,7 +152,7 @@ fn G(T:! Generic(B)) {
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @WithAssocFn {
-// CHECK:STDOUT:   %Self: %.4[1.-1] = bind_symbolic_name Self 1 [symbolic = constants.%Self.2]
+// CHECK:STDOUT:   %Self: %.4 = bind_symbolic_name Self 1 [symbolic = constants.%Self.2]
 // CHECK:STDOUT:   %F.decl: %F.type.1 = fn_decl @F.1 [template = constants.%F.1] {
 // CHECK:STDOUT:     %X.ref: type = name_ref X, file.%X.decl [template = constants.%X]
 // CHECK:STDOUT:     %return.var: ref %X = var <return slot>
@@ -245,11 +245,11 @@ fn G(T:! Generic(B)) {
 // CHECK:STDOUT:   %B: type = class_type @B [template]
 // CHECK:STDOUT:   %.4: type = interface_type @Generic, (%A) [template]
 // CHECK:STDOUT:   %T.2: %.4 = bind_symbolic_name T 0 [symbolic]
-// CHECK:STDOUT:   %F.type: type = fn_type @F, (%T.2) [template]
+// CHECK:STDOUT:   %F.type: type = fn_type @F, (%T.2) [symbolic]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
 // CHECK:STDOUT:   %.5: type = interface_type @Generic, (%B) [template]
 // CHECK:STDOUT:   %T.3: %.5 = bind_symbolic_name T 0 [symbolic]
-// CHECK:STDOUT:   %G.type: type = fn_type @G, (%T.3) [template]
+// CHECK:STDOUT:   %G.type: type = fn_type @G, (%T.3) [symbolic]
 // CHECK:STDOUT:   %G: %G.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -288,7 +288,7 @@ fn G(T:! Generic(B)) {
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @Generic {
-// CHECK:STDOUT:   %Self: %.2[0.-1] = bind_symbolic_name Self 1 [symbolic = constants.%Self]
+// CHECK:STDOUT:   %Self: %.2 = bind_symbolic_name Self 1 [symbolic = constants.%Self]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = %Self

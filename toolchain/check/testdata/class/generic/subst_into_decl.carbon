@@ -18,19 +18,19 @@ fn F(x: Class(i32)) -> i32 {
   return x.x;
 }
 
-// fn G(x: Class(i32)) -> i32 {
-//   // CHECK:STDERR: subst_into_decl.carbon:[[@LINE+10]]:3: ERROR: Cannot implicitly convert from `T` to `i32`.
-//   // CHECK:STDERR:   return x.Get();
-//   // CHECK:STDERR:   ^~~~~~~~~~~~~~~
-//   // CHECK:STDERR:
-//   // CHECK:STDERR: subst_into_decl.carbon:[[@LINE+6]]:10: ERROR: Cannot implicitly convert from `Class` to `Class`.
-//   // CHECK:STDERR:   return x.Get();
-//   // CHECK:STDERR:          ^~~~~~
-//   // CHECK:STDERR: subst_into_decl.carbon:[[@LINE-15]]:10: Initializing `self` parameter of method declared here.
-//   // CHECK:STDERR:   fn Get[self: Self]() -> T { return self.x; }
-//   // CHECK:STDERR:          ^~~~
-//   return x.Get();
-// }
+fn G(x: Class(i32)) -> i32 {
+  // CHECK:STDERR: subst_into_decl.carbon:[[@LINE+10]]:3: ERROR: Cannot implicitly convert from `T` to `i32`.
+  // CHECK:STDERR:   return x.Get();
+  // CHECK:STDERR:   ^~~~~~~~~~~~~~~
+  // CHECK:STDERR:
+  // CHECK:STDERR: subst_into_decl.carbon:[[@LINE+6]]:10: ERROR: Cannot implicitly convert from `Class` to `Class`.
+  // CHECK:STDERR:   return x.Get();
+  // CHECK:STDERR:          ^~~~~~
+  // CHECK:STDERR: subst_into_decl.carbon:[[@LINE-15]]:10: Initializing `self` parameter of method declared here.
+  // CHECK:STDERR:   fn Get[self: Self]() -> T { return self.x; }
+  // CHECK:STDERR:          ^~~~
+  return x.Get();
+}
 
 // CHECK:STDOUT: --- subst_into_decl.carbon
 // CHECK:STDOUT:
@@ -41,8 +41,8 @@ fn F(x: Class(i32)) -> i32 {
 // CHECK:STDOUT:   %Class.1: %Class.type = struct_value () [template]
 // CHECK:STDOUT:   %Class.2: type = class_type @Class, (%T) [symbolic]
 // CHECK:STDOUT:   %.2: type = unbound_element_type %Class.2, %T [symbolic]
-// CHECK:STDOUT:   %Get.type: type = fn_type @Get, (%T) [template]
-// CHECK:STDOUT:   %Get: %Get.type = struct_value () [template]
+// CHECK:STDOUT:   %Get.type.1: type = fn_type @Get, (%T) [symbolic]
+// CHECK:STDOUT:   %Get: %Get.type.1 = struct_value () [template]
 // CHECK:STDOUT:   %.3: type = struct_type {.x: %T} [symbolic]
 // CHECK:STDOUT:   %.4: type = ptr_type %.3 [symbolic]
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
@@ -51,6 +51,7 @@ fn F(x: Class(i32)) -> i32 {
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
 // CHECK:STDOUT:   %.5: type = unbound_element_type %Class.3, i32 [template]
+// CHECK:STDOUT:   %Get.type.2: type = fn_type @Get, (i32) [template]
 // CHECK:STDOUT:   %G.type: type = fn_type @G [template]
 // CHECK:STDOUT:   %G: %G.type = struct_value () [template]
 // CHECK:STDOUT: }
@@ -105,13 +106,13 @@ fn F(x: Class(i32)) -> i32 {
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Class {
 // CHECK:STDOUT:   %T.ref.loc12: type = name_ref T, file.%T.loc11_13.2 [symbolic = constants.%T]
-// CHECK:STDOUT:   %.loc12: %.2[0.-1] = field_decl x, element0 [template]
-// CHECK:STDOUT:   %Get.decl: %Get.type = fn_decl @Get [template = constants.%Get] {
+// CHECK:STDOUT:   %.loc12: %.2 = field_decl x, element0 [template]
+// CHECK:STDOUT:   %Get.decl: %Get.type.1 = fn_decl @Get [template = constants.%Get] {
 // CHECK:STDOUT:     %Self.ref: type = name_ref Self, constants.%Class.2 [symbolic = constants.%Class.2]
-// CHECK:STDOUT:     %self.loc14_10.1: %Class.2[1.0] = param self
-// CHECK:STDOUT:     %self.loc14_10.2: %Class.2[1.1] = bind_name self, %self.loc14_10.1
+// CHECK:STDOUT:     %self.loc14_10.1: %Class.2 = param self
+// CHECK:STDOUT:     %self.loc14_10.2: %Class.2 = bind_name self, %self.loc14_10.1
 // CHECK:STDOUT:     %T.ref.loc14: type = name_ref T, file.%T.loc11_13.2 [symbolic = constants.%T]
-// CHECK:STDOUT:     %return.var: ref %T[1.2] = var <return slot>
+// CHECK:STDOUT:     %return.var: ref %T = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
@@ -120,12 +121,12 @@ fn F(x: Class(i32)) -> i32 {
 // CHECK:STDOUT:   .Get = %Get.decl
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @Get[@Class.%self.loc14_10.2: %Class.2[1.1]]() -> %T[1.2] {
+// CHECK:STDOUT: fn @Get[@Class.%self.loc14_10.2: %Class.2]() -> %T {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %self.ref: %Class.2[1.-1] = name_ref self, @Class.%self.loc14_10.2
-// CHECK:STDOUT:   %x.ref: %.2[1.-2] = name_ref x, @Class.%.loc12 [template = @Class.%.loc12]
-// CHECK:STDOUT:   %.loc14_42.1: ref %T[1.-3] = class_element_access %self.ref, element0
-// CHECK:STDOUT:   %.loc14_42.2: %T[1.-4] = bind_value %.loc14_42.1
+// CHECK:STDOUT:   %self.ref: %Class.2 = name_ref self, @Class.%self.loc14_10.2
+// CHECK:STDOUT:   %x.ref: %.2 = name_ref x, @Class.%.loc12 [template = @Class.%.loc12]
+// CHECK:STDOUT:   %.loc14_42.1: ref %T = class_element_access %self.ref, element0
+// CHECK:STDOUT:   %.loc14_42.2: %T = bind_value %.loc14_42.1
 // CHECK:STDOUT:   return %.loc14_42.2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -143,7 +144,7 @@ fn F(x: Class(i32)) -> i32 {
 // CHECK:STDOUT: fn @G(%x: %Class.3) -> i32 {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %x.ref: %Class.3 = name_ref x, %x
-// CHECK:STDOUT:   %Get.ref: %Get.type = name_ref Get, @Class.%Get.decl [template = constants.%Get]
+// CHECK:STDOUT:   %Get.ref: %Get.type.2 = name_ref Get, @Class.%Get.decl [template = constants.%Get]
 // CHECK:STDOUT:   %.loc32: <bound method> = bound_method %x.ref, %Get.ref
 // CHECK:STDOUT:   %Get.call: init %T = call %.loc32(<invalid>) [template = <error>]
 // CHECK:STDOUT:   return <error>

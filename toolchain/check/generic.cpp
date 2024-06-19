@@ -109,10 +109,10 @@ auto FinishGenericDefinition(Context& context, SemIR::GenericId generic_id)
       /*definition=*/true);
 }
 
-static auto SubstituteRegion(Context& context,
-                             SemIR::Generic::Region& generic_region,
-                             SemIR::GenericInstance::Region& instance_region,
-                             Substitutions substitutions) -> void {
+static auto SubstituteRegion(
+    Context& context, SemIR::Generic::Region generic_region,
+    Substitutions substitutions) -> SemIR::GenericInstance::Region {
+  SemIR::GenericInstance::Region instance_region;
   auto types_in_generic =
       context.inst_blocks().Get(generic_region.substituted_type_insts_id);
   llvm::SmallVector<SemIR::TypeId> types_in_instance;
@@ -126,25 +126,32 @@ static auto SubstituteRegion(Context& context,
   instance_region.substituted_types_id =
       context.type_blocks().Add(types_in_instance);
 
-    // TODO: Substitute into constants.
+  // TODO: Substitute into constants.
+  return instance_region;
 }
 
 auto MakeGenericInstance(Context& context, SemIR::GenericId generic_id,
                          SemIR::InstBlockId args_id)
     -> SemIR::GenericInstanceId {
   auto instance_id = context.generic_instances().GetOrAdd(generic_id, args_id);
-  auto& instance = context.generic_instances().Get(instance_id);
 
   // TODO: Remove this once we import generics properly.
   if (!generic_id.is_valid()) {
     return instance_id;
   }
 
-  if (!instance.decl.substituted_types_id.is_valid()) {
+  if (!context.generic_instances()
+           .Get(instance_id)
+           .decl.substituted_types_id.is_valid()) {
+    auto& generic = context.generics().Get(generic_id);
+
     // Perform substitution into the declaration.
     auto substitutions = context.inst_blocks().Get(args_id);
-    auto& generic = context.generics().Get(generic_id);
-    SubstituteRegion(context, generic.decl, instance.decl, substitutions);
+    auto subst_region = SubstituteRegion(context, generic.decl, substitutions);
+
+    // Note that SubstituteRegion may reallocate the list of generic instances,
+    // so re-lookup the instance here.
+    context.generic_instances().Get(instance_id).decl = subst_region;
   }
   return instance_id;
 }
@@ -185,15 +192,20 @@ auto ResolveGenericInstance(Context& context,
   }
 
   if (!instance.definition.substituted_types_id.is_valid()) {
-    // Perform substitution into the definition.
-    auto substitutions = context.inst_blocks().Get(instance.args_id);
     auto& generic = context.generics().Get(generic_id);
     if (!generic.definition.substituted_type_insts_id.is_valid()) {
       // The generic is not defined yet.
       return false;
     }
-    SubstituteRegion(context, generic.definition, instance.definition,
-                     substitutions);
+
+    // Perform substitution into the definition.
+    auto substitutions = context.inst_blocks().Get(instance.args_id);
+    auto subst_region =
+        SubstituteRegion(context, generic.definition, substitutions);
+
+    // Note that SubstituteRegion may reallocate the list of generic instances,
+    // so re-lookup the instance here.
+    context.generic_instances().Get(instance_id).definition = subst_region;
   }
   return true;
 }

@@ -24,10 +24,10 @@ interface ForwardDeclared {
 // CHECK:STDOUT:   %Self.1: %.1 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %.2: type = interface_type @ForwardDeclared [template]
 // CHECK:STDOUT:   %Self.2: %.2 = bind_symbolic_name Self 0 [symbolic]
-// CHECK:STDOUT:   %F.type: type = fn_type @F, (%Self.2) [template]
+// CHECK:STDOUT:   %F.type: type = fn_type @F, (%Self.2) [symbolic]
 // CHECK:STDOUT:   %.3: type = tuple_type () [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
-// CHECK:STDOUT:   %.4: type = assoc_entity_type @ForwardDeclared, %F.type [template]
+// CHECK:STDOUT:   %.4: type = assoc_entity_type @ForwardDeclared, %F.type [symbolic]
 // CHECK:STDOUT:   %.5: %.4 = assoc_entity element0, @ForwardDeclared.%F.decl [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

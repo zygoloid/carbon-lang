@@ -17,7 +17,7 @@ fn F(T:! type, n: T) -> T {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %T: type = bind_symbolic_name T 0 [symbolic]
-// CHECK:STDOUT:   %F.type: type = fn_type @F, (%T) [template]
+// CHECK:STDOUT:   %F.type: type = fn_type @F, (%T) [symbolic]
 // CHECK:STDOUT:   %.1: type = tuple_type () [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
 // CHECK:STDOUT: }
@@ -30,19 +30,19 @@ fn F(T:! type, n: T) -> T {
 // CHECK:STDOUT:     %T.loc11_6.1: type = param T
 // CHECK:STDOUT:     @F.%T: type = bind_symbolic_name T 0, %T.loc11_6.1 [symbolic = constants.%T]
 // CHECK:STDOUT:     %T.ref.loc11_19: type = name_ref T, @F.%T [symbolic = constants.%T]
-// CHECK:STDOUT:     %n.loc11_16.1: %T[0.0] = param n
-// CHECK:STDOUT:     @F.%n: %T[0.1] = bind_name n, %n.loc11_16.1
+// CHECK:STDOUT:     %n.loc11_16.1: %T = param n
+// CHECK:STDOUT:     @F.%n: %T = bind_name n, %n.loc11_16.1
 // CHECK:STDOUT:     %T.ref.loc11_25: type = name_ref T, @F.%T [symbolic = constants.%T]
-// CHECK:STDOUT:     @F.%return: ref %T[0.2] = var <return slot>
+// CHECK:STDOUT:     @F.%return: ref %T = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @F(%T: type, %n: %T[0.1]) -> %T[0.2] {
+// CHECK:STDOUT: fn @F(%T: type, %n: %T) -> %T {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %T.ref: type = name_ref T, %T [symbolic = constants.%T]
-// CHECK:STDOUT:   %n.ref: %T[0.-1] = name_ref n, %n
-// CHECK:STDOUT:   %m: %T[0.-2] = bind_name m, %n.ref
-// CHECK:STDOUT:   %m.ref: %T[0.-3] = name_ref m, %m
+// CHECK:STDOUT:   %n.ref: %T = name_ref n, %n
+// CHECK:STDOUT:   %m: %T = bind_name m, %n.ref
+// CHECK:STDOUT:   %m.ref: %T = name_ref m, %m
 // CHECK:STDOUT:   return %m.ref
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

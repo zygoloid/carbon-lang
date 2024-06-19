@@ -46,8 +46,8 @@ fn Run() -> i32 {
 // CHECK:STDOUT:   %Class.2: type = class_type @Class, (%T) [symbolic]
 // CHECK:STDOUT:   %.2: type = ptr_type %Class.2 [symbolic]
 // CHECK:STDOUT:   %.3: type = ptr_type %T [symbolic]
-// CHECK:STDOUT:   %Get.type: type = fn_type @Get, (%T) [template]
-// CHECK:STDOUT:   %Get: %Get.type = struct_value () [template]
+// CHECK:STDOUT:   %Get.type.1: type = fn_type @Get, (%T) [symbolic]
+// CHECK:STDOUT:   %Get: %Get.type.1 = struct_value () [template]
 // CHECK:STDOUT:   %.4: type = unbound_element_type %Class.2, %T [symbolic]
 // CHECK:STDOUT:   %.5: type = struct_type {.k: %T} [symbolic]
 // CHECK:STDOUT:   %.6: type = ptr_type %.5 [symbolic]
@@ -56,10 +56,12 @@ fn Run() -> i32 {
 // CHECK:STDOUT:   %Run.type: type = fn_type @Run [template]
 // CHECK:STDOUT:   %Run: %Run.type = struct_value () [template]
 // CHECK:STDOUT:   %Class.3: type = class_type @Class, (i32) [template]
-// CHECK:STDOUT:   %.7: type = unbound_element_type %Class.3, i32 [template]
-// CHECK:STDOUT:   %.8: i32 = int_literal 0 [template]
-// CHECK:STDOUT:   %.9: type = struct_type {.k: i32} [template]
-// CHECK:STDOUT:   %.10: type = ptr_type %Class.3 [template]
+// CHECK:STDOUT:   %.7: type = ptr_type %Class.3 [template]
+// CHECK:STDOUT:   %.8: type = ptr_type i32 [template]
+// CHECK:STDOUT:   %Get.type.2: type = fn_type @Get, (i32) [template]
+// CHECK:STDOUT:   %.9: type = unbound_element_type %Class.3, i32 [template]
+// CHECK:STDOUT:   %.10: i32 = int_literal 0 [template]
+// CHECK:STDOUT:   %.11: type = struct_type {.k: i32} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -84,18 +86,18 @@ fn Run() -> i32 {
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Class {
-// CHECK:STDOUT:   %Get.decl: %Get.type = fn_decl @Get [template = constants.%Get] {
+// CHECK:STDOUT:   %Get.decl: %Get.type.1 = fn_decl @Get [template = constants.%Get] {
 // CHECK:STDOUT:     %Self.ref: type = name_ref Self, constants.%Class.2 [symbolic = constants.%Class.2]
 // CHECK:STDOUT:     %.loc12_25: type = ptr_type %Class.2 [symbolic = constants.%.2]
-// CHECK:STDOUT:     %self.loc12_15.1: %.2[1.0] = param self
-// CHECK:STDOUT:     %self.loc12_15.3: %.2[1.1] = bind_name self, %self.loc12_15.1
-// CHECK:STDOUT:     %.loc12_10: %.2[1.2] = addr_pattern %self.loc12_15.3
+// CHECK:STDOUT:     %self.loc12_15.1: %.2 = param self
+// CHECK:STDOUT:     %self.loc12_15.3: %.2 = bind_name self, %self.loc12_15.1
+// CHECK:STDOUT:     %.loc12_10: %.2 = addr_pattern %self.loc12_15.3
 // CHECK:STDOUT:     %T.ref.loc12: type = name_ref T, file.%T.loc11_13.2 [symbolic = constants.%T]
 // CHECK:STDOUT:     %.loc12_34: type = ptr_type %T [symbolic = constants.%.3]
-// CHECK:STDOUT:     %return.var: ref %.3[1.3] = var <return slot>
+// CHECK:STDOUT:     %return.var: ref %.3 = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %T.ref.loc16: type = name_ref T, file.%T.loc11_13.2 [symbolic = constants.%T]
-// CHECK:STDOUT:   %.loc16: %.4[0.-1] = field_decl k, element0 [template]
+// CHECK:STDOUT:   %.loc16: %.4 = field_decl k, element0 [template]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = constants.%Class.2
@@ -103,13 +105,13 @@ fn Run() -> i32 {
 // CHECK:STDOUT:   .k = %.loc16
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @Get[addr @Class.%self.loc12_15.3: %.2[1.1]]() -> %.3[1.3] {
+// CHECK:STDOUT: fn @Get[addr @Class.%self.loc12_15.3: %.2]() -> %.3 {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %self.ref: %.2[1.-1] = name_ref self, @Class.%self.loc12_15.3
-// CHECK:STDOUT:   %.loc13_17.1: ref %Class.2[1.-2] = deref %self.ref
-// CHECK:STDOUT:   %k.ref: %.4[1.-3] = name_ref k, @Class.%.loc16 [template = @Class.%.loc16]
-// CHECK:STDOUT:   %.loc13_17.2: ref %T[1.-4] = class_element_access %.loc13_17.1, element0
-// CHECK:STDOUT:   %.loc13_12: %.3[1.-5] = addr_of %.loc13_17.2
+// CHECK:STDOUT:   %self.ref: %.2 = name_ref self, @Class.%self.loc12_15.3
+// CHECK:STDOUT:   %.loc13_17.1: ref %Class.2 = deref %self.ref
+// CHECK:STDOUT:   %k.ref: %.4 = name_ref k, @Class.%.loc16 [template = @Class.%.loc16]
+// CHECK:STDOUT:   %.loc13_17.2: ref %T = class_element_access %.loc13_17.1, element0
+// CHECK:STDOUT:   %.loc13_12: %.3 = addr_of %.loc13_17.2
 // CHECK:STDOUT:   return %.loc13_12
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -126,13 +128,13 @@ fn Run() -> i32 {
 // CHECK:STDOUT:   %.loc25_19.2: type = converted %.loc25_15.3, %.loc25_19.1 [template = constants.%Class.3]
 // CHECK:STDOUT:   %v.var: ref %Class.3 = var v
 // CHECK:STDOUT:   %v: ref %Class.3 = bind_name v, %v.var
-// CHECK:STDOUT:   %.loc25_29: i32 = int_literal 0 [template = constants.%.8]
-// CHECK:STDOUT:   %.loc25_30: %.9 = struct_literal (%.loc25_29)
+// CHECK:STDOUT:   %.loc25_29: i32 = int_literal 0 [template = constants.%.10]
+// CHECK:STDOUT:   %.loc25_30: %.11 = struct_literal (%.loc25_29)
 // CHECK:STDOUT:   assign %v.var, <error>
 // CHECK:STDOUT:   %v.ref: ref %Class.3 = name_ref v, %v
-// CHECK:STDOUT:   %Get.ref: %Get.type = name_ref Get, @Class.%Get.decl [template = constants.%Get]
+// CHECK:STDOUT:   %Get.ref: %Get.type.2 = name_ref Get, @Class.%Get.decl [template = constants.%Get]
 // CHECK:STDOUT:   %.loc36_11: <bound method> = bound_method %v.ref, %Get.ref
-// CHECK:STDOUT:   %.loc36_10: %.10 = addr_of %v.ref
+// CHECK:STDOUT:   %.loc36_10: %.7 = addr_of %v.ref
 // CHECK:STDOUT:   %Get.call: init %.3 = call %.loc36_11(<invalid>) [template = <error>]
 // CHECK:STDOUT:   return <error>
 // CHECK:STDOUT: }
