@@ -22,7 +22,7 @@ fn F(T:! Empty) {
 // CHECK:STDOUT:   %T: %.1 = bind_symbolic_name T 0 [symbolic]
 // CHECK:STDOUT:   %F.type: type = fn_type @F, (%T) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %F: %F.type = struct_value () [template]
+// CHECK:STDOUT:   %F: %F.type = struct_value () [symbolic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -31,7 +31,7 @@ fn F(T:! Empty) {
 // CHECK:STDOUT:     .F = %F.decl
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Empty.decl: type = interface_decl @Empty [template = constants.%.1] {}
-// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
+// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [symbolic = constants.%F] {
 // CHECK:STDOUT:     %Empty.ref: type = name_ref Empty, %Empty.decl [template = constants.%.1]
 // CHECK:STDOUT:     %T.loc13_6.1: %.1 = param T
 // CHECK:STDOUT:     @F.%T: %.1 = bind_symbolic_name T 0, %T.loc13_6.1 [symbolic = constants.%T]

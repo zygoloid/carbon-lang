@@ -29,7 +29,7 @@ class A {
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %Make.type.1: type = fn_type @Make.1, (%Self) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %Make.1: %Make.type.1 = struct_value () [template]
+// CHECK:STDOUT:   %Make.1: %Make.type.1 = struct_value () [symbolic]
 // CHECK:STDOUT:   %.3: type = assoc_entity_type @DefaultConstructible, %Make.type.1 [symbolic]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @DefaultConstructible.%Make.decl [template]
 // CHECK:STDOUT:   %C: type = class_type @C [template]
@@ -55,7 +55,7 @@ class A {
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @DefaultConstructible {
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic = constants.%Self]
-// CHECK:STDOUT:   %Make.decl: %Make.type.1 = fn_decl @Make.1 [template = constants.%Make.1] {
+// CHECK:STDOUT:   %Make.decl: %Make.type.1 = fn_decl @Make.1 [symbolic = constants.%Make.1] {
 // CHECK:STDOUT:     %Self.ref: %.1 = name_ref Self, %Self [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc12_16.1: type = facet_type_access %Self.ref [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc12_16.2: type = converted %Self.ref, %.loc12_16.1 [symbolic = constants.%Self]

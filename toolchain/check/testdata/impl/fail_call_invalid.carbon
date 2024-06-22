@@ -30,7 +30,7 @@ fn InstanceCall(n: i32) {
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %G.type.1: type = fn_type @G.1, (%Self) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %G.1: %G.type.1 = struct_value () [template]
+// CHECK:STDOUT:   %G.1: %G.type.1 = struct_value () [symbolic]
 // CHECK:STDOUT:   %.3: type = assoc_entity_type @Simple, %G.type.1 [symbolic]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @Simple.%G.decl [template]
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
@@ -69,7 +69,7 @@ fn InstanceCall(n: i32) {
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @Simple {
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic = constants.%Self]
-// CHECK:STDOUT:   %G.decl: %G.type.1 = fn_decl @G.1 [template = constants.%G.1] {
+// CHECK:STDOUT:   %G.decl: %G.type.1 = fn_decl @G.1 [symbolic = constants.%G.1] {
 // CHECK:STDOUT:     %Self.ref: %.1 = name_ref Self, %Self [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc12_14.1: type = facet_type_access %Self.ref [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc12_14.2: type = converted %Self.ref, %.loc12_14.1 [symbolic = constants.%Self]

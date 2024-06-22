@@ -39,7 +39,7 @@ var arr: [i32; 1 + 2] = (3, 4, 3 + 4);
 // CHECK:STDOUT:   %.2: type = interface_type @Add [template]
 // CHECK:STDOUT:   %Self: %.2 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %Op.type: type = fn_type @Op, (%Self) [symbolic]
-// CHECK:STDOUT:   %Op: %Op.type = struct_value () [template]
+// CHECK:STDOUT:   %Op: %Op.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %.3: type = assoc_entity_type @Add, %Op.type [symbolic]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @Add.%Op.decl [template]
 // CHECK:STDOUT: }
@@ -57,7 +57,7 @@ var arr: [i32; 1 + 2] = (3, 4, 3 + 4);
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @Add {
 // CHECK:STDOUT:   %Self: %.2 = bind_symbolic_name Self 0 [symbolic = constants.%Self]
-// CHECK:STDOUT:   %Op.decl: %Op.type = fn_decl @Op [template = constants.%Op] {
+// CHECK:STDOUT:   %Op.decl: %Op.type = fn_decl @Op [symbolic = constants.%Op] {
 // CHECK:STDOUT:     %Self.ref.loc7_15: %.2 = name_ref Self, %Self [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc7_15.1: type = facet_type_access %Self.ref.loc7_15 [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc7_15.2: type = converted %Self.ref.loc7_15, %.loc7_15.1 [symbolic = constants.%Self]

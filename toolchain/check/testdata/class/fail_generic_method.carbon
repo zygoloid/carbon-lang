@@ -41,13 +41,13 @@ fn Class(N:! i32).F[self: Self](n: T) {}
 // CHECK:STDOUT:   %Class.2: type = class_type @Class, (%T) [symbolic]
 // CHECK:STDOUT:   %.2: type = unbound_element_type %Class.2, %T [symbolic]
 // CHECK:STDOUT:   %F.type: type = fn_type @F, (%T) [symbolic]
-// CHECK:STDOUT:   %F: %F.type = struct_value () [template]
+// CHECK:STDOUT:   %F: %F.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %.3: type = struct_type {.a: %T} [symbolic]
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
 // CHECK:STDOUT:   %N: i32 = bind_symbolic_name N 0 [symbolic]
 // CHECK:STDOUT:   %.type: type = fn_type @.1, (%N) [symbolic]
-// CHECK:STDOUT:   %.4: %.type = struct_value () [template]
+// CHECK:STDOUT:   %.4: %.type = struct_value () [symbolic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -61,7 +61,7 @@ fn Class(N:! i32).F[self: Self](n: T) {}
 // CHECK:STDOUT:     %T.loc11_13.2: type = bind_symbolic_name T 0, %T.loc11_13.1 [symbolic = constants.%T]
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %import_ref: %Int32.type = import_ref ir3, inst+3, loaded [template = constants.%Int32]
-// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [template = constants.%.4] {
+// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [symbolic = constants.%.4] {
 // CHECK:STDOUT:     %int.make_type_32: init type = call constants.%Int32() [template = i32]
 // CHECK:STDOUT:     %.loc32_14.1: type = value_of_initializer %int.make_type_32 [template = i32]
 // CHECK:STDOUT:     %.loc32_14.2: type = converted %int.make_type_32, %.loc32_14.1 [template = i32]
@@ -79,7 +79,7 @@ fn Class(N:! i32).F[self: Self](n: T) {}
 // CHECK:STDOUT: class @Class {
 // CHECK:STDOUT:   %T.ref.loc12: type = name_ref T, file.%T.loc11_13.2 [symbolic = constants.%T]
 // CHECK:STDOUT:   %.loc12: %.2 = field_decl a, element0 [template]
-// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
+// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [symbolic = constants.%F] {
 // CHECK:STDOUT:     %Self.ref: type = name_ref Self, constants.%Class.2 [symbolic = constants.%Class.2]
 // CHECK:STDOUT:     %self.loc13_8.1: %Class.2 = param self
 // CHECK:STDOUT:     %self.loc13_8.2: %Class.2 = bind_name self, %self.loc13_8.1

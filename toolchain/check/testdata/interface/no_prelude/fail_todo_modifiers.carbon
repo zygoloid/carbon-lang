@@ -27,11 +27,11 @@ interface Modifiers {
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %Final.type: type = fn_type @Final, (%Self) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %Final: %Final.type = struct_value () [template]
+// CHECK:STDOUT:   %Final: %Final.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %.3: type = assoc_entity_type @Modifiers, %Final.type [symbolic]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @Modifiers.%Final.decl [template]
 // CHECK:STDOUT:   %Default.type: type = fn_type @Default, (%Self) [symbolic]
-// CHECK:STDOUT:   %Default: %Default.type = struct_value () [template]
+// CHECK:STDOUT:   %Default: %Default.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %.5: type = assoc_entity_type @Modifiers, %Default.type [symbolic]
 // CHECK:STDOUT:   %.6: %.5 = assoc_entity element1, @Modifiers.%Default.decl [template]
 // CHECK:STDOUT: }
@@ -45,9 +45,9 @@ interface Modifiers {
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @Modifiers {
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic = constants.%Self]
-// CHECK:STDOUT:   %Final.decl: %Final.type = fn_decl @Final [template = constants.%Final] {}
+// CHECK:STDOUT:   %Final.decl: %Final.type = fn_decl @Final [symbolic = constants.%Final] {}
 // CHECK:STDOUT:   %.loc16: %.3 = assoc_entity element0, %Final.decl [template = constants.%.4]
-// CHECK:STDOUT:   %Default.decl: %Default.type = fn_decl @Default [template = constants.%Default] {}
+// CHECK:STDOUT:   %Default.decl: %Default.type = fn_decl @Default [symbolic = constants.%Default] {}
 // CHECK:STDOUT:   %.loc20: %.5 = assoc_entity element1, %Default.decl [template = constants.%.6]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:

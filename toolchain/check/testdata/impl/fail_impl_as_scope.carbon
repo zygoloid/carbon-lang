@@ -26,7 +26,7 @@ impl as Simple {
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %F.type.1: type = fn_type @F.1, (%Self) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %F.1: %F.type.1 = struct_value () [template]
+// CHECK:STDOUT:   %F.1: %F.type.1 = struct_value () [symbolic]
 // CHECK:STDOUT:   %.3: type = assoc_entity_type @Simple, %F.type.1 [symbolic]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @Simple.%F.decl [template]
 // CHECK:STDOUT:   %F.type.2: type = fn_type @F.2 [template]
@@ -48,7 +48,7 @@ impl as Simple {
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @Simple {
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic = constants.%Self]
-// CHECK:STDOUT:   %F.decl: %F.type.1 = fn_decl @F.1 [template = constants.%F.1] {}
+// CHECK:STDOUT:   %F.decl: %F.type.1 = fn_decl @F.1 [symbolic = constants.%F.1] {}
 // CHECK:STDOUT:   %.loc12: %.3 = assoc_entity element0, %F.decl [template = constants.%.4]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:

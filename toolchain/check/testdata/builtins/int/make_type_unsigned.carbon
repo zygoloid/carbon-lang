@@ -119,7 +119,7 @@ var m: UInt(1000000000);
 // CHECK:STDOUT:   %N: i32 = bind_symbolic_name N 0 [symbolic]
 // CHECK:STDOUT:   %.6: type = int_type unsigned, %N [symbolic]
 // CHECK:STDOUT:   %Symbolic.type: type = fn_type @Symbolic, (%N) [symbolic]
-// CHECK:STDOUT:   %Symbolic: %Symbolic.type = struct_value () [template]
+// CHECK:STDOUT:   %Symbolic: %Symbolic.type = struct_value () [symbolic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -163,7 +163,7 @@ var m: UInt(1000000000);
 // CHECK:STDOUT:     @G.%return: ref %.5 = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %import_ref.2: %Int32.type = import_ref ir4, inst+3, loaded [template = constants.%Int32]
-// CHECK:STDOUT:   %Symbolic.decl: %Symbolic.type = fn_decl @Symbolic [template = constants.%Symbolic] {
+// CHECK:STDOUT:   %Symbolic.decl: %Symbolic.type = fn_decl @Symbolic [symbolic = constants.%Symbolic] {
 // CHECK:STDOUT:     %int.make_type_32: init type = call constants.%Int32() [template = i32]
 // CHECK:STDOUT:     %.loc14_17.1: type = value_of_initializer %int.make_type_32 [template = i32]
 // CHECK:STDOUT:     %.loc14_17.2: type = converted %int.make_type_32, %.loc14_17.1 [template = i32]

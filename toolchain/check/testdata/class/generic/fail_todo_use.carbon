@@ -23,7 +23,7 @@ fn Run() -> i32 {
   // CHECK:STDERR:                       ^~~~~~~~
   // CHECK:STDERR:
   var v: Class(i32) = {.k = 0};
-  // CHECK:STDERR: fail_todo_use.carbon:[[@LINE+10]]:3: ERROR: Cannot implicitly convert from `T*` to `i32`.
+  // CHECK:STDERR: fail_todo_use.carbon:[[@LINE+10]]:3: ERROR: Cannot implicitly convert from `i32*` to `i32`.
   // CHECK:STDERR:   return v.Get();
   // CHECK:STDERR:   ^~~~~~~~~~~~~~~
   // CHECK:STDERR:
@@ -47,7 +47,7 @@ fn Run() -> i32 {
 // CHECK:STDOUT:   %.2: type = ptr_type %Class.2 [symbolic]
 // CHECK:STDOUT:   %.3: type = ptr_type %T [symbolic]
 // CHECK:STDOUT:   %Get.type.1: type = fn_type @Get, (%T) [symbolic]
-// CHECK:STDOUT:   %Get: %Get.type.1 = struct_value () [template]
+// CHECK:STDOUT:   %Get.1: %Get.type.1 = struct_value () [symbolic]
 // CHECK:STDOUT:   %.4: type = unbound_element_type %Class.2, %T [symbolic]
 // CHECK:STDOUT:   %.5: type = struct_type {.k: %T} [symbolic]
 // CHECK:STDOUT:   %.6: type = ptr_type %.5 [symbolic]
@@ -60,6 +60,7 @@ fn Run() -> i32 {
 // CHECK:STDOUT:   %.8: type = ptr_type i32 [template]
 // CHECK:STDOUT:   %Get.type.2: type = fn_type @Get, (i32) [template]
 // CHECK:STDOUT:   %.9: type = unbound_element_type %Class.3, i32 [template]
+// CHECK:STDOUT:   %Get.2: %Get.type.2 = struct_value () [template]
 // CHECK:STDOUT:   %.10: i32 = int_literal 0 [template]
 // CHECK:STDOUT:   %.11: type = struct_type {.k: i32} [template]
 // CHECK:STDOUT: }
@@ -86,7 +87,7 @@ fn Run() -> i32 {
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Class {
-// CHECK:STDOUT:   %Get.decl: %Get.type.1 = fn_decl @Get [template = constants.%Get] {
+// CHECK:STDOUT:   %Get.decl: %Get.type.1 = fn_decl @Get [symbolic = constants.%Get.1] {
 // CHECK:STDOUT:     %Self.ref: type = name_ref Self, constants.%Class.2 [symbolic = constants.%Class.2]
 // CHECK:STDOUT:     %.loc12_25: type = ptr_type %Class.2 [symbolic = constants.%.2]
 // CHECK:STDOUT:     %self.loc12_15.1: %.2 = param self
@@ -132,10 +133,11 @@ fn Run() -> i32 {
 // CHECK:STDOUT:   %.loc25_30: %.11 = struct_literal (%.loc25_29)
 // CHECK:STDOUT:   assign %v.var, <error>
 // CHECK:STDOUT:   %v.ref: ref %Class.3 = name_ref v, %v
-// CHECK:STDOUT:   %Get.ref: %Get.type.2 = name_ref Get, @Class.%Get.decl [template = constants.%Get]
-// CHECK:STDOUT:   %.loc36_11: <bound method> = bound_method %v.ref, %Get.ref
+// CHECK:STDOUT:   %.loc36_11.1: %Get.type.2 = instance_constant @Class.%Get.decl, (i32) [template = constants.%Get.2]
+// CHECK:STDOUT:   %Get.ref: %Get.type.2 = name_ref Get, %.loc36_11.1 [template = constants.%Get.2]
+// CHECK:STDOUT:   %.loc36_11.2: <bound method> = bound_method %v.ref, %Get.ref
 // CHECK:STDOUT:   %.loc36_10: %.7 = addr_of %v.ref
-// CHECK:STDOUT:   %Get.call: init %.3 = call %.loc36_11(<invalid>) [template = <error>]
+// CHECK:STDOUT:   %Get.call: init %.8 = call %.loc36_11.2(<invalid>) [template = <error>]
 // CHECK:STDOUT:   return <error>
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

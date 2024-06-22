@@ -21,7 +21,7 @@ fn F(T:! type) {
 // CHECK:STDOUT:   %T: type = bind_symbolic_name T 0 [symbolic]
 // CHECK:STDOUT:   %F.type: type = fn_type @F, (%T) [symbolic]
 // CHECK:STDOUT:   %.1: type = tuple_type () [template]
-// CHECK:STDOUT:   %F: %F.type = struct_value () [template]
+// CHECK:STDOUT:   %F: %F.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %.2: type = ptr_type %T [symbolic]
 // CHECK:STDOUT:   %.3: type = const_type %T [symbolic]
 // CHECK:STDOUT:   %.4: type = tuple_type (type, type) [template]
@@ -40,7 +40,7 @@ fn F(T:! type) {
 // CHECK:STDOUT:     .F = %F.decl
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Core: <namespace> = namespace [template] {}
-// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
+// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [symbolic = constants.%F] {
 // CHECK:STDOUT:     %T.loc12_6.1: type = param T
 // CHECK:STDOUT:     @F.%T: type = bind_symbolic_name T 0, %T.loc12_6.1 [symbolic = constants.%T]
 // CHECK:STDOUT:   }

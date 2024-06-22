@@ -137,7 +137,7 @@ static auto SubstituteRegion(
     // TODO: We do a lot of repeated work here. All subexpressions should
     // already have been substituted.
     constants_in_instance.push_back(
-        context.constant_values().GetInstIdIfValid(SubstConstant(
+        context.constant_values().GetInstId(SubstConstant(
             context, context.constant_values().Get(inst_id), substitutions)));
   }
   instance_region.symbolic_constant_values_id =

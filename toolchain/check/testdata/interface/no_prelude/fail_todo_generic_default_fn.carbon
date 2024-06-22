@@ -31,11 +31,11 @@ fn I(T:! type).F[self: Self]() -> Self { return self; }
 // CHECK:STDOUT:   %.2: type = interface_type @I, (%T) [symbolic]
 // CHECK:STDOUT:   %Self: %.2 = bind_symbolic_name Self 1 [symbolic]
 // CHECK:STDOUT:   %F.type: type = fn_type @F, (%T, %Self) [symbolic]
-// CHECK:STDOUT:   %F: %F.type = struct_value () [template]
+// CHECK:STDOUT:   %F: %F.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %.3: type = assoc_entity_type @I, %F.type [symbolic]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @I.%F.decl [template]
 // CHECK:STDOUT:   %.type: type = fn_type @.1, (%T) [symbolic]
-// CHECK:STDOUT:   %.5: %.type = struct_value () [template]
+// CHECK:STDOUT:   %.5: %.type = struct_value () [symbolic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -46,7 +46,7 @@ fn I(T:! type).F[self: Self]() -> Self { return self; }
 // CHECK:STDOUT:     %T.loc11_13.1: type = param T
 // CHECK:STDOUT:     %T.loc11_13.2: type = bind_symbolic_name T 0, %T.loc11_13.1 [symbolic = constants.%T]
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [template = constants.%.5] {
+// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [symbolic = constants.%.5] {
 // CHECK:STDOUT:     %T.loc22_6.1: type = param T
 // CHECK:STDOUT:     %T.loc22_6.2: type = bind_symbolic_name T 0, %T.loc22_6.1 [symbolic = constants.%T]
 // CHECK:STDOUT:     %Self.ref.loc22_24: %.2 = name_ref Self, @I.%Self [symbolic = constants.%Self]
@@ -63,7 +63,7 @@ fn I(T:! type).F[self: Self]() -> Self { return self; }
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @I {
 // CHECK:STDOUT:   %Self: %.2 = bind_symbolic_name Self 1 [symbolic = constants.%Self]
-// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
+// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [symbolic = constants.%F] {
 // CHECK:STDOUT:     %Self.ref.loc13_14: %.2 = name_ref Self, %Self [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc13_14.1: type = facet_type_access %Self.ref.loc13_14 [symbolic = constants.%Self]
 // CHECK:STDOUT:     %.loc13_14.2: type = converted %Self.ref.loc13_14, %.loc13_14.1 [symbolic = constants.%Self]

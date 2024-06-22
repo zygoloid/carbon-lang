@@ -33,9 +33,9 @@ class Class(T:! type) {
 // CHECK:STDOUT:   %.2: type = ptr_type %Class.2 [symbolic]
 // CHECK:STDOUT:   %.3: type = ptr_type %T [symbolic]
 // CHECK:STDOUT:   %GetAddr.type: type = fn_type @GetAddr, (%T) [symbolic]
-// CHECK:STDOUT:   %GetAddr: %GetAddr.type = struct_value () [template]
+// CHECK:STDOUT:   %GetAddr: %GetAddr.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %GetValue.type: type = fn_type @GetValue, (%T) [symbolic]
-// CHECK:STDOUT:   %GetValue: %GetValue.type = struct_value () [template]
+// CHECK:STDOUT:   %GetValue: %GetValue.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %.4: type = unbound_element_type %Class.2, %T [symbolic]
 // CHECK:STDOUT:   %.5: type = struct_type {.k: %T} [symbolic]
 // CHECK:STDOUT:   %.6: type = ptr_type %.5 [symbolic]
@@ -54,7 +54,7 @@ class Class(T:! type) {
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Class {
-// CHECK:STDOUT:   %GetAddr.decl: %GetAddr.type = fn_decl @GetAddr [template = constants.%GetAddr] {
+// CHECK:STDOUT:   %GetAddr.decl: %GetAddr.type = fn_decl @GetAddr [symbolic = constants.%GetAddr] {
 // CHECK:STDOUT:     %Self.ref.loc12: type = name_ref Self, constants.%Class.2 [symbolic = constants.%Class.2]
 // CHECK:STDOUT:     %.loc12_29: type = ptr_type %Class.2 [symbolic = constants.%.2]
 // CHECK:STDOUT:     %self.loc12_19.1: %.2 = param self
@@ -64,7 +64,7 @@ class Class(T:! type) {
 // CHECK:STDOUT:     %.loc12_38: type = ptr_type %T [symbolic = constants.%.3]
 // CHECK:STDOUT:     %return.var.loc12: ref %.3 = var <return slot>
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %GetValue.decl: %GetValue.type = fn_decl @GetValue [template = constants.%GetValue] {
+// CHECK:STDOUT:   %GetValue.decl: %GetValue.type = fn_decl @GetValue [symbolic = constants.%GetValue] {
 // CHECK:STDOUT:     %Self.ref.loc17: type = name_ref Self, constants.%Class.2 [symbolic = constants.%Class.2]
 // CHECK:STDOUT:     %self.loc17_15.1: %Class.2 = param self
 // CHECK:STDOUT:     %self.loc17_15.2: %Class.2 = bind_name self, %self.loc17_15.1

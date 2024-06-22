@@ -26,11 +26,11 @@ interface Interface {
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %F.type: type = fn_type @F, (%Self) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %F: %F.type = struct_value () [template]
+// CHECK:STDOUT:   %F: %F.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %.3: type = assoc_entity_type @Interface, %F.type [symbolic]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @Interface.%F.decl [template]
 // CHECK:STDOUT:   %.type: type = fn_type @.1, (%Self) [symbolic]
-// CHECK:STDOUT:   %.5: %.type = struct_value () [template]
+// CHECK:STDOUT:   %.5: %.type = struct_value () [symbolic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -42,9 +42,9 @@ interface Interface {
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @Interface {
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic = constants.%Self]
-// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {}
+// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [symbolic = constants.%F] {}
 // CHECK:STDOUT:   %.loc12: %.3 = assoc_entity element0, %F.decl [template = constants.%.4]
-// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [template = constants.%.5] {}
+// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [symbolic = constants.%.5] {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = %Self

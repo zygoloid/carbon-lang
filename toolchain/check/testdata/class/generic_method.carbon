@@ -25,7 +25,7 @@ fn Class(T:! type).F[self: Self](n: T) {}
 // CHECK:STDOUT:   %Class.2: type = class_type @Class, (%T) [symbolic]
 // CHECK:STDOUT:   %.2: type = unbound_element_type %Class.2, %T [symbolic]
 // CHECK:STDOUT:   %F.type.1: type = fn_type @F, (%T) [symbolic]
-// CHECK:STDOUT:   %F.1: %F.type.1 = struct_value () [template]
+// CHECK:STDOUT:   %F.1: %F.type.1 = struct_value () [symbolic]
 // CHECK:STDOUT:   %.3: type = struct_type {.a: %T} [symbolic]
 // CHECK:STDOUT:   %F.type.2: type = fn_type @F [template]
 // CHECK:STDOUT:   %F.2: %F.type.2 = struct_value () [template]
@@ -57,7 +57,7 @@ fn Class(T:! type).F[self: Self](n: T) {}
 // CHECK:STDOUT: class @Class {
 // CHECK:STDOUT:   %T.ref.loc12: type = name_ref T, file.%T.loc11_13.2 [symbolic = constants.%T]
 // CHECK:STDOUT:   %.loc12: %.2 = field_decl a, element0 [template]
-// CHECK:STDOUT:   %F.decl: %F.type.1 = fn_decl @F [template = constants.%F.1] {
+// CHECK:STDOUT:   %F.decl: %F.type.1 = fn_decl @F [symbolic = constants.%F.1] {
 // CHECK:STDOUT:     %Self.ref: type = name_ref Self, constants.%Class.2 [symbolic = constants.%Class.2]
 // CHECK:STDOUT:     %self.loc13_8.1: %Class.2 = param self
 // CHECK:STDOUT:     %self.loc13_8.2: %Class.2 = bind_name self, %self.loc13_8.1

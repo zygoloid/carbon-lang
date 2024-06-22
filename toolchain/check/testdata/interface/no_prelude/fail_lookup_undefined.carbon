@@ -61,11 +61,11 @@ interface BeingDefined {
 // CHECK:STDOUT:   %.4: type = interface_type @BeingDefined [template]
 // CHECK:STDOUT:   %Self: %.4 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %H.type: type = fn_type @H, (%Self) [symbolic]
-// CHECK:STDOUT:   %H: %H.type = struct_value () [template]
+// CHECK:STDOUT:   %H: %H.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %.5: type = assoc_entity_type @BeingDefined, %H.type [symbolic]
 // CHECK:STDOUT:   %.6: %.5 = assoc_entity element0, @BeingDefined.%H.decl [template]
 // CHECK:STDOUT:   %.type.2: type = fn_type @.2, (%Self) [symbolic]
-// CHECK:STDOUT:   %.7: %.type.2 = struct_value () [template]
+// CHECK:STDOUT:   %.7: %.type.2 = struct_value () [symbolic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -84,13 +84,13 @@ interface BeingDefined {
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @BeingDefined {
 // CHECK:STDOUT:   %Self: %.4 = bind_symbolic_name Self 0 [symbolic = constants.%Self]
-// CHECK:STDOUT:   %H.decl: %H.type = fn_decl @H [template = constants.%H] {
+// CHECK:STDOUT:   %H.decl: %H.type = fn_decl @H [symbolic = constants.%H] {
 // CHECK:STDOUT:     %BeingDefined.ref: type = name_ref BeingDefined, file.%BeingDefined.decl [template = constants.%.4]
 // CHECK:STDOUT:     %T.ref: <error> = name_ref T, <error> [template = <error>]
 // CHECK:STDOUT:     %return.var: ref <error> = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %.loc45: %.5 = assoc_entity element0, %H.decl [template = constants.%.6]
-// CHECK:STDOUT:   %.decl: %.type.2 = fn_decl @.2 [template = constants.%.7] {}
+// CHECK:STDOUT:   %.decl: %.type.2 = fn_decl @.2 [symbolic = constants.%.7] {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = %Self

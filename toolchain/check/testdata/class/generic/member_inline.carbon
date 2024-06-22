@@ -23,7 +23,7 @@ class Class(T:! type) {
 // CHECK:STDOUT:   %Class.1: %Class.type = struct_value () [template]
 // CHECK:STDOUT:   %Class.2: type = class_type @Class, (%T) [symbolic]
 // CHECK:STDOUT:   %F.type: type = fn_type @F, (%T) [symbolic]
-// CHECK:STDOUT:   %F: %F.type = struct_value () [template]
+// CHECK:STDOUT:   %F: %F.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %.2: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -40,7 +40,7 @@ class Class(T:! type) {
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Class {
-// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
+// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [symbolic = constants.%F] {
 // CHECK:STDOUT:     %T.ref.loc12_11: type = name_ref T, file.%T.loc11_13.2 [symbolic = constants.%T]
 // CHECK:STDOUT:     %n.loc12_8.1: %T = param n
 // CHECK:STDOUT:     %n.loc12_8.2: %T = bind_name n, %n.loc12_8.1

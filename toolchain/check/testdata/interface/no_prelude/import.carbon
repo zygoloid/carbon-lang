@@ -59,7 +59,7 @@ var f: ForwardDeclared* = &f_ref.f;
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @Basic.%T [template]
 // CHECK:STDOUT:   %F.type.1: type = fn_type @F.1, (%Self.2) [symbolic]
 // CHECK:STDOUT:   %.5: type = tuple_type () [template]
-// CHECK:STDOUT:   %F.1: %F.type.1 = struct_value () [template]
+// CHECK:STDOUT:   %F.1: %F.type.1 = struct_value () [symbolic]
 // CHECK:STDOUT:   %.6: type = assoc_entity_type @Basic, %F.type.1 [symbolic]
 // CHECK:STDOUT:   %.7: %.6 = assoc_entity element1, @Basic.%F.decl [template]
 // CHECK:STDOUT:   %.8: type = interface_type @ForwardDeclared [template]
@@ -67,7 +67,7 @@ var f: ForwardDeclared* = &f_ref.f;
 // CHECK:STDOUT:   %.9: type = assoc_entity_type @ForwardDeclared, type [template]
 // CHECK:STDOUT:   %.10: %.9 = assoc_entity element0, @ForwardDeclared.%T [template]
 // CHECK:STDOUT:   %F.type.2: type = fn_type @F.2, (%Self.3) [symbolic]
-// CHECK:STDOUT:   %F.2: %F.type.2 = struct_value () [template]
+// CHECK:STDOUT:   %F.2: %F.type.2 = struct_value () [symbolic]
 // CHECK:STDOUT:   %.11: type = assoc_entity_type @ForwardDeclared, %F.type.2 [symbolic]
 // CHECK:STDOUT:   %.12: %.11 = assoc_entity element1, @ForwardDeclared.%F.decl [template]
 // CHECK:STDOUT:   %.13: type = struct_type {.f: %.8} [template]
@@ -102,7 +102,7 @@ var f: ForwardDeclared* = &f_ref.f;
 // CHECK:STDOUT:   %Self: %.2 = bind_symbolic_name Self 0 [symbolic = constants.%Self.2]
 // CHECK:STDOUT:   %T: type = assoc_const_decl T [template]
 // CHECK:STDOUT:   %.loc8: %.3 = assoc_entity element0, %T [template = constants.%.4]
-// CHECK:STDOUT:   %F.decl: %F.type.1 = fn_decl @F.1 [template = constants.%F.1] {}
+// CHECK:STDOUT:   %F.decl: %F.type.1 = fn_decl @F.1 [symbolic = constants.%F.1] {}
 // CHECK:STDOUT:   %.loc9: %.6 = assoc_entity element1, %F.decl [template = constants.%.7]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
@@ -116,7 +116,7 @@ var f: ForwardDeclared* = &f_ref.f;
 // CHECK:STDOUT:   %Self: %.8 = bind_symbolic_name Self 0 [symbolic = constants.%Self.3]
 // CHECK:STDOUT:   %T: type = assoc_const_decl T [template]
 // CHECK:STDOUT:   %.loc16: %.9 = assoc_entity element0, %T [template = constants.%.10]
-// CHECK:STDOUT:   %F.decl: %F.type.2 = fn_decl @F.2 [template = constants.%F.2] {}
+// CHECK:STDOUT:   %F.decl: %F.type.2 = fn_decl @F.2 [symbolic = constants.%F.2] {}
 // CHECK:STDOUT:   %.loc17: %.11 = assoc_entity element1, %F.decl [template = constants.%.12]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:

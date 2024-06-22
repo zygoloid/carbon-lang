@@ -19,14 +19,14 @@ fn F(T:! type, n: T) -> T {
 // CHECK:STDOUT:   %T: type = bind_symbolic_name T 0 [symbolic]
 // CHECK:STDOUT:   %F.type: type = fn_type @F, (%T) [symbolic]
 // CHECK:STDOUT:   %.1: type = tuple_type () [template]
-// CHECK:STDOUT:   %F: %F.type = struct_value () [template]
+// CHECK:STDOUT:   %F: %F.type = struct_value () [symbolic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
 // CHECK:STDOUT:   package: <namespace> = namespace [template] {
 // CHECK:STDOUT:     .F = %F.decl
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
+// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [symbolic = constants.%F] {
 // CHECK:STDOUT:     %T.loc11_6.1: type = param T
 // CHECK:STDOUT:     @F.%T: type = bind_symbolic_name T 0, %T.loc11_6.1 [symbolic = constants.%T]
 // CHECK:STDOUT:     %T.ref.loc11_19: type = name_ref T, @F.%T [symbolic = constants.%T]

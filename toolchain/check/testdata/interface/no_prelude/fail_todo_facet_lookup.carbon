@@ -32,14 +32,14 @@ fn CallFacet(T:! Interface, x: T) {
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %F.type: type = fn_type @F, (%Self) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %F: %F.type = struct_value () [template]
+// CHECK:STDOUT:   %F: %F.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %.3: type = assoc_entity_type @Interface, %F.type [symbolic]
 // CHECK:STDOUT:   %.4: %.3 = assoc_entity element0, @Interface.%F.decl [template]
 // CHECK:STDOUT:   %T: %.1 = bind_symbolic_name T 0 [symbolic]
 // CHECK:STDOUT:   %CallStatic.type: type = fn_type @CallStatic, (%T) [symbolic]
-// CHECK:STDOUT:   %CallStatic: %CallStatic.type = struct_value () [template]
+// CHECK:STDOUT:   %CallStatic: %CallStatic.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %CallFacet.type: type = fn_type @CallFacet, (%T) [symbolic]
-// CHECK:STDOUT:   %CallFacet: %CallFacet.type = struct_value () [template]
+// CHECK:STDOUT:   %CallFacet: %CallFacet.type = struct_value () [symbolic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -49,12 +49,12 @@ fn CallFacet(T:! Interface, x: T) {
 // CHECK:STDOUT:     .CallFacet = %CallFacet.decl
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Interface.decl: type = interface_decl @Interface [template = constants.%.1] {}
-// CHECK:STDOUT:   %CallStatic.decl: %CallStatic.type = fn_decl @CallStatic [template = constants.%CallStatic] {
+// CHECK:STDOUT:   %CallStatic.decl: %CallStatic.type = fn_decl @CallStatic [symbolic = constants.%CallStatic] {
 // CHECK:STDOUT:     %Interface.ref.loc13: type = name_ref Interface, %Interface.decl [template = constants.%.1]
 // CHECK:STDOUT:     %T.loc13_15.1: %.1 = param T
 // CHECK:STDOUT:     @CallStatic.%T: %.1 = bind_symbolic_name T 0, %T.loc13_15.1 [symbolic = constants.%T]
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %CallFacet.decl: %CallFacet.type = fn_decl @CallFacet [template = constants.%CallFacet] {
+// CHECK:STDOUT:   %CallFacet.decl: %CallFacet.type = fn_decl @CallFacet [symbolic = constants.%CallFacet] {
 // CHECK:STDOUT:     %Interface.ref.loc21: type = name_ref Interface, %Interface.decl [template = constants.%.1]
 // CHECK:STDOUT:     %T.loc21_14.1: %.1 = param T
 // CHECK:STDOUT:     @CallFacet.%T: %.1 = bind_symbolic_name T 0, %T.loc21_14.1 [symbolic = constants.%T]
@@ -68,7 +68,7 @@ fn CallFacet(T:! Interface, x: T) {
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @Interface {
 // CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic = constants.%Self]
-// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {}
+// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [symbolic = constants.%F] {}
 // CHECK:STDOUT:   %.loc11: %.3 = assoc_entity element0, %F.decl [template = constants.%.4]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:

@@ -32,17 +32,6 @@ fn F(T:! type, U:! type) -> T*;
 // CHECK:STDERR: ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // CHECK:STDERR:
 fn F(T:! type, U:! type) -> U* {
-  // CHECK:STDERR: fail_different_return_type.carbon:[[@LINE+11]]:3: ERROR: Cannot implicitly convert from `T*` to `U*`.
-  // CHECK:STDERR:   return F(T);
-  // CHECK:STDERR:   ^~~~~~~~~~~~
-  // CHECK:STDERR:
-  // CHECK:STDERR: fail_different_return_type.carbon:[[@LINE+7]]:10: ERROR: 1 argument(s) passed to function expecting 2 argument(s).
-  // CHECK:STDERR:   return F(T);
-  // CHECK:STDERR:          ^~
-  // CHECK:STDERR: fail_different_return_type.carbon:[[@LINE-17]]:1: Calling function declared here.
-  // CHECK:STDERR: fn F(T:! type, U:! type) -> T*;
-  // CHECK:STDERR: ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  // CHECK:STDERR:
   return F(T);
 }
 
@@ -60,17 +49,6 @@ fn F(T:! type, U:! type) -> T*;
 // CHECK:STDERR:      ^
 // CHECK:STDERR:
 fn F(U:! type, T:! type) -> T* {
-  // CHECK:STDERR: fail_reorder.carbon:[[@LINE+11]]:3: ERROR: Cannot implicitly convert from `T*` to `T*`.
-  // CHECK:STDERR:   return F(T);
-  // CHECK:STDERR:   ^~~~~~~~~~~~
-  // CHECK:STDERR:
-  // CHECK:STDERR: fail_reorder.carbon:[[@LINE+7]]:10: ERROR: 1 argument(s) passed to function expecting 2 argument(s).
-  // CHECK:STDERR:   return F(T);
-  // CHECK:STDERR:          ^~
-  // CHECK:STDERR: fail_reorder.carbon:[[@LINE-17]]:1: Calling function declared here.
-  // CHECK:STDERR: fn F(T:! type, U:! type) -> T*;
-  // CHECK:STDERR: ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  // CHECK:STDERR:
   return F(T);
 }
 
@@ -80,24 +58,13 @@ library "fail_rename";
 
 fn F(T:! type, U:! type) -> T*;
 
-// CHECK:STDERR: fail_rename.carbon:[[@LINE+7]]:6: ERROR: Redeclaration differs at parameter 1.
+// CHECK:STDERR: fail_rename.carbon:[[@LINE+6]]:6: ERROR: Redeclaration differs at parameter 1.
 // CHECK:STDERR: fn F(U:! type, T:! type) -> U* {
 // CHECK:STDERR:      ^
 // CHECK:STDERR: fail_rename.carbon:[[@LINE-5]]:6: Previous declaration's corresponding parameter here.
 // CHECK:STDERR: fn F(T:! type, U:! type) -> T*;
 // CHECK:STDERR:      ^
-// CHECK:STDERR:
 fn F(U:! type, T:! type) -> U* {
-  // CHECK:STDERR: fail_rename.carbon:[[@LINE+10]]:3: ERROR: Cannot implicitly convert from `T*` to `U*`.
-  // CHECK:STDERR:   return F(T);
-  // CHECK:STDERR:   ^~~~~~~~~~~~
-  // CHECK:STDERR:
-  // CHECK:STDERR: fail_rename.carbon:[[@LINE+6]]:10: ERROR: 1 argument(s) passed to function expecting 2 argument(s).
-  // CHECK:STDERR:   return F(T);
-  // CHECK:STDERR:          ^~
-  // CHECK:STDERR: fail_rename.carbon:[[@LINE-17]]:1: Calling function declared here.
-  // CHECK:STDERR: fn F(T:! type, U:! type) -> T*;
-  // CHECK:STDERR: ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   return F(T);
 }
 
@@ -108,7 +75,7 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:   %.1: type = ptr_type %T [symbolic]
 // CHECK:STDOUT:   %F.type.1: type = fn_type @F, (%T) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %F.1: %F.type.1 = struct_value () [template]
+// CHECK:STDOUT:   %F.1: %F.type.1 = struct_value () [symbolic]
 // CHECK:STDOUT:   %F.type.2: type = fn_type @F [template]
 // CHECK:STDOUT:   %F.2: %F.type.2 = struct_value () [template]
 // CHECK:STDOUT: }
@@ -119,7 +86,7 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:     .F = %F.decl.loc4
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Core: <namespace> = namespace [template] {}
-// CHECK:STDOUT:   %F.decl.loc4: %F.type.1 = fn_decl @F [template = constants.%F.1] {
+// CHECK:STDOUT:   %F.decl.loc4: %F.type.1 = fn_decl @F [symbolic = constants.%F.1] {
 // CHECK:STDOUT:     %T.loc4_6.1: type = param T
 // CHECK:STDOUT:     %T.loc4_6.2: type = bind_symbolic_name T 0, %T.loc4_6.1 [symbolic = constants.%T]
 // CHECK:STDOUT:     %T.ref.loc4: type = name_ref T, %T.loc4_6.2 [symbolic = constants.%T]
@@ -137,7 +104,7 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @F(%T: type) -> %.1 {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %F.ref: %F.type.1 = name_ref F, file.%F.decl.loc4 [template = constants.%F.1]
+// CHECK:STDOUT:   %F.ref: %F.type.1 = name_ref F, file.%F.decl.loc4 [symbolic = constants.%F.1]
 // CHECK:STDOUT:   %T.ref: type = name_ref T, %T [symbolic = constants.%T]
 // CHECK:STDOUT:   %F.call: init %.1 = call %F.ref(%T.ref)
 // CHECK:STDOUT:   %.loc7_14.1: %.1 = value_of_initializer %F.call
@@ -153,10 +120,10 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:   %.1: type = ptr_type %T [symbolic]
 // CHECK:STDOUT:   %F.type: type = fn_type @F, (%T, %U) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %F: %F.type = struct_value () [template]
+// CHECK:STDOUT:   %F: %F.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %.3: type = ptr_type %U [symbolic]
 // CHECK:STDOUT:   %.type: type = fn_type @.1, (%T, %U) [symbolic]
-// CHECK:STDOUT:   %.4: %.type = struct_value () [template]
+// CHECK:STDOUT:   %.4: %.type = struct_value () [symbolic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -165,7 +132,7 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:     .F = %F.decl
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Core: <namespace> = namespace [template] {}
-// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
+// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [symbolic = constants.%F] {
 // CHECK:STDOUT:     %T.loc4_6.1: type = param T
 // CHECK:STDOUT:     @F.%T: type = bind_symbolic_name T 0, %T.loc4_6.1 [symbolic = constants.%T]
 // CHECK:STDOUT:     %U.loc4_16.1: type = param U
@@ -174,7 +141,7 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:     %.loc4: type = ptr_type %T [symbolic = constants.%.1]
 // CHECK:STDOUT:     @F.%return: ref %.1 = var <return slot>
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [template = constants.%.4] {
+// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [symbolic = constants.%.4] {
 // CHECK:STDOUT:     %T.loc13_6.1: type = param T
 // CHECK:STDOUT:     @.1.%T: type = bind_symbolic_name T 0, %T.loc13_6.1 [symbolic = constants.%T]
 // CHECK:STDOUT:     %U.loc13_16.1: type = param U
@@ -189,9 +156,8 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @.1(%T: type, %U: type) -> %.3 {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %F.ref: %F.type = name_ref F, file.%F.decl [template = constants.%F]
+// CHECK:STDOUT:   %F.ref: %F.type = name_ref F, file.%F.decl [symbolic = constants.%F]
 // CHECK:STDOUT:   %T.ref: type = name_ref T, %T [symbolic = constants.%T]
-// CHECK:STDOUT:   %F.call: init %.1 = call %F.ref(<invalid>) [template = <error>]
 // CHECK:STDOUT:   return <error>
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -203,12 +169,12 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:   %.1: type = ptr_type %T.1 [symbolic]
 // CHECK:STDOUT:   %F.type: type = fn_type @F, (%T.1, %U.1) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %F: %F.type = struct_value () [template]
+// CHECK:STDOUT:   %F: %F.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %U.2: type = bind_symbolic_name U 0 [symbolic]
 // CHECK:STDOUT:   %T.2: type = bind_symbolic_name T 1 [symbolic]
 // CHECK:STDOUT:   %.3: type = ptr_type %T.2 [symbolic]
 // CHECK:STDOUT:   %.type: type = fn_type @.1, (%U.2, %T.2) [symbolic]
-// CHECK:STDOUT:   %.4: %.type = struct_value () [template]
+// CHECK:STDOUT:   %.4: %.type = struct_value () [symbolic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -217,7 +183,7 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:     .F = %F.decl
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Core: <namespace> = namespace [template] {}
-// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
+// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [symbolic = constants.%F] {
 // CHECK:STDOUT:     %T.loc4_6.1: type = param T
 // CHECK:STDOUT:     @F.%T: type = bind_symbolic_name T 0, %T.loc4_6.1 [symbolic = constants.%T.1]
 // CHECK:STDOUT:     %U.loc4_16.1: type = param U
@@ -226,7 +192,7 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:     %.loc4: type = ptr_type %T.1 [symbolic = constants.%.1]
 // CHECK:STDOUT:     @F.%return: ref %.1 = var <return slot>
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [template = constants.%.4] {
+// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [symbolic = constants.%.4] {
 // CHECK:STDOUT:     %U.loc13_6.1: type = param U
 // CHECK:STDOUT:     @.1.%U: type = bind_symbolic_name U 0, %U.loc13_6.1 [symbolic = constants.%U.2]
 // CHECK:STDOUT:     %T.loc13_16.1: type = param T
@@ -241,9 +207,8 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @.1(%U: type, %T: type) -> %.3 {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %F.ref: %F.type = name_ref F, file.%F.decl [template = constants.%F]
+// CHECK:STDOUT:   %F.ref: %F.type = name_ref F, file.%F.decl [symbolic = constants.%F]
 // CHECK:STDOUT:   %T.ref: type = name_ref T, %T [symbolic = constants.%T.2]
-// CHECK:STDOUT:   %F.call: init %.1 = call %F.ref(<invalid>) [template = <error>]
 // CHECK:STDOUT:   return <error>
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -255,12 +220,12 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:   %.1: type = ptr_type %T.1 [symbolic]
 // CHECK:STDOUT:   %F.type: type = fn_type @F, (%T.1, %U.1) [symbolic]
 // CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %F: %F.type = struct_value () [template]
+// CHECK:STDOUT:   %F: %F.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %U.2: type = bind_symbolic_name U 0 [symbolic]
 // CHECK:STDOUT:   %T.2: type = bind_symbolic_name T 1 [symbolic]
 // CHECK:STDOUT:   %.3: type = ptr_type %U.2 [symbolic]
 // CHECK:STDOUT:   %.type: type = fn_type @.1, (%U.2, %T.2) [symbolic]
-// CHECK:STDOUT:   %.4: %.type = struct_value () [template]
+// CHECK:STDOUT:   %.4: %.type = struct_value () [symbolic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -269,7 +234,7 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:     .F = %F.decl
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Core: <namespace> = namespace [template] {}
-// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
+// CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [symbolic = constants.%F] {
 // CHECK:STDOUT:     %T.loc4_6.1: type = param T
 // CHECK:STDOUT:     @F.%T: type = bind_symbolic_name T 0, %T.loc4_6.1 [symbolic = constants.%T.1]
 // CHECK:STDOUT:     %U.loc4_16.1: type = param U
@@ -278,13 +243,13 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:     %.loc4: type = ptr_type %T.1 [symbolic = constants.%.1]
 // CHECK:STDOUT:     @F.%return: ref %.1 = var <return slot>
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [template = constants.%.4] {
-// CHECK:STDOUT:     %U.loc13_6.1: type = param U
-// CHECK:STDOUT:     @.1.%U: type = bind_symbolic_name U 0, %U.loc13_6.1 [symbolic = constants.%U.2]
-// CHECK:STDOUT:     %T.loc13_16.1: type = param T
-// CHECK:STDOUT:     @.1.%T: type = bind_symbolic_name T 1, %T.loc13_16.1 [symbolic = constants.%T.2]
+// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [symbolic = constants.%.4] {
+// CHECK:STDOUT:     %U.loc12_6.1: type = param U
+// CHECK:STDOUT:     @.1.%U: type = bind_symbolic_name U 0, %U.loc12_6.1 [symbolic = constants.%U.2]
+// CHECK:STDOUT:     %T.loc12_16.1: type = param T
+// CHECK:STDOUT:     @.1.%T: type = bind_symbolic_name T 1, %T.loc12_16.1 [symbolic = constants.%T.2]
 // CHECK:STDOUT:     %U.ref: type = name_ref U, @.1.%U [symbolic = constants.%U.2]
-// CHECK:STDOUT:     %.loc13: type = ptr_type %U.2 [symbolic = constants.%.3]
+// CHECK:STDOUT:     %.loc12: type = ptr_type %U.2 [symbolic = constants.%.3]
 // CHECK:STDOUT:     @.1.%return: ref %.3 = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
@@ -293,9 +258,8 @@ fn F(U:! type, T:! type) -> U* {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @.1(%U: type, %T: type) -> %.3 {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %F.ref: %F.type = name_ref F, file.%F.decl [template = constants.%F]
+// CHECK:STDOUT:   %F.ref: %F.type = name_ref F, file.%F.decl [symbolic = constants.%F]
 // CHECK:STDOUT:   %T.ref: type = name_ref T, %T [symbolic = constants.%T.2]
-// CHECK:STDOUT:   %F.call: init %.1 = call %F.ref(<invalid>) [template = <error>]
 // CHECK:STDOUT:   return <error>
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

@@ -44,9 +44,9 @@ interface Outer {
 // CHECK:STDOUT:   %.4: type = interface_type @Inner [template]
 // CHECK:STDOUT:   %Self.3: %.4 = bind_symbolic_name Self 1 [symbolic]
 // CHECK:STDOUT:   %.type: type = fn_type @.1, (%Self.2, %Self.3) [symbolic]
-// CHECK:STDOUT:   %.5: %.type = struct_value () [template]
+// CHECK:STDOUT:   %.5: %.type = struct_value () [symbolic]
 // CHECK:STDOUT:   %F.type.2: type = fn_type @F.2, (%Self.2) [symbolic]
-// CHECK:STDOUT:   %F.2: %F.type.2 = struct_value () [template]
+// CHECK:STDOUT:   %F.2: %F.type.2 = struct_value () [symbolic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -71,7 +71,7 @@ interface Outer {
 // CHECK:STDOUT: interface @Outer {
 // CHECK:STDOUT:   %Self: %.3 = bind_symbolic_name Self 0 [symbolic = constants.%Self.2]
 // CHECK:STDOUT:   %Inner.decl: type = interface_decl @Inner [template = constants.%.4] {}
-// CHECK:STDOUT:   %F.decl: %F.type.2 = fn_decl @F.2 [template = constants.%F.2] {}
+// CHECK:STDOUT:   %F.decl: %F.type.2 = fn_decl @F.2 [symbolic = constants.%F.2] {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = %Self
@@ -81,7 +81,7 @@ interface Outer {
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @Inner {
 // CHECK:STDOUT:   %Self: %.4 = bind_symbolic_name Self 1 [symbolic = constants.%Self.3]
-// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [template = constants.%.5] {}
+// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [symbolic = constants.%.5] {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = %Self

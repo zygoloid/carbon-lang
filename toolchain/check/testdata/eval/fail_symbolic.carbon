@@ -24,7 +24,7 @@ fn G(N:! i32) {
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
 // CHECK:STDOUT:   %N: i32 = bind_symbolic_name N 0 [symbolic]
 // CHECK:STDOUT:   %G.type: type = fn_type @G, (%N) [symbolic]
-// CHECK:STDOUT:   %G: %G.type = struct_value () [template]
+// CHECK:STDOUT:   %G: %G.type = struct_value () [symbolic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -34,7 +34,7 @@ fn G(N:! i32) {
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Core: <namespace> = namespace [template] {}
 // CHECK:STDOUT:   %import_ref.1: %Int32.type = import_ref ir3, inst+3, loaded [template = constants.%Int32]
-// CHECK:STDOUT:   %G.decl: %G.type = fn_decl @G [template = constants.%G] {
+// CHECK:STDOUT:   %G.decl: %G.type = fn_decl @G [symbolic = constants.%G] {
 // CHECK:STDOUT:     %int.make_type_32: init type = call constants.%Int32() [template = i32]
 // CHECK:STDOUT:     %.loc12_10.1: type = value_of_initializer %int.make_type_32 [template = i32]
 // CHECK:STDOUT:     %.loc12_10.2: type = converted %int.make_type_32, %.loc12_10.1 [template = i32]
