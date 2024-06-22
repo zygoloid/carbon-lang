@@ -113,6 +113,8 @@ static auto SubstituteRegion(
     Context& context, SemIR::Generic::Region generic_region,
     Substitutions substitutions) -> SemIR::GenericInstance::Region {
   SemIR::GenericInstance::Region instance_region;
+
+  // Substitute into types.
   auto types_in_generic =
       context.inst_blocks().Get(generic_region.substituted_type_insts_id);
   llvm::SmallVector<SemIR::TypeId> types_in_instance;
@@ -126,7 +128,21 @@ static auto SubstituteRegion(
   instance_region.substituted_types_id =
       context.type_blocks().Add(types_in_instance);
 
-  // TODO: Substitute into constants.
+  // Substitute into constants.
+  auto constants_in_generic =
+      context.inst_blocks().Get(generic_region.symbolic_constant_insts_id);
+  llvm::SmallVector<SemIR::InstId> constants_in_instance;
+  constants_in_instance.reserve(constants_in_generic.size());
+  for (auto inst_id : constants_in_generic) {
+    // TODO: We do a lot of repeated work here. All subexpressions should
+    // already have been substituted.
+    constants_in_instance.push_back(
+        context.constant_values().GetInstIdIfValid(SubstConstant(
+            context, context.constant_values().Get(inst_id), substitutions)));
+  }
+  instance_region.symbolic_constant_values_id =
+      context.inst_blocks().Add(constants_in_instance);
+
   return instance_region;
 }
 

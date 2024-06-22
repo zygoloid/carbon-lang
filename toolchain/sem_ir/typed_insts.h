@@ -595,6 +595,18 @@ struct InitializeFrom {
   InstId dest_id;
 };
 
+// Given an instruction with a constant value that depends on a generic
+// parameter, selects an instance of that instruction with the constant value 
+// corresponding to a particular instance of the generic.
+struct InstanceConstant {
+  static constexpr auto Kind =
+      InstKind::InstanceConstant.Define<Parse::NodeId>("instance_constant");
+
+  TypeId type_id;
+  InstId inst_id;
+  GenericInstanceId instance_id;
+};
+
 struct InterfaceDecl {
   static constexpr auto Kind =
       InstKind::InterfaceDecl.Define<Parse::AnyInterfaceDeclId>(
