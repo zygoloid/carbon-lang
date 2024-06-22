@@ -216,8 +216,7 @@ static auto LookupMemberNameInScope(Context& context, Parse::NodeId node_id,
                                     SemIR::InstId /*base_id*/,
                                     SemIR::NameId name_id,
                                     SemIR::ConstantId name_scope_const_id,
-                                    LookupScope lookup_scope)
-    -> SemIR::InstId {
+                                    LookupScope lookup_scope) -> SemIR::InstId {
   LookupResult result = {.instance_id = SemIR::GenericInstanceId::Invalid,
                          .inst_id = SemIR::InstId::BuiltinError};
   if (lookup_scope.name_scope_id.is_valid()) {

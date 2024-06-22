@@ -76,13 +76,14 @@ struct DeductionWorklist {
     }
   }
 
-  auto AddBlock(SemIR::InstBlockId params,
-                llvm::ArrayRef<SemIR::InstId> args) -> void {
+  auto AddBlock(SemIR::InstBlockId params, llvm::ArrayRef<SemIR::InstId> args)
+      -> void {
     AddBlock(context.inst_blocks().Get(params), args);
   }
 
   auto AddBlock(SemIR::InstBlockId params, SemIR::InstBlockId args) -> void {
-    AddBlock(context.inst_blocks().Get(params), context.inst_blocks().Get(args));
+    AddBlock(context.inst_blocks().Get(params),
+             context.inst_blocks().Get(args));
   }
 
   struct PendingDeduction {
@@ -98,8 +99,8 @@ static auto DeduceGenericCallArguments(
     Context& context, Parse::NodeId node_id, SemIR::InstId decl_id,
     SemIR::GenericId generic_id, SemIR::GenericInstanceId instance_id,
     SemIR::InstBlockId implicit_params_id, SemIR::InstBlockId params_id,
-    SemIR::InstId self_id,
-    llvm::ArrayRef<SemIR::InstId> arg_ids) -> SemIR::GenericInstanceId {
+    SemIR::InstId self_id, llvm::ArrayRef<SemIR::InstId> arg_ids)
+    -> SemIR::GenericInstanceId {
   DeductionWorklist worklist = {.context = context};
 
   // TODO: Diagnostics.
@@ -169,7 +170,7 @@ static auto DeduceGenericCallArguments(
         break;
       }
 
-      // TODO: Other cases.
+        // TODO: Other cases.
 
       default:
         break;

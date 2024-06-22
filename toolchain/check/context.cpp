@@ -387,8 +387,8 @@ auto Context::LookupNameInExactScope(SemIRLoc loc, SemIR::NameId name_id,
 }
 
 auto Context::LookupQualifiedName(Parse::NodeId node_id, SemIR::NameId name_id,
-                                  LookupScope scope,
-                                  bool required) -> LookupResult {
+                                  LookupScope scope, bool required)
+    -> LookupResult {
   llvm::SmallVector<LookupScope> scopes = {scope};
   LookupResult result = {.instance_id = SemIR::GenericInstanceId::Invalid,
                          .inst_id = SemIR::InstId::Invalid};

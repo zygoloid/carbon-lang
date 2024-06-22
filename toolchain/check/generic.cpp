@@ -109,9 +109,10 @@ auto FinishGenericDefinition(Context& context, SemIR::GenericId generic_id)
       /*definition=*/true);
 }
 
-static auto SubstituteRegion(
-    Context& context, SemIR::Generic::Region generic_region,
-    Substitutions substitutions) -> SemIR::GenericInstance::Region {
+static auto SubstituteRegion(Context& context,
+                             SemIR::Generic::Region generic_region,
+                             Substitutions substitutions)
+    -> SemIR::GenericInstance::Region {
   SemIR::GenericInstance::Region instance_region;
 
   // Substitute into types.
@@ -172,8 +173,9 @@ auto MakeGenericInstance(Context& context, SemIR::GenericId generic_id,
   return instance_id;
 }
 
-auto MakeUnsubstitutedGenericInstance(
-    Context& context, SemIR::GenericId generic_id) -> SemIR::GenericInstanceId {
+auto MakeUnsubstitutedGenericInstance(Context& context,
+                                      SemIR::GenericId generic_id)
+    -> SemIR::GenericInstanceId {
   // TODO: Remove this once we import generics properly.
   if (!generic_id.is_valid()) {
     return SemIR::GenericInstanceId::Invalid;
