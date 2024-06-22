@@ -23,17 +23,13 @@ fn Run() -> i32 {
   // CHECK:STDERR:                       ^~~~~~~~
   // CHECK:STDERR:
   var v: Class(i32) = {.k = 0};
-  // CHECK:STDERR: fail_todo_use.carbon:[[@LINE+10]]:3: ERROR: Cannot implicitly convert from `i32*` to `i32`.
-  // CHECK:STDERR:   return v.Get();
-  // CHECK:STDERR:   ^~~~~~~~~~~~~~~
-  // CHECK:STDERR:
-  // CHECK:STDERR: fail_todo_use.carbon:[[@LINE+6]]:10: ERROR: Cannot implicitly convert from `Class*` to `Class*`.
-  // CHECK:STDERR:   return v.Get();
-  // CHECK:STDERR:          ^~~~~~
-  // CHECK:STDERR: fail_todo_use.carbon:[[@LINE-21]]:15: Initializing `addr self` parameter of method declared here.
+  // CHECK:STDERR: fail_todo_use.carbon:[[@LINE+6]]:11: ERROR: Cannot implicitly convert from `Class*` to `Class*`.
+  // CHECK:STDERR:   return *v.Get();
+  // CHECK:STDERR:           ^~~~~~
+  // CHECK:STDERR: fail_todo_use.carbon:[[@LINE-17]]:15: Initializing `addr self` parameter of method declared here.
   // CHECK:STDERR:   fn Get[addr self: Self*]() -> T* {
   // CHECK:STDERR:               ^~~~
-  return v.Get();
+  return *v.Get();
 }
 
 // CHECK:STDOUT: --- fail_todo_use.carbon
@@ -133,11 +129,15 @@ fn Run() -> i32 {
 // CHECK:STDOUT:   %.loc25_30: %.11 = struct_literal (%.loc25_29)
 // CHECK:STDOUT:   assign %v.var, <error>
 // CHECK:STDOUT:   %v.ref: ref %Class.3 = name_ref v, %v
-// CHECK:STDOUT:   %.loc36_11.1: %Get.type.2 = instance_constant @Class.%Get.decl, (i32) [template = constants.%Get.2]
-// CHECK:STDOUT:   %Get.ref: %Get.type.2 = name_ref Get, %.loc36_11.1 [template = constants.%Get.2]
-// CHECK:STDOUT:   %.loc36_11.2: <bound method> = bound_method %v.ref, %Get.ref
-// CHECK:STDOUT:   %.loc36_10: %.7 = addr_of %v.ref
-// CHECK:STDOUT:   %Get.call: init %.8 = call %.loc36_11.2(<invalid>) [template = <error>]
-// CHECK:STDOUT:   return <error>
+// CHECK:STDOUT:   %.loc32_12.1: %Get.type.2 = instance_constant @Class.%Get.decl, (i32) [template = constants.%Get.2]
+// CHECK:STDOUT:   %Get.ref: %Get.type.2 = name_ref Get, %.loc32_12.1 [template = constants.%Get.2]
+// CHECK:STDOUT:   %.loc32_12.2: <bound method> = bound_method %v.ref, %Get.ref
+// CHECK:STDOUT:   %.loc32_11: %.7 = addr_of %v.ref
+// CHECK:STDOUT:   %Get.call: init %.8 = call %.loc32_12.2(<invalid>) [template = <error>]
+// CHECK:STDOUT:   %.loc32_16.1: %.8 = value_of_initializer %Get.call [template = <error>]
+// CHECK:STDOUT:   %.loc32_16.2: %.8 = converted %Get.call, %.loc32_16.1 [template = <error>]
+// CHECK:STDOUT:   %.loc32_10.1: ref i32 = deref %.loc32_16.2
+// CHECK:STDOUT:   %.loc32_10.2: i32 = bind_value %.loc32_10.1
+// CHECK:STDOUT:   return %.loc32_10.2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
