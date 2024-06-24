@@ -13,6 +13,8 @@
 #include "toolchain/check/context.h"
 #include "toolchain/sem_ir/copy_on_write_block.h"
 #include "toolchain/sem_ir/file.h"
+#include "toolchain/sem_ir/generic.h"
+#include "toolchain/sem_ir/ids.h"
 #include "toolchain/sem_ir/inst.h"
 #include "toolchain/sem_ir/typed_insts.h"
 
@@ -1114,6 +1116,7 @@ CARBON_DIAGNOSTIC(InCallToFunction, Note, "Calling function declared here.");
 // Convert the object argument in a method call to match the `self` parameter.
 static auto ConvertSelf(Context& context, SemIR::LocId call_loc_id,
                         SemIR::InstId callee_id,
+                        SemIR::GenericInstanceId callee_instance_id,
                         std::optional<SemIR::AddrPattern> addr_pattern,
                         SemIR::InstId self_param_id, SemIR::Param self_param,
                         SemIR::InstId self_id) -> SemIR::InstId {
@@ -1160,14 +1163,17 @@ static auto ConvertSelf(Context& context, SemIR::LocId call_loc_id,
                  .lvalue_id = self_or_addr_id});
   }
 
-  return ConvertToValueOfType(context, call_loc_id, self_or_addr_id,
-                              self_param.type_id);
+  return ConvertToValueOfType(
+      context, call_loc_id, self_or_addr_id,
+      SemIR::GetTypeInstance(context.sem_ir(), callee_instance_id,
+                             self_param.type_id));
 }
 
 auto ConvertCallArgs(Context& context, SemIR::LocId call_loc_id,
                      SemIR::InstId self_id,
                      llvm::ArrayRef<SemIR::InstId> arg_refs,
                      SemIR::InstId return_storage_id, SemIR::InstId callee_id,
+                     SemIR::GenericInstanceId callee_instance_id,
                      SemIR::InstBlockId implicit_param_refs_id,
                      SemIR::InstBlockId param_refs_id) -> SemIR::InstBlockId {
   auto implicit_param_refs =
@@ -1201,8 +1207,8 @@ auto ConvertCallArgs(Context& context, SemIR::LocId call_loc_id,
         context.sem_ir(), implicit_param_id);
     if (param.name_id == SemIR::NameId::SelfValue) {
       auto converted_self_id =
-          ConvertSelf(context, call_loc_id, callee_id, addr_pattern, param_id,
-                      param, self_id);
+          ConvertSelf(context, call_loc_id, callee_id, callee_instance_id,
+                      addr_pattern, param_id, param, self_id);
       if (converted_self_id == SemIR::InstId::BuiltinError) {
         return SemIR::InstBlockId::Invalid;
       }
@@ -1227,7 +1233,9 @@ auto ConvertCallArgs(Context& context, SemIR::LocId call_loc_id,
   for (auto [i, arg_id, param_id] : llvm::enumerate(arg_refs, param_refs)) {
     diag_param_index = i;
 
-    auto param_type_id = context.insts().Get(param_id).type_id();
+    auto param_type_id =
+        SemIR::GetTypeInstance(context.sem_ir(), callee_instance_id,
+                               context.insts().Get(param_id).type_id());
     // TODO: Convert to the proper expression category. For now, we assume
     // parameters are all `let` bindings.
     auto converted_arg_id =

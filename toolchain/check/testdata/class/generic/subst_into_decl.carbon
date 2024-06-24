@@ -19,12 +19,6 @@ fn F(x: Class(i32)) -> i32 {
 }
 
 fn G(x: Class(i32)) -> i32 {
-  // CHECK:STDERR: subst_into_decl.carbon:[[@LINE+6]]:10: ERROR: Cannot implicitly convert from `Class` to `Class`.
-  // CHECK:STDERR:   return x.Get();
-  // CHECK:STDERR:          ^~~~~~
-  // CHECK:STDERR: subst_into_decl.carbon:[[@LINE-11]]:10: Initializing `self` parameter of method declared here.
-  // CHECK:STDERR:   fn Get[self: Self]() -> T { return self.x; }
-  // CHECK:STDERR:          ^~~~
   return x.Get();
 }
 
@@ -144,9 +138,9 @@ fn G(x: Class(i32)) -> i32 {
 // CHECK:STDOUT:   %.loc28_11.1: %Get.type.2 = instance_constant @Class.%Get.decl, (i32) [template = constants.%Get.2]
 // CHECK:STDOUT:   %Get.ref: %Get.type.2 = name_ref Get, %.loc28_11.1 [template = constants.%Get.2]
 // CHECK:STDOUT:   %.loc28_11.2: <bound method> = bound_method %x.ref, %Get.ref
-// CHECK:STDOUT:   %Get.call: init i32 = call %.loc28_11.2(<invalid>) [template = <error>]
-// CHECK:STDOUT:   %.loc28_17.1: i32 = value_of_initializer %Get.call [template = <error>]
-// CHECK:STDOUT:   %.loc28_17.2: i32 = converted %Get.call, %.loc28_17.1 [template = <error>]
+// CHECK:STDOUT:   %Get.call: init i32 = call %.loc28_11.2(%x.ref)
+// CHECK:STDOUT:   %.loc28_17.1: i32 = value_of_initializer %Get.call
+// CHECK:STDOUT:   %.loc28_17.2: i32 = converted %Get.call, %.loc28_17.1
 // CHECK:STDOUT:   return %.loc28_17.2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
