@@ -248,17 +248,21 @@ auto InstNamer::Namespace::AllocateName(const InstNamer& inst_namer,
   // TODO: Consider handling inst_id cases.
   if (loc_id.is_node_id()) {
     auto token = inst_namer.parse_tree_.node_token(loc_id.node_id());
-    llvm::raw_string_ostream(name)
-        << ".loc" << inst_namer.tokenized_buffer_.GetLineNumber(token);
+    auto out = llvm::raw_string_ostream(name);
+    if (!name.empty()) {
+      out << ".";
+    }
+    out << "loc" << inst_namer.tokenized_buffer_.GetLineNumber(token);
     add_name();
 
-    llvm::raw_string_ostream(name)
-        << "_" << inst_namer.tokenized_buffer_.GetColumnNumber(token);
+    out << "_" << inst_namer.tokenized_buffer_.GetColumnNumber(token);
     add_name();
   }
 
   // Append numbers until we find an available name.
-  name += ".";
+  if (!name.empty()) {
+    name += ".";
+  }
   auto name_size_without_counter = name.size();
   for (int counter = 1;; ++counter) {
     name.resize(name_size_without_counter);
