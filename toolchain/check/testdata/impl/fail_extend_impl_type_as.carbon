@@ -42,14 +42,14 @@ class E {
 // CHECK:STDOUT: --- fail_extend_impl_type_as.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = interface_type @I [template]
-// CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic]
+// CHECK:STDOUT:   %1: type = interface_type @I [template]
+// CHECK:STDOUT:   %Self: %1 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %C: type = class_type @C [template]
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: <witness> = interface_witness () [template]
-// CHECK:STDOUT:   %.4: type = struct_type {} [template]
+// CHECK:STDOUT:   %3: <witness> = interface_witness () [template]
+// CHECK:STDOUT:   %4: type = struct_type {} [template]
 // CHECK:STDOUT:   %D: type = class_type @D [template]
 // CHECK:STDOUT:   %E: type = class_type @E [template]
 // CHECK:STDOUT: }
@@ -76,42 +76,42 @@ class E {
 // CHECK:STDOUT:     import Core//prelude/operators/comparison
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %I.decl: type = interface_decl @I [template = constants.%.1] {}
+// CHECK:STDOUT:   %I.decl: type = interface_decl @I [template = constants.%1] {}
 // CHECK:STDOUT:   %C.decl: type = class_decl @C [template = constants.%C] {}
 // CHECK:STDOUT:   %D.decl: type = class_decl @D [template = constants.%D] {}
 // CHECK:STDOUT:   %E.decl: type = class_decl @E [template = constants.%E] {}
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @I {
-// CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic = constants.%Self]
+// CHECK:STDOUT:   %Self: %1 = bind_symbolic_name Self 0 [symbolic = constants.%Self]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = %Self
 // CHECK:STDOUT:   witness = ()
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: impl @impl.1: i32 as %.1 {
-// CHECK:STDOUT:   %.1: <witness> = interface_witness () [template = constants.%.3]
+// CHECK:STDOUT: impl @impl.1: i32 as %1 {
+// CHECK:STDOUT:   %1: <witness> = interface_witness () [template = constants.%3]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
-// CHECK:STDOUT:   witness = %.1
+// CHECK:STDOUT:   witness = %1
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: impl @impl.2: %D as %.1;
+// CHECK:STDOUT: impl @impl.2: %D as %1;
 // CHECK:STDOUT:
-// CHECK:STDOUT: impl @impl.3: %E as %.1 {
-// CHECK:STDOUT:   %.1: <witness> = interface_witness () [template = constants.%.3]
+// CHECK:STDOUT: impl @impl.3: %E as %1 {
+// CHECK:STDOUT:   %1: <witness> = interface_witness () [template = constants.%3]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
-// CHECK:STDOUT:   witness = %.1
+// CHECK:STDOUT:   witness = %1
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @C {
 // CHECK:STDOUT:   impl_decl @impl.1 {
 // CHECK:STDOUT:     %int.make_type_32: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc18_15.1: type = value_of_initializer %int.make_type_32 [template = i32]
-// CHECK:STDOUT:     %.loc18_15.2: type = converted %int.make_type_32, %.loc18_15.1 [template = i32]
-// CHECK:STDOUT:     %I.ref: type = name_ref I, file.%I.decl [template = constants.%.1]
+// CHECK:STDOUT:     %loc18_15.1: type = value_of_initializer %int.make_type_32 [template = i32]
+// CHECK:STDOUT:     %loc18_15.2: type = converted %int.make_type_32, %loc18_15.1 [template = i32]
+// CHECK:STDOUT:     %I.ref: type = name_ref I, file.%I.decl [template = constants.%1]
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
@@ -122,7 +122,7 @@ class E {
 // CHECK:STDOUT: class @D {
 // CHECK:STDOUT:   impl_decl @impl.2 {
 // CHECK:STDOUT:     %D.ref: type = name_ref D, file.%D.decl [template = constants.%D]
-// CHECK:STDOUT:     %I.ref: type = name_ref I, file.%I.decl [template = constants.%.1]
+// CHECK:STDOUT:     %I.ref: type = name_ref I, file.%I.decl [template = constants.%1]
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
@@ -133,7 +133,7 @@ class E {
 // CHECK:STDOUT: class @E {
 // CHECK:STDOUT:   impl_decl @impl.3 {
 // CHECK:STDOUT:     %Self.ref: type = name_ref Self, constants.%E [template = constants.%E]
-// CHECK:STDOUT:     %I.ref: type = name_ref I, file.%I.decl [template = constants.%.1]
+// CHECK:STDOUT:     %I.ref: type = name_ref I, file.%I.decl [template = constants.%1]
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:

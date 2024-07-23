@@ -21,12 +21,12 @@ fn Class.F[self: Self](b: bool) {}
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Class: type = class_type @Class [template]
 // CHECK:STDOUT:   %Bool.type: type = fn_type @Bool [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Bool: %Bool.type = struct_value () [template]
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: type = struct_type {} [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.2 [template]
+// CHECK:STDOUT:   %2: type = struct_type {} [template]
+// CHECK:STDOUT:   %3: type = ptr_type %2 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -56,8 +56,8 @@ fn Class.F[self: Self](b: bool) {}
 // CHECK:STDOUT:     %self.loc17_12.1: %Class = param self
 // CHECK:STDOUT:     @F.%self: %Class = bind_name self, %self.loc17_12.1
 // CHECK:STDOUT:     %bool.make_type: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc17_27.1: type = value_of_initializer %bool.make_type [template = bool]
-// CHECK:STDOUT:     %.loc17_27.2: type = converted %bool.make_type, %.loc17_27.1 [template = bool]
+// CHECK:STDOUT:     %loc17_27.1: type = value_of_initializer %bool.make_type [template = bool]
+// CHECK:STDOUT:     %loc17_27.2: type = converted %bool.make_type, %loc17_27.1 [template = bool]
 // CHECK:STDOUT:     %b.loc17_24.1: bool = param b
 // CHECK:STDOUT:     @F.%b: bool = bind_name b, %b.loc17_24.1
 // CHECK:STDOUT:   }
@@ -69,8 +69,8 @@ fn Class.F[self: Self](b: bool) {}
 // CHECK:STDOUT:     %self.loc14_8.1: %Class = param self
 // CHECK:STDOUT:     %self.loc14_8.2: %Class = bind_name self, %self.loc14_8.1
 // CHECK:STDOUT:     %bool.make_type: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc14_23.1: type = value_of_initializer %bool.make_type [template = bool]
-// CHECK:STDOUT:     %.loc14_23.2: type = converted %bool.make_type, %.loc14_23.1 [template = bool]
+// CHECK:STDOUT:     %loc14_23.1: type = value_of_initializer %bool.make_type [template = bool]
+// CHECK:STDOUT:     %loc14_23.2: type = converted %bool.make_type, %loc14_23.1 [template = bool]
 // CHECK:STDOUT:     %b.loc14_20.1: bool = param b
 // CHECK:STDOUT:     %b.loc14_20.2: bool = bind_name b, %b.loc14_20.1
 // CHECK:STDOUT:   }

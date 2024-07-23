@@ -105,7 +105,7 @@ class B {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -130,7 +130,7 @@ class B {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -149,7 +149,7 @@ class B {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -175,7 +175,7 @@ class B {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -194,8 +194,8 @@ class B {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
-// CHECK:STDOUT:   %.2: type = class_type @.1 [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
+// CHECK:STDOUT:   %2: type = class_type @1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -209,7 +209,7 @@ class B {}
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %default.import.loc2_6.1 = import <invalid>
 // CHECK:STDOUT:   %default.import.loc2_6.2 = import <invalid>
-// CHECK:STDOUT:   %.decl: type = class_decl @.1 [template = constants.%.2] {}
+// CHECK:STDOUT:   %.decl: type = class_decl @1 [template = constants.%2] {}
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @C {
@@ -217,9 +217,9 @@ class B {}
 // CHECK:STDOUT:   .Self = imports.%import_ref.2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: class @.1 {
+// CHECK:STDOUT: class @1 {
 // CHECK:STDOUT: !members:
-// CHECK:STDOUT:   .Self = constants.%.2
+// CHECK:STDOUT:   .Self = constants.%2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: --- def_alias.carbon
@@ -244,8 +244,8 @@ class B {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = class_type @.1 [template]
-// CHECK:STDOUT:   %.2: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = class_type @1 [template]
+// CHECK:STDOUT:   %2: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -260,13 +260,13 @@ class B {}
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %default.import.loc2_6.1 = import <invalid>
 // CHECK:STDOUT:   %default.import.loc2_6.2 = import <invalid>
-// CHECK:STDOUT:   %.decl: type = class_decl @.1 [template = constants.%.1] {}
+// CHECK:STDOUT:   %.decl: type = class_decl @1 [template = constants.%1] {}
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @C;
 // CHECK:STDOUT:
-// CHECK:STDOUT: class @.1 {
+// CHECK:STDOUT: class @1 {
 // CHECK:STDOUT: !members:
-// CHECK:STDOUT:   .Self = constants.%.1
+// CHECK:STDOUT:   .Self = constants.%1
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

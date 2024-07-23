@@ -27,7 +27,7 @@ fn Main() {
 // CHECK:STDOUT: entry:
 // CHECK:STDOUT:   %a.var = alloca i32, align 4
 // CHECK:STDOUT:   store i32 0, ptr %a.var, align 4
-// CHECK:STDOUT:   %.loc15 = load i32, ptr %a.var, align 4
-// CHECK:STDOUT:   call void @DoNothing(i32 %.loc15)
+// CHECK:STDOUT:   %loc15 = load i32, ptr %a.var, align 4
+// CHECK:STDOUT:   call void @DoNothing(i32 %loc15)
 // CHECK:STDOUT:   ret void
 // CHECK:STDOUT: }

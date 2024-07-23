@@ -23,14 +23,14 @@ let b: B = C.base;
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %B: type = class_type @B [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
-// CHECK:STDOUT:   %.4: type = unbound_element_type %C, %B [template]
-// CHECK:STDOUT:   %.5: type = struct_type {.base: %B} [template]
-// CHECK:STDOUT:   %.6: type = struct_type {.base: %.3} [template]
-// CHECK:STDOUT:   %.7: type = ptr_type %.5 [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
+// CHECK:STDOUT:   %4: type = unbound_element_type %C, %B [template]
+// CHECK:STDOUT:   %5: type = struct_type {.base: %B} [template]
+// CHECK:STDOUT:   %6: type = struct_type {.base: %3} [template]
+// CHECK:STDOUT:   %7: type = ptr_type %5 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -62,18 +62,18 @@ let b: B = C.base;
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @C {
 // CHECK:STDOUT:   %B.ref: type = name_ref B, file.%B.decl [template = constants.%B]
-// CHECK:STDOUT:   %.loc14: %.4 = base_decl %B, element0 [template]
+// CHECK:STDOUT:   %loc14: %4 = base_decl %B, element0 [template]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = constants.%C
-// CHECK:STDOUT:   .base = %.loc14
+// CHECK:STDOUT:   .base = %loc14
 // CHECK:STDOUT:   extend name_scope2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %C.ref: type = name_ref C, file.%C.decl [template = constants.%C]
-// CHECK:STDOUT:   %base.ref: %.4 = name_ref base, @C.%.loc14 [template = @C.%.loc14]
+// CHECK:STDOUT:   %base.ref: %4 = name_ref base, @C.%loc14 [template = @C.%loc14]
 // CHECK:STDOUT:   %b: %B = bind_name b, <error>
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }

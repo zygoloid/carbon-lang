@@ -83,11 +83,11 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
-// CHECK:STDOUT:   %.2: type = interface_type @Eq [template]
-// CHECK:STDOUT:   %Self: %.2 = bind_symbolic_name Self 0 [symbolic]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
+// CHECK:STDOUT:   %2: type = interface_type @Eq [template]
+// CHECK:STDOUT:   %Self: %2 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %Bool.type: type = fn_type @Bool [template]
-// CHECK:STDOUT:   %.3: type = tuple_type () [template]
+// CHECK:STDOUT:   %3: type = tuple_type () [template]
 // CHECK:STDOUT:   %Bool: %Bool.type = struct_value () [template]
 // CHECK:STDOUT:   %Equal.type.1: type = fn_type @Equal.1 [template]
 // CHECK:STDOUT:   %Equal.1: %Equal.type.1 = struct_value () [template]
@@ -97,32 +97,32 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:   %Equal.2: %Equal.type.2 = struct_value () [template]
 // CHECK:STDOUT:   %NotEqual.type.2: type = fn_type @NotEqual.2 [template]
 // CHECK:STDOUT:   %NotEqual.2: %NotEqual.type.2 = struct_value () [template]
-// CHECK:STDOUT:   %.4: <witness> = interface_witness (%Equal.1, %NotEqual.1) [template]
+// CHECK:STDOUT:   %4: <witness> = interface_witness (%Equal.1, %NotEqual.1) [template]
 // CHECK:STDOUT:   %TestEqual.type: type = fn_type @TestEqual [template]
 // CHECK:STDOUT:   %TestEqual: %TestEqual.type = struct_value () [template]
-// CHECK:STDOUT:   %.5: type = ptr_type %.1 [template]
-// CHECK:STDOUT:   %.6: type = assoc_entity_type @Eq, %Equal.type.2 [template]
-// CHECK:STDOUT:   %.7: %.6 = assoc_entity element0, imports.%import_ref.11 [template]
+// CHECK:STDOUT:   %5: type = ptr_type %1 [template]
+// CHECK:STDOUT:   %6: type = assoc_entity_type @Eq, %Equal.type.2 [template]
+// CHECK:STDOUT:   %7: %6 = assoc_entity element0, imports.%import_ref.11 [template]
 // CHECK:STDOUT:   %TestNotEqual.type: type = fn_type @TestNotEqual [template]
 // CHECK:STDOUT:   %TestNotEqual: %TestNotEqual.type = struct_value () [template]
-// CHECK:STDOUT:   %.8: type = assoc_entity_type @Eq, %NotEqual.type.2 [template]
-// CHECK:STDOUT:   %.9: %.8 = assoc_entity element1, imports.%import_ref.14 [template]
+// CHECK:STDOUT:   %8: type = assoc_entity_type @Eq, %NotEqual.type.2 [template]
+// CHECK:STDOUT:   %9: %8 = assoc_entity element1, imports.%import_ref.14 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
-// CHECK:STDOUT:   %import_ref.1: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%.2]
+// CHECK:STDOUT:   %import_ref.1: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%2]
 // CHECK:STDOUT:   %import_ref.2 = import_ref Core//prelude/operators/comparison, inst+5, unloaded
-// CHECK:STDOUT:   %import_ref.3: %.6 = import_ref Core//prelude/operators/comparison, inst+31, loaded [template = constants.%.7]
-// CHECK:STDOUT:   %import_ref.4: %.8 = import_ref Core//prelude/operators/comparison, inst+52, loaded [template = constants.%.9]
+// CHECK:STDOUT:   %import_ref.3: %6 = import_ref Core//prelude/operators/comparison, inst+31, loaded [template = constants.%7]
+// CHECK:STDOUT:   %import_ref.4: %8 = import_ref Core//prelude/operators/comparison, inst+52, loaded [template = constants.%9]
 // CHECK:STDOUT:   %import_ref.5: %Equal.type.2 = import_ref Core//prelude/operators/comparison, inst+26, loaded [template = constants.%Equal.2]
 // CHECK:STDOUT:   %import_ref.6: %NotEqual.type.2 = import_ref Core//prelude/operators/comparison, inst+47, loaded [template = constants.%NotEqual.2]
 // CHECK:STDOUT:   %import_ref.7: %Bool.type = import_ref Core//prelude/types/bool, inst+2, loaded [template = constants.%Bool]
 // CHECK:STDOUT:   %import_ref.8: %Bool.type = import_ref Core//prelude/types/bool, inst+2, loaded [template = constants.%Bool]
 // CHECK:STDOUT:   %import_ref.9: %Bool.type = import_ref Core//prelude/types/bool, inst+2, loaded [template = constants.%Bool]
-// CHECK:STDOUT:   %import_ref.10: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%.2]
+// CHECK:STDOUT:   %import_ref.10: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%2]
 // CHECK:STDOUT:   %import_ref.11 = import_ref Core//prelude/operators/comparison, inst+26, unloaded
 // CHECK:STDOUT:   %import_ref.12: %Bool.type = import_ref Core//prelude/types/bool, inst+2, loaded [template = constants.%Bool]
-// CHECK:STDOUT:   %import_ref.13: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%.2]
+// CHECK:STDOUT:   %import_ref.13: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%2]
 // CHECK:STDOUT:   %import_ref.14 = import_ref Core//prelude/operators/comparison, inst+47, unloaded
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -147,7 +147,7 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:   impl_decl @impl {
 // CHECK:STDOUT:     %C.ref.loc6: type = name_ref C, %C.decl [template = constants.%C]
 // CHECK:STDOUT:     %Core.ref: <namespace> = name_ref Core, %Core [template = %Core]
-// CHECK:STDOUT:     %Eq.ref: type = name_ref Eq, imports.%import_ref.1 [template = constants.%.2]
+// CHECK:STDOUT:     %Eq.ref: type = name_ref Eq, imports.%import_ref.1 [template = constants.%2]
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %TestEqual.decl: %TestEqual.type = fn_decl @TestEqual [template = constants.%TestEqual] {
 // CHECK:STDOUT:     %C.ref.loc11_17: type = name_ref C, %C.decl [template = constants.%C]
@@ -157,8 +157,8 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:     %b.loc11_20.1: %C = param b
 // CHECK:STDOUT:     @TestEqual.%b: %C = bind_name b, %b.loc11_20.1
 // CHECK:STDOUT:     %bool.make_type.loc11: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc11_29.1: type = value_of_initializer %bool.make_type.loc11 [template = bool]
-// CHECK:STDOUT:     %.loc11_29.2: type = converted %bool.make_type.loc11, %.loc11_29.1 [template = bool]
+// CHECK:STDOUT:     %loc11_29.1: type = value_of_initializer %bool.make_type.loc11 [template = bool]
+// CHECK:STDOUT:     %loc11_29.2: type = converted %bool.make_type.loc11, %loc11_29.1 [template = bool]
 // CHECK:STDOUT:     @TestEqual.%return: ref bool = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %TestNotEqual.decl: %TestNotEqual.type = fn_decl @TestNotEqual [template = constants.%TestNotEqual] {
@@ -169,8 +169,8 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:     %b.loc15_23.1: %C = param b
 // CHECK:STDOUT:     @TestNotEqual.%b: %C = bind_name b, %b.loc15_23.1
 // CHECK:STDOUT:     %bool.make_type.loc15: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc15_32.1: type = value_of_initializer %bool.make_type.loc15 [template = bool]
-// CHECK:STDOUT:     %.loc15_32.2: type = converted %bool.make_type.loc15, %.loc15_32.1 [template = bool]
+// CHECK:STDOUT:     %loc15_32.1: type = value_of_initializer %bool.make_type.loc15 [template = bool]
+// CHECK:STDOUT:     %loc15_32.2: type = converted %bool.make_type.loc15, %loc15_32.1 [template = bool]
 // CHECK:STDOUT:     @TestNotEqual.%return: ref bool = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
@@ -183,7 +183,7 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:   witness = (imports.%import_ref.5, imports.%import_ref.6)
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: impl @impl: %C as %.2 {
+// CHECK:STDOUT: impl @impl: %C as %2 {
 // CHECK:STDOUT:   %Equal.decl: %Equal.type.1 = fn_decl @Equal.1 [template = constants.%Equal.1] {
 // CHECK:STDOUT:     %C.ref.loc7_18: type = name_ref C, file.%C.decl [template = constants.%C]
 // CHECK:STDOUT:     %self.loc7_12.1: %C = param self
@@ -192,8 +192,8 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:     %other.loc7_21.1: %C = param other
 // CHECK:STDOUT:     %other.loc7_21.2: %C = bind_name other, %other.loc7_21.1
 // CHECK:STDOUT:     %bool.make_type.loc7: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc7_34.1: type = value_of_initializer %bool.make_type.loc7 [template = bool]
-// CHECK:STDOUT:     %.loc7_34.2: type = converted %bool.make_type.loc7, %.loc7_34.1 [template = bool]
+// CHECK:STDOUT:     %loc7_34.1: type = value_of_initializer %bool.make_type.loc7 [template = bool]
+// CHECK:STDOUT:     %loc7_34.2: type = converted %bool.make_type.loc7, %loc7_34.1 [template = bool]
 // CHECK:STDOUT:     %return.var.loc7: ref bool = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %NotEqual.decl: %NotEqual.type.1 = fn_decl @NotEqual.1 [template = constants.%NotEqual.1] {
@@ -204,16 +204,16 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:     %other.loc8_24.1: %C = param other
 // CHECK:STDOUT:     %other.loc8_24.2: %C = bind_name other, %other.loc8_24.1
 // CHECK:STDOUT:     %bool.make_type.loc8: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc8_37.1: type = value_of_initializer %bool.make_type.loc8 [template = bool]
-// CHECK:STDOUT:     %.loc8_37.2: type = converted %bool.make_type.loc8, %.loc8_37.1 [template = bool]
+// CHECK:STDOUT:     %loc8_37.1: type = value_of_initializer %bool.make_type.loc8 [template = bool]
+// CHECK:STDOUT:     %loc8_37.2: type = converted %bool.make_type.loc8, %loc8_37.1 [template = bool]
 // CHECK:STDOUT:     %return.var.loc8: ref bool = var <return slot>
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.1: <witness> = interface_witness (%Equal.decl, %NotEqual.decl) [template = constants.%.4]
+// CHECK:STDOUT:   %1: <witness> = interface_witness (%Equal.decl, %NotEqual.decl) [template = constants.%4]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Equal = %Equal.decl
 // CHECK:STDOUT:   .NotEqual = %NotEqual.decl
-// CHECK:STDOUT:   witness = %.1
+// CHECK:STDOUT:   witness = %1
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @C {
@@ -235,62 +235,62 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %a.ref: %C = name_ref a, %a
 // CHECK:STDOUT:   %b.ref: %C = name_ref b, %b
-// CHECK:STDOUT:   %.1: %Equal.type.2 = interface_witness_access @impl.%.1, element0 [template = constants.%Equal.1]
-// CHECK:STDOUT:   %.loc12_12: <bound method> = bound_method %a.ref, %.1
-// CHECK:STDOUT:   %Equal.call: init bool = call %.loc12_12(%a.ref, %b.ref)
-// CHECK:STDOUT:   %.loc12_16.1: bool = value_of_initializer %Equal.call
-// CHECK:STDOUT:   %.loc12_16.2: bool = converted %Equal.call, %.loc12_16.1
-// CHECK:STDOUT:   return %.loc12_16.2
+// CHECK:STDOUT:   %1: %Equal.type.2 = interface_witness_access @impl.%1, element0 [template = constants.%Equal.1]
+// CHECK:STDOUT:   %loc12_12: <bound method> = bound_method %a.ref, %1
+// CHECK:STDOUT:   %Equal.call: init bool = call %loc12_12(%a.ref, %b.ref)
+// CHECK:STDOUT:   %loc12_16.1: bool = value_of_initializer %Equal.call
+// CHECK:STDOUT:   %loc12_16.2: bool = converted %Equal.call, %loc12_16.1
+// CHECK:STDOUT:   return %loc12_16.2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @TestNotEqual(%a: %C, %b: %C) -> bool {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %a.ref: %C = name_ref a, %a
 // CHECK:STDOUT:   %b.ref: %C = name_ref b, %b
-// CHECK:STDOUT:   %.1: %NotEqual.type.2 = interface_witness_access @impl.%.1, element1 [template = constants.%NotEqual.1]
-// CHECK:STDOUT:   %.loc16_12: <bound method> = bound_method %a.ref, %.1
-// CHECK:STDOUT:   %NotEqual.call: init bool = call %.loc16_12(%a.ref, %b.ref)
-// CHECK:STDOUT:   %.loc16_16.1: bool = value_of_initializer %NotEqual.call
-// CHECK:STDOUT:   %.loc16_16.2: bool = converted %NotEqual.call, %.loc16_16.1
-// CHECK:STDOUT:   return %.loc16_16.2
+// CHECK:STDOUT:   %1: %NotEqual.type.2 = interface_witness_access @impl.%1, element1 [template = constants.%NotEqual.1]
+// CHECK:STDOUT:   %loc16_12: <bound method> = bound_method %a.ref, %1
+// CHECK:STDOUT:   %NotEqual.call: init bool = call %loc16_12(%a.ref, %b.ref)
+// CHECK:STDOUT:   %loc16_16.1: bool = value_of_initializer %NotEqual.call
+// CHECK:STDOUT:   %loc16_16.2: bool = converted %NotEqual.call, %loc16_16.1
+// CHECK:STDOUT:   return %loc16_16.2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: --- fail_no_impl.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %D: type = class_type @D [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Bool.type: type = fn_type @Bool [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Bool: %Bool.type = struct_value () [template]
 // CHECK:STDOUT:   %TestEqual.type: type = fn_type @TestEqual [template]
 // CHECK:STDOUT:   %TestEqual: %TestEqual.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
-// CHECK:STDOUT:   %.4: type = interface_type @Eq [template]
-// CHECK:STDOUT:   %Self: %.4 = bind_symbolic_name Self 0 [symbolic]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
+// CHECK:STDOUT:   %4: type = interface_type @Eq [template]
+// CHECK:STDOUT:   %Self: %4 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %Equal.type: type = fn_type @Equal [template]
 // CHECK:STDOUT:   %Equal: %Equal.type = struct_value () [template]
-// CHECK:STDOUT:   %.5: type = assoc_entity_type @Eq, %Equal.type [template]
-// CHECK:STDOUT:   %.6: %.5 = assoc_entity element0, imports.%import_ref.8 [template]
+// CHECK:STDOUT:   %5: type = assoc_entity_type @Eq, %Equal.type [template]
+// CHECK:STDOUT:   %6: %5 = assoc_entity element0, imports.%import_ref.8 [template]
 // CHECK:STDOUT:   %TestNotEqual.type: type = fn_type @TestNotEqual [template]
 // CHECK:STDOUT:   %TestNotEqual: %TestNotEqual.type = struct_value () [template]
 // CHECK:STDOUT:   %NotEqual.type: type = fn_type @NotEqual [template]
 // CHECK:STDOUT:   %NotEqual: %NotEqual.type = struct_value () [template]
-// CHECK:STDOUT:   %.7: type = assoc_entity_type @Eq, %NotEqual.type [template]
-// CHECK:STDOUT:   %.8: %.7 = assoc_entity element1, imports.%import_ref.11 [template]
+// CHECK:STDOUT:   %7: type = assoc_entity_type @Eq, %NotEqual.type [template]
+// CHECK:STDOUT:   %8: %7 = assoc_entity element1, imports.%import_ref.11 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
 // CHECK:STDOUT:   %import_ref.1: %Bool.type = import_ref Core//prelude/types/bool, inst+2, loaded [template = constants.%Bool]
-// CHECK:STDOUT:   %import_ref.2: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%.4]
+// CHECK:STDOUT:   %import_ref.2: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%4]
 // CHECK:STDOUT:   %import_ref.3 = import_ref Core//prelude/operators/comparison, inst+5, unloaded
-// CHECK:STDOUT:   %import_ref.4: %.5 = import_ref Core//prelude/operators/comparison, inst+31, loaded [template = constants.%.6]
-// CHECK:STDOUT:   %import_ref.5: %.7 = import_ref Core//prelude/operators/comparison, inst+52, loaded [template = constants.%.8]
+// CHECK:STDOUT:   %import_ref.4: %5 = import_ref Core//prelude/operators/comparison, inst+31, loaded [template = constants.%6]
+// CHECK:STDOUT:   %import_ref.5: %7 = import_ref Core//prelude/operators/comparison, inst+52, loaded [template = constants.%8]
 // CHECK:STDOUT:   %import_ref.6 = import_ref Core//prelude/operators/comparison, inst+26, unloaded
 // CHECK:STDOUT:   %import_ref.7 = import_ref Core//prelude/operators/comparison, inst+47, unloaded
 // CHECK:STDOUT:   %import_ref.8 = import_ref Core//prelude/operators/comparison, inst+26, unloaded
 // CHECK:STDOUT:   %import_ref.9: %Bool.type = import_ref Core//prelude/types/bool, inst+2, loaded [template = constants.%Bool]
-// CHECK:STDOUT:   %import_ref.10: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%.4]
+// CHECK:STDOUT:   %import_ref.10: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%4]
 // CHECK:STDOUT:   %import_ref.11 = import_ref Core//prelude/operators/comparison, inst+47, unloaded
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -320,8 +320,8 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:     %b.loc6_20.1: %D = param b
 // CHECK:STDOUT:     @TestEqual.%b: %D = bind_name b, %b.loc6_20.1
 // CHECK:STDOUT:     %bool.make_type.loc6: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc6_29.1: type = value_of_initializer %bool.make_type.loc6 [template = bool]
-// CHECK:STDOUT:     %.loc6_29.2: type = converted %bool.make_type.loc6, %.loc6_29.1 [template = bool]
+// CHECK:STDOUT:     %loc6_29.1: type = value_of_initializer %bool.make_type.loc6 [template = bool]
+// CHECK:STDOUT:     %loc6_29.2: type = converted %bool.make_type.loc6, %loc6_29.1 [template = bool]
 // CHECK:STDOUT:     @TestEqual.%return: ref bool = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %TestNotEqual.decl: %TestNotEqual.type = fn_decl @TestNotEqual [template = constants.%TestNotEqual] {
@@ -332,8 +332,8 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:     %b.loc14_23.1: %D = param b
 // CHECK:STDOUT:     @TestNotEqual.%b: %D = bind_name b, %b.loc14_23.1
 // CHECK:STDOUT:     %bool.make_type.loc14: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc14_32.1: type = value_of_initializer %bool.make_type.loc14 [template = bool]
-// CHECK:STDOUT:     %.loc14_32.2: type = converted %bool.make_type.loc14, %.loc14_32.1 [template = bool]
+// CHECK:STDOUT:     %loc14_32.1: type = value_of_initializer %bool.make_type.loc14 [template = bool]
+// CHECK:STDOUT:     %loc14_32.2: type = converted %bool.make_type.loc14, %loc14_32.1 [template = bool]
 // CHECK:STDOUT:     @TestNotEqual.%return: ref bool = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
@@ -375,12 +375,12 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %D: type = class_type @D [template]
-// CHECK:STDOUT:   %.2: type = interface_type @Eq [template]
-// CHECK:STDOUT:   %Self: %.2 = bind_symbolic_name Self 0 [symbolic]
+// CHECK:STDOUT:   %2: type = interface_type @Eq [template]
+// CHECK:STDOUT:   %Self: %2 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %Bool.type: type = fn_type @Bool [template]
-// CHECK:STDOUT:   %.3: type = tuple_type () [template]
+// CHECK:STDOUT:   %3: type = tuple_type () [template]
 // CHECK:STDOUT:   %Bool: %Bool.type = struct_value () [template]
 // CHECK:STDOUT:   %Equal.type.1: type = fn_type @Equal.1 [template]
 // CHECK:STDOUT:   %Equal.1: %Equal.type.1 = struct_value () [template]
@@ -390,32 +390,32 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:   %Equal.2: %Equal.type.2 = struct_value () [template]
 // CHECK:STDOUT:   %NotEqual.type.2: type = fn_type @NotEqual.2 [template]
 // CHECK:STDOUT:   %NotEqual.2: %NotEqual.type.2 = struct_value () [template]
-// CHECK:STDOUT:   %.4: <witness> = interface_witness (%Equal.1, %NotEqual.1) [template]
+// CHECK:STDOUT:   %4: <witness> = interface_witness (%Equal.1, %NotEqual.1) [template]
 // CHECK:STDOUT:   %TestRhsBad.type: type = fn_type @TestRhsBad [template]
 // CHECK:STDOUT:   %TestRhsBad: %TestRhsBad.type = struct_value () [template]
-// CHECK:STDOUT:   %.5: type = ptr_type %.1 [template]
-// CHECK:STDOUT:   %.6: type = assoc_entity_type @Eq, %Equal.type.2 [template]
-// CHECK:STDOUT:   %.7: %.6 = assoc_entity element0, imports.%import_ref.11 [template]
+// CHECK:STDOUT:   %5: type = ptr_type %1 [template]
+// CHECK:STDOUT:   %6: type = assoc_entity_type @Eq, %Equal.type.2 [template]
+// CHECK:STDOUT:   %7: %6 = assoc_entity element0, imports.%import_ref.11 [template]
 // CHECK:STDOUT:   %TestLhsBad.type: type = fn_type @TestLhsBad [template]
 // CHECK:STDOUT:   %TestLhsBad: %TestLhsBad.type = struct_value () [template]
-// CHECK:STDOUT:   %.8: type = assoc_entity_type @Eq, %NotEqual.type.2 [template]
-// CHECK:STDOUT:   %.9: %.8 = assoc_entity element1, imports.%import_ref.14 [template]
+// CHECK:STDOUT:   %8: type = assoc_entity_type @Eq, %NotEqual.type.2 [template]
+// CHECK:STDOUT:   %9: %8 = assoc_entity element1, imports.%import_ref.14 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
-// CHECK:STDOUT:   %import_ref.1: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%.2]
+// CHECK:STDOUT:   %import_ref.1: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%2]
 // CHECK:STDOUT:   %import_ref.2 = import_ref Core//prelude/operators/comparison, inst+5, unloaded
-// CHECK:STDOUT:   %import_ref.3: %.6 = import_ref Core//prelude/operators/comparison, inst+31, loaded [template = constants.%.7]
-// CHECK:STDOUT:   %import_ref.4: %.8 = import_ref Core//prelude/operators/comparison, inst+52, loaded [template = constants.%.9]
+// CHECK:STDOUT:   %import_ref.3: %6 = import_ref Core//prelude/operators/comparison, inst+31, loaded [template = constants.%7]
+// CHECK:STDOUT:   %import_ref.4: %8 = import_ref Core//prelude/operators/comparison, inst+52, loaded [template = constants.%9]
 // CHECK:STDOUT:   %import_ref.5: %Equal.type.2 = import_ref Core//prelude/operators/comparison, inst+26, loaded [template = constants.%Equal.2]
 // CHECK:STDOUT:   %import_ref.6: %NotEqual.type.2 = import_ref Core//prelude/operators/comparison, inst+47, loaded [template = constants.%NotEqual.2]
 // CHECK:STDOUT:   %import_ref.7: %Bool.type = import_ref Core//prelude/types/bool, inst+2, loaded [template = constants.%Bool]
 // CHECK:STDOUT:   %import_ref.8: %Bool.type = import_ref Core//prelude/types/bool, inst+2, loaded [template = constants.%Bool]
 // CHECK:STDOUT:   %import_ref.9: %Bool.type = import_ref Core//prelude/types/bool, inst+2, loaded [template = constants.%Bool]
-// CHECK:STDOUT:   %import_ref.10: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%.2]
+// CHECK:STDOUT:   %import_ref.10: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%2]
 // CHECK:STDOUT:   %import_ref.11 = import_ref Core//prelude/operators/comparison, inst+26, unloaded
 // CHECK:STDOUT:   %import_ref.12: %Bool.type = import_ref Core//prelude/types/bool, inst+2, loaded [template = constants.%Bool]
-// CHECK:STDOUT:   %import_ref.13: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%.2]
+// CHECK:STDOUT:   %import_ref.13: type = import_ref Core//prelude/operators/comparison, inst+3, loaded [template = constants.%2]
 // CHECK:STDOUT:   %import_ref.14 = import_ref Core//prelude/operators/comparison, inst+47, unloaded
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -442,7 +442,7 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:   impl_decl @impl {
 // CHECK:STDOUT:     %C.ref.loc7: type = name_ref C, %C.decl [template = constants.%C]
 // CHECK:STDOUT:     %Core.ref: <namespace> = name_ref Core, %Core [template = %Core]
-// CHECK:STDOUT:     %Eq.ref: type = name_ref Eq, imports.%import_ref.1 [template = constants.%.2]
+// CHECK:STDOUT:     %Eq.ref: type = name_ref Eq, imports.%import_ref.1 [template = constants.%2]
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %TestRhsBad.decl: %TestRhsBad.type = fn_decl @TestRhsBad [template = constants.%TestRhsBad] {
 // CHECK:STDOUT:     %C.ref.loc12: type = name_ref C, %C.decl [template = constants.%C]
@@ -452,8 +452,8 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:     %b.loc12_21.1: %D = param b
 // CHECK:STDOUT:     @TestRhsBad.%b: %D = bind_name b, %b.loc12_21.1
 // CHECK:STDOUT:     %bool.make_type.loc12: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc12_30.1: type = value_of_initializer %bool.make_type.loc12 [template = bool]
-// CHECK:STDOUT:     %.loc12_30.2: type = converted %bool.make_type.loc12, %.loc12_30.1 [template = bool]
+// CHECK:STDOUT:     %loc12_30.1: type = value_of_initializer %bool.make_type.loc12 [template = bool]
+// CHECK:STDOUT:     %loc12_30.2: type = converted %bool.make_type.loc12, %loc12_30.1 [template = bool]
 // CHECK:STDOUT:     @TestRhsBad.%return: ref bool = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %TestLhsBad.decl: %TestLhsBad.type = fn_decl @TestLhsBad [template = constants.%TestLhsBad] {
@@ -464,8 +464,8 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:     %b.loc23_21.1: %C = param b
 // CHECK:STDOUT:     @TestLhsBad.%b: %C = bind_name b, %b.loc23_21.1
 // CHECK:STDOUT:     %bool.make_type.loc23: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc23_30.1: type = value_of_initializer %bool.make_type.loc23 [template = bool]
-// CHECK:STDOUT:     %.loc23_30.2: type = converted %bool.make_type.loc23, %.loc23_30.1 [template = bool]
+// CHECK:STDOUT:     %loc23_30.1: type = value_of_initializer %bool.make_type.loc23 [template = bool]
+// CHECK:STDOUT:     %loc23_30.2: type = converted %bool.make_type.loc23, %loc23_30.1 [template = bool]
 // CHECK:STDOUT:     @TestLhsBad.%return: ref bool = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
@@ -478,7 +478,7 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:   witness = (imports.%import_ref.5, imports.%import_ref.6)
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: impl @impl: %C as %.2 {
+// CHECK:STDOUT: impl @impl: %C as %2 {
 // CHECK:STDOUT:   %Equal.decl: %Equal.type.1 = fn_decl @Equal.1 [template = constants.%Equal.1] {
 // CHECK:STDOUT:     %C.ref.loc8_18: type = name_ref C, file.%C.decl [template = constants.%C]
 // CHECK:STDOUT:     %self.loc8_12.1: %C = param self
@@ -487,8 +487,8 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:     %other.loc8_21.1: %C = param other
 // CHECK:STDOUT:     %other.loc8_21.2: %C = bind_name other, %other.loc8_21.1
 // CHECK:STDOUT:     %bool.make_type.loc8: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc8_34.1: type = value_of_initializer %bool.make_type.loc8 [template = bool]
-// CHECK:STDOUT:     %.loc8_34.2: type = converted %bool.make_type.loc8, %.loc8_34.1 [template = bool]
+// CHECK:STDOUT:     %loc8_34.1: type = value_of_initializer %bool.make_type.loc8 [template = bool]
+// CHECK:STDOUT:     %loc8_34.2: type = converted %bool.make_type.loc8, %loc8_34.1 [template = bool]
 // CHECK:STDOUT:     %return.var.loc8: ref bool = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %NotEqual.decl: %NotEqual.type.1 = fn_decl @NotEqual.1 [template = constants.%NotEqual.1] {
@@ -499,16 +499,16 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT:     %other.loc9_24.1: %C = param other
 // CHECK:STDOUT:     %other.loc9_24.2: %C = bind_name other, %other.loc9_24.1
 // CHECK:STDOUT:     %bool.make_type.loc9: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc9_37.1: type = value_of_initializer %bool.make_type.loc9 [template = bool]
-// CHECK:STDOUT:     %.loc9_37.2: type = converted %bool.make_type.loc9, %.loc9_37.1 [template = bool]
+// CHECK:STDOUT:     %loc9_37.1: type = value_of_initializer %bool.make_type.loc9 [template = bool]
+// CHECK:STDOUT:     %loc9_37.2: type = converted %bool.make_type.loc9, %loc9_37.1 [template = bool]
 // CHECK:STDOUT:     %return.var.loc9: ref bool = var <return slot>
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.1: <witness> = interface_witness (%Equal.decl, %NotEqual.decl) [template = constants.%.4]
+// CHECK:STDOUT:   %1: <witness> = interface_witness (%Equal.decl, %NotEqual.decl) [template = constants.%4]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Equal = %Equal.decl
 // CHECK:STDOUT:   .NotEqual = %NotEqual.decl
-// CHECK:STDOUT:   witness = %.1
+// CHECK:STDOUT:   witness = %1
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @C {
@@ -535,12 +535,12 @@ fn TestLhsBad(a: D, b: C) -> bool {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %a.ref: %C = name_ref a, %a
 // CHECK:STDOUT:   %b.ref: %D = name_ref b, %b
-// CHECK:STDOUT:   %.1: %Equal.type.2 = interface_witness_access @impl.%.1, element0 [template = constants.%Equal.1]
-// CHECK:STDOUT:   %.loc20_12: <bound method> = bound_method %a.ref, %.1
-// CHECK:STDOUT:   %Equal.call: init bool = call %.loc20_12(<invalid>) [template = <error>]
-// CHECK:STDOUT:   %.loc20_16.1: bool = value_of_initializer %Equal.call [template = <error>]
-// CHECK:STDOUT:   %.loc20_16.2: bool = converted %Equal.call, %.loc20_16.1 [template = <error>]
-// CHECK:STDOUT:   return %.loc20_16.2
+// CHECK:STDOUT:   %1: %Equal.type.2 = interface_witness_access @impl.%1, element0 [template = constants.%Equal.1]
+// CHECK:STDOUT:   %loc20_12: <bound method> = bound_method %a.ref, %1
+// CHECK:STDOUT:   %Equal.call: init bool = call %loc20_12(<invalid>) [template = <error>]
+// CHECK:STDOUT:   %loc20_16.1: bool = value_of_initializer %Equal.call [template = <error>]
+// CHECK:STDOUT:   %loc20_16.2: bool = converted %Equal.call, %loc20_16.1 [template = <error>]
+// CHECK:STDOUT:   return %loc20_16.2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @TestLhsBad(%a: %D, %b: %C) -> bool {

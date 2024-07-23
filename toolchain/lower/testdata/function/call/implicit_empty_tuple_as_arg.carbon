@@ -34,7 +34,7 @@ fn Main() {
 // CHECK:STDOUT: entry:
 // CHECK:STDOUT:   %x.var = alloca {}, align 8
 // CHECK:STDOUT:   call void @Foo()
-// CHECK:STDOUT:   %.loc17_22.1.temp = alloca {}, align 8
+// CHECK:STDOUT:   %loc17_22.1.temp = alloca {}, align 8
 // CHECK:STDOUT:   call void @Bar()
 // CHECK:STDOUT:   ret void
 // CHECK:STDOUT: }

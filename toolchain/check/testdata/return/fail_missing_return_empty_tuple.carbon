@@ -17,7 +17,7 @@ fn F() -> () {
 // CHECK:STDOUT: --- fail_missing_return_empty_tuple.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
 // CHECK:STDOUT: }
@@ -38,13 +38,13 @@ fn F() -> () {
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
-// CHECK:STDOUT:     %.loc11_12.1: %.1 = tuple_literal ()
-// CHECK:STDOUT:     %.loc11_12.2: type = converted %.loc11_12.1, constants.%.1 [template = constants.%.1]
-// CHECK:STDOUT:     @F.%return: ref %.1 = var <return slot>
+// CHECK:STDOUT:     %loc11_12.1: %1 = tuple_literal ()
+// CHECK:STDOUT:     %loc11_12.2: type = converted %loc11_12.1, constants.%1 [template = constants.%1]
+// CHECK:STDOUT:     @F.%return: ref %1 = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @F() -> %.1 {
+// CHECK:STDOUT: fn @F() -> %1 {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

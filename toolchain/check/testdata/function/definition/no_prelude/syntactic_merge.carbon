@@ -172,11 +172,11 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = fn_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo: %Foo.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
 // CHECK:STDOUT:   %Bar.type: type = fn_type @Bar [template]
 // CHECK:STDOUT:   %Bar: %Bar.type = struct_value () [template]
 // CHECK:STDOUT: }
@@ -232,11 +232,11 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = fn_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo: %Foo.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -271,13 +271,13 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = fn_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo: %Foo.type = struct_value () [template]
-// CHECK:STDOUT:   %.type: type = fn_type @.1 [template]
-// CHECK:STDOUT:   %.3: %.type = struct_value () [template]
-// CHECK:STDOUT:   %.4: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %.type: type = fn_type @1 [template]
+// CHECK:STDOUT:   %3: %.type = struct_value () [template]
+// CHECK:STDOUT:   %4: type = ptr_type %1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -291,10 +291,10 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:     %a.loc6_8.1: %C = param a
 // CHECK:STDOUT:     @Foo.%a: %C = bind_name a, %a.loc6_8.1
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [template = constants.%.3] {
+// CHECK:STDOUT:   %.decl: %.type = fn_decl @1 [template = constants.%3] {
 // CHECK:STDOUT:     %C.ref.loc14: type = name_ref C, %C.decl [template = constants.%C]
 // CHECK:STDOUT:     %a.loc14_8.1: %C = param a
-// CHECK:STDOUT:     @.1.%a: %C = bind_name a, %a.loc14_8.1
+// CHECK:STDOUT:     @1.%a: %C = bind_name a, %a.loc14_8.1
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -305,7 +305,7 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Foo(%a: %C);
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @.1(%a: %C) {
+// CHECK:STDOUT: fn @1(%a: %C) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
@@ -314,11 +314,11 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = fn_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo: %Foo.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -353,9 +353,9 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = fn_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo: %Foo.type = struct_value () [template]
 // CHECK:STDOUT:   %Bar.type: type = fn_type @Bar [template]
 // CHECK:STDOUT:   %Bar: %Bar.type = struct_value () [template]
@@ -396,11 +396,11 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = fn_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo: %Foo.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
 // CHECK:STDOUT:   %Bar.type: type = fn_type @Bar [template]
 // CHECK:STDOUT:   %Bar: %Bar.type = struct_value () [template]
 // CHECK:STDOUT: }
@@ -453,13 +453,13 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = fn_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo: %Foo.type = struct_value () [template]
-// CHECK:STDOUT:   %.type: type = fn_type @.1 [template]
-// CHECK:STDOUT:   %.3: %.type = struct_value () [template]
-// CHECK:STDOUT:   %.4: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %.type: type = fn_type @1 [template]
+// CHECK:STDOUT:   %3: %.type = struct_value () [template]
+// CHECK:STDOUT:   %4: type = ptr_type %1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -476,10 +476,10 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:     %a.loc7_8.1: %C = param a
 // CHECK:STDOUT:     @Foo.%a: %C = bind_name a, %a.loc7_8.1
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [template = constants.%.3] {
+// CHECK:STDOUT:   %.decl: %.type = fn_decl @1 [template = constants.%3] {
 // CHECK:STDOUT:     %D.ref: type = name_ref D, %D [template = constants.%C]
 // CHECK:STDOUT:     %b.loc15_8.1: %C = param b
-// CHECK:STDOUT:     @.1.%b: %C = bind_name b, %b.loc15_8.1
+// CHECK:STDOUT:     @1.%b: %C = bind_name b, %b.loc15_8.1
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -490,7 +490,7 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Foo(%a: %C);
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @.1(%b: %C) {
+// CHECK:STDOUT: fn @1(%b: %C) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
@@ -499,13 +499,13 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = fn_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo: %Foo.type = struct_value () [template]
-// CHECK:STDOUT:   %.type: type = fn_type @.1 [template]
-// CHECK:STDOUT:   %.3: %.type = struct_value () [template]
-// CHECK:STDOUT:   %.4: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %.type: type = fn_type @1 [template]
+// CHECK:STDOUT:   %3: %.type = struct_value () [template]
+// CHECK:STDOUT:   %4: type = ptr_type %1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -522,10 +522,10 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:     %a.loc7_8.1: %C = param a
 // CHECK:STDOUT:     @Foo.%a: %C = bind_name a, %a.loc7_8.1
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [template = constants.%.3] {
+// CHECK:STDOUT:   %.decl: %.type = fn_decl @1 [template = constants.%3] {
 // CHECK:STDOUT:     %D.ref: type = name_ref D, %D [template = constants.%C]
 // CHECK:STDOUT:     %a.loc15_8.1: %C = param a
-// CHECK:STDOUT:     @.1.%a: %C = bind_name a, %a.loc15_8.1
+// CHECK:STDOUT:     @1.%a: %C = bind_name a, %a.loc15_8.1
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -536,7 +536,7 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Foo(%a: %C);
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @.1(%a: %C) {
+// CHECK:STDOUT: fn @1(%a: %C) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
@@ -545,13 +545,13 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = fn_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo: %Foo.type = struct_value () [template]
-// CHECK:STDOUT:   %.type: type = fn_type @.1 [template]
-// CHECK:STDOUT:   %.3: %.type = struct_value () [template]
-// CHECK:STDOUT:   %.4: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %.type: type = fn_type @1 [template]
+// CHECK:STDOUT:   %3: %.type = struct_value () [template]
+// CHECK:STDOUT:   %4: type = ptr_type %1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -568,10 +568,10 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:     %a.loc7_8.1: %C = param a
 // CHECK:STDOUT:     @Foo.%a: %C = bind_name a, %a.loc7_8.1
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [template = constants.%.3] {
+// CHECK:STDOUT:   %.decl: %.type = fn_decl @1 [template = constants.%3] {
 // CHECK:STDOUT:     %D.ref: type = name_ref D, %D [template = constants.%C]
 // CHECK:STDOUT:     %a.loc15_8.1: %C = param a
-// CHECK:STDOUT:     @.1.%a: %C = bind_name a, %a.loc15_8.1
+// CHECK:STDOUT:     @1.%a: %C = bind_name a, %a.loc15_8.1
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -582,7 +582,7 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Foo[%a: %C]();
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @.1[%a: %C]() {
+// CHECK:STDOUT: fn @1[%a: %C]() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
@@ -591,11 +591,11 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = fn_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo: %Foo.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
 // CHECK:STDOUT:   %struct: %C = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -625,19 +625,19 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Foo() -> %return: %C {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc8_25.1: %.1 = struct_literal ()
-// CHECK:STDOUT:   %.loc8_25.2: init %C = class_init (), %return [template = constants.%struct]
-// CHECK:STDOUT:   %.loc8_26: init %C = converted %.loc8_25.1, %.loc8_25.2 [template = constants.%struct]
-// CHECK:STDOUT:   return %.loc8_26 to %return
+// CHECK:STDOUT:   %loc8_25.1: %1 = struct_literal ()
+// CHECK:STDOUT:   %loc8_25.2: init %C = class_init (), %return [template = constants.%struct]
+// CHECK:STDOUT:   %loc8_26: init %C = converted %loc8_25.1, %loc8_25.2 [template = constants.%struct]
+// CHECK:STDOUT:   return %loc8_26 to %return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: --- alias_two_file.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = fn_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo: %Foo.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -665,11 +665,11 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = fn_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo: %Foo.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -709,14 +709,14 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
-// CHECK:STDOUT:   %.2: type = const_type %C [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
+// CHECK:STDOUT:   %2: type = const_type %C [template]
 // CHECK:STDOUT:   %Foo.type: type = fn_type @Foo [template]
-// CHECK:STDOUT:   %.3: type = tuple_type () [template]
+// CHECK:STDOUT:   %3: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo: %Foo.type = struct_value () [template]
-// CHECK:STDOUT:   %.type: type = fn_type @.1 [template]
-// CHECK:STDOUT:   %.4: %.type = struct_value () [template]
-// CHECK:STDOUT:   %.5: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %.type: type = fn_type @1 [template]
+// CHECK:STDOUT:   %4: %.type = struct_value () [template]
+// CHECK:STDOUT:   %5: type = ptr_type %1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -727,16 +727,16 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:   %C.decl: type = class_decl @C [template = constants.%C] {}
 // CHECK:STDOUT:   %Foo.decl: %Foo.type = fn_decl @Foo [template = constants.%Foo] {
 // CHECK:STDOUT:     %C.ref.loc6: type = name_ref C, %C.decl [template = constants.%C]
-// CHECK:STDOUT:     %.loc6: type = const_type %C [template = constants.%.2]
-// CHECK:STDOUT:     %a.loc6_8.1: %.2 = param a
-// CHECK:STDOUT:     @Foo.%a: %.2 = bind_name a, %a.loc6_8.1
+// CHECK:STDOUT:     %loc6: type = const_type %C [template = constants.%2]
+// CHECK:STDOUT:     %a.loc6_8.1: %2 = param a
+// CHECK:STDOUT:     @Foo.%a: %2 = bind_name a, %a.loc6_8.1
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [template = constants.%.4] {
+// CHECK:STDOUT:   %.decl: %.type = fn_decl @1 [template = constants.%4] {
 // CHECK:STDOUT:     %C.ref.loc17: type = name_ref C, %C.decl [template = constants.%C]
-// CHECK:STDOUT:     %.loc17_18: type = const_type %C [template = constants.%.2]
-// CHECK:STDOUT:     %.loc17_11: type = const_type %.2 [template = constants.%.2]
-// CHECK:STDOUT:     %a.loc17_8.1: %.2 = param a
-// CHECK:STDOUT:     @.1.%a: %.2 = bind_name a, %a.loc17_8.1
+// CHECK:STDOUT:     %loc17_18: type = const_type %C [template = constants.%2]
+// CHECK:STDOUT:     %loc17_11: type = const_type %2 [template = constants.%2]
+// CHECK:STDOUT:     %a.loc17_8.1: %2 = param a
+// CHECK:STDOUT:     @1.%a: %2 = bind_name a, %a.loc17_8.1
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -745,9 +745,9 @@ fn Foo(a: const (const C)) {}
 // CHECK:STDOUT:   .Self = constants.%C
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @Foo(%a: %.2);
+// CHECK:STDOUT: fn @Foo(%a: %2);
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @.1(%a: %.2) {
+// CHECK:STDOUT: fn @1(%a: %2) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }

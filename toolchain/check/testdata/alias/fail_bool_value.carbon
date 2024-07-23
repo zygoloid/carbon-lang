@@ -17,9 +17,9 @@ let a_test: bool = a;
 // CHECK:STDOUT: --- fail_bool_value.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: bool = bool_literal false [template]
+// CHECK:STDOUT:   %1: bool = bool_literal false [template]
 // CHECK:STDOUT:   %Bool.type: type = fn_type @Bool [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Bool: %Bool.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -43,11 +43,11 @@ let a_test: bool = a;
 // CHECK:STDOUT:     import Core//prelude/operators/comparison
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.loc14: bool = bool_literal false [template = constants.%.1]
+// CHECK:STDOUT:   %loc14: bool = bool_literal false [template = constants.%1]
 // CHECK:STDOUT:   %a: <error> = bind_alias a, <error> [template = <error>]
 // CHECK:STDOUT:   %bool.make_type: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:   %.loc15_13.1: type = value_of_initializer %bool.make_type [template = bool]
-// CHECK:STDOUT:   %.loc15_13.2: type = converted %bool.make_type, %.loc15_13.1 [template = bool]
+// CHECK:STDOUT:   %loc15_13.1: type = value_of_initializer %bool.make_type [template = bool]
+// CHECK:STDOUT:   %loc15_13.2: type = converted %bool.make_type, %loc15_13.1 [template = bool]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Bool() -> type = "bool.make_type";

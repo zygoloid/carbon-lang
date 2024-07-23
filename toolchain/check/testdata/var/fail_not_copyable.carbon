@@ -31,13 +31,13 @@ fn F(x: X) {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %X: type = class_type @X [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
-// CHECK:STDOUT:   %.4: type = ptr_type String [template]
-// CHECK:STDOUT:   %.5: String = string_literal "hello" [template]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
+// CHECK:STDOUT:   %4: type = ptr_type String [template]
+// CHECK:STDOUT:   %5: String = string_literal "hello" [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -73,7 +73,7 @@ fn F(x: X) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %s.var: ref String = var s
 // CHECK:STDOUT:   %s: ref String = bind_name s, %s.var
-// CHECK:STDOUT:   %.loc21: String = string_literal "hello" [template = constants.%.5]
+// CHECK:STDOUT:   %loc21: String = string_literal "hello" [template = constants.%5]
 // CHECK:STDOUT:   assign %s.var, <error>
 // CHECK:STDOUT:   %X.ref: type = name_ref X, file.%X.decl [template = constants.%X]
 // CHECK:STDOUT:   %y.var: ref %X = var y

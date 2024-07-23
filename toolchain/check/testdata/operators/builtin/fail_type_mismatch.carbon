@@ -19,11 +19,11 @@ fn Main() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Main.type: type = fn_type @Main [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Main: %Main.type = struct_value () [template]
 // CHECK:STDOUT:   %Bool.type: type = fn_type @Bool [template]
 // CHECK:STDOUT:   %Bool: %Bool.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: i32 = int_literal 12 [template]
+// CHECK:STDOUT:   %2: i32 = int_literal 12 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -51,12 +51,12 @@ fn Main() {
 // CHECK:STDOUT: fn @Main() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %bool.make_type: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:   %.loc15_10.1: type = value_of_initializer %bool.make_type [template = bool]
-// CHECK:STDOUT:   %.loc15_10.2: type = converted %bool.make_type, %.loc15_10.1 [template = bool]
+// CHECK:STDOUT:   %loc15_10.1: type = value_of_initializer %bool.make_type [template = bool]
+// CHECK:STDOUT:   %loc15_10.2: type = converted %bool.make_type, %loc15_10.1 [template = bool]
 // CHECK:STDOUT:   %x.var: ref bool = var x
 // CHECK:STDOUT:   %x: ref bool = bind_name x, %x.var
-// CHECK:STDOUT:   %.loc15_21: i32 = int_literal 12 [template = constants.%.2]
-// CHECK:STDOUT:   %.loc15_17: <error> = not <error> [template = <error>]
+// CHECK:STDOUT:   %loc15_21: i32 = int_literal 12 [template = constants.%2]
+// CHECK:STDOUT:   %loc15_17: <error> = not <error> [template = <error>]
 // CHECK:STDOUT:   assign %x.var, <error>
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }

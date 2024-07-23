@@ -16,16 +16,16 @@ fn F(a: bool, b: bool, c: bool) -> i32 {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Bool.type: type = fn_type @Bool [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Bool: %Bool.type = struct_value () [template]
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: i32 = int_literal 1 [template]
-// CHECK:STDOUT:   %.3: i32 = int_literal 2 [template]
-// CHECK:STDOUT:   %.4: i32 = int_literal 3 [template]
-// CHECK:STDOUT:   %.5: i32 = int_literal 4 [template]
+// CHECK:STDOUT:   %2: i32 = int_literal 1 [template]
+// CHECK:STDOUT:   %3: i32 = int_literal 2 [template]
+// CHECK:STDOUT:   %4: i32 = int_literal 3 [template]
+// CHECK:STDOUT:   %5: i32 = int_literal 4 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -52,23 +52,23 @@ fn F(a: bool, b: bool, c: bool) -> i32 {
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
 // CHECK:STDOUT:     %bool.make_type.loc11_9: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc11_9.1: type = value_of_initializer %bool.make_type.loc11_9 [template = bool]
-// CHECK:STDOUT:     %.loc11_9.2: type = converted %bool.make_type.loc11_9, %.loc11_9.1 [template = bool]
+// CHECK:STDOUT:     %loc11_9.1: type = value_of_initializer %bool.make_type.loc11_9 [template = bool]
+// CHECK:STDOUT:     %loc11_9.2: type = converted %bool.make_type.loc11_9, %loc11_9.1 [template = bool]
 // CHECK:STDOUT:     %a.loc11_6.1: bool = param a
 // CHECK:STDOUT:     @F.%a: bool = bind_name a, %a.loc11_6.1
 // CHECK:STDOUT:     %bool.make_type.loc11_18: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc11_18.1: type = value_of_initializer %bool.make_type.loc11_18 [template = bool]
-// CHECK:STDOUT:     %.loc11_18.2: type = converted %bool.make_type.loc11_18, %.loc11_18.1 [template = bool]
+// CHECK:STDOUT:     %loc11_18.1: type = value_of_initializer %bool.make_type.loc11_18 [template = bool]
+// CHECK:STDOUT:     %loc11_18.2: type = converted %bool.make_type.loc11_18, %loc11_18.1 [template = bool]
 // CHECK:STDOUT:     %b.loc11_15.1: bool = param b
 // CHECK:STDOUT:     @F.%b: bool = bind_name b, %b.loc11_15.1
 // CHECK:STDOUT:     %bool.make_type.loc11_27: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc11_27.1: type = value_of_initializer %bool.make_type.loc11_27 [template = bool]
-// CHECK:STDOUT:     %.loc11_27.2: type = converted %bool.make_type.loc11_27, %.loc11_27.1 [template = bool]
+// CHECK:STDOUT:     %loc11_27.1: type = value_of_initializer %bool.make_type.loc11_27 [template = bool]
+// CHECK:STDOUT:     %loc11_27.2: type = converted %bool.make_type.loc11_27, %loc11_27.1 [template = bool]
 // CHECK:STDOUT:     %c.loc11_24.1: bool = param c
 // CHECK:STDOUT:     @F.%c: bool = bind_name c, %c.loc11_24.1
 // CHECK:STDOUT:     %int.make_type_32: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc11_36.1: type = value_of_initializer %int.make_type_32 [template = i32]
-// CHECK:STDOUT:     %.loc11_36.2: type = converted %int.make_type_32, %.loc11_36.1 [template = i32]
+// CHECK:STDOUT:     %loc11_36.1: type = value_of_initializer %int.make_type_32 [template = i32]
+// CHECK:STDOUT:     %loc11_36.2: type = converted %int.make_type_32, %loc11_36.1 [template = i32]
 // CHECK:STDOUT:     @F.%return: ref i32 = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
@@ -87,35 +87,35 @@ fn F(a: bool, b: bool, c: bool) -> i32 {
 // CHECK:STDOUT:   if %b.ref br !if.expr.then.loc12_20 else br !if.expr.else.loc12_20
 // CHECK:STDOUT:
 // CHECK:STDOUT: !if.expr.then.loc12_20:
-// CHECK:STDOUT:   %.loc12_30: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   br !if.expr.result.loc12_20(%.loc12_30)
+// CHECK:STDOUT:   %loc12_30: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   br !if.expr.result.loc12_20(%loc12_30)
 // CHECK:STDOUT:
 // CHECK:STDOUT: !if.expr.else.loc12_20:
-// CHECK:STDOUT:   %.loc12_37: i32 = int_literal 2 [template = constants.%.3]
-// CHECK:STDOUT:   br !if.expr.result.loc12_20(%.loc12_37)
+// CHECK:STDOUT:   %loc12_37: i32 = int_literal 2 [template = constants.%3]
+// CHECK:STDOUT:   br !if.expr.result.loc12_20(%loc12_37)
 // CHECK:STDOUT:
 // CHECK:STDOUT: !if.expr.result.loc12_20:
-// CHECK:STDOUT:   %.loc12_20: i32 = block_arg !if.expr.result.loc12_20
-// CHECK:STDOUT:   br !if.expr.result.loc12_10(%.loc12_20)
+// CHECK:STDOUT:   %loc12_20: i32 = block_arg !if.expr.result.loc12_20
+// CHECK:STDOUT:   br !if.expr.result.loc12_10(%loc12_20)
 // CHECK:STDOUT:
 // CHECK:STDOUT: !if.expr.else.loc12_10:
 // CHECK:STDOUT:   %c.ref: bool = name_ref c, %c
 // CHECK:STDOUT:   if %c.ref br !if.expr.then.loc12_44 else br !if.expr.else.loc12_44
 // CHECK:STDOUT:
 // CHECK:STDOUT: !if.expr.then.loc12_44:
-// CHECK:STDOUT:   %.loc12_54: i32 = int_literal 3 [template = constants.%.4]
-// CHECK:STDOUT:   br !if.expr.result.loc12_44(%.loc12_54)
+// CHECK:STDOUT:   %loc12_54: i32 = int_literal 3 [template = constants.%4]
+// CHECK:STDOUT:   br !if.expr.result.loc12_44(%loc12_54)
 // CHECK:STDOUT:
 // CHECK:STDOUT: !if.expr.else.loc12_44:
-// CHECK:STDOUT:   %.loc12_61: i32 = int_literal 4 [template = constants.%.5]
-// CHECK:STDOUT:   br !if.expr.result.loc12_44(%.loc12_61)
+// CHECK:STDOUT:   %loc12_61: i32 = int_literal 4 [template = constants.%5]
+// CHECK:STDOUT:   br !if.expr.result.loc12_44(%loc12_61)
 // CHECK:STDOUT:
 // CHECK:STDOUT: !if.expr.result.loc12_44:
-// CHECK:STDOUT:   %.loc12_44: i32 = block_arg !if.expr.result.loc12_44
-// CHECK:STDOUT:   br !if.expr.result.loc12_10(%.loc12_44)
+// CHECK:STDOUT:   %loc12_44: i32 = block_arg !if.expr.result.loc12_44
+// CHECK:STDOUT:   br !if.expr.result.loc12_10(%loc12_44)
 // CHECK:STDOUT:
 // CHECK:STDOUT: !if.expr.result.loc12_10:
-// CHECK:STDOUT:   %.loc12_10: i32 = block_arg !if.expr.result.loc12_10
-// CHECK:STDOUT:   return %.loc12_10
+// CHECK:STDOUT:   %loc12_10: i32 = block_arg !if.expr.result.loc12_10
+// CHECK:STDOUT:   return %loc12_10
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

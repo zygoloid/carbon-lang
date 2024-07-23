@@ -55,18 +55,18 @@ class C4 {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %B: type = class_type @B [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %C1: type = class_type @C1 [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
-// CHECK:STDOUT:   %.4: type = unbound_element_type %C1, %B [template]
-// CHECK:STDOUT:   %.5: type = struct_type {.base: %B} [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
+// CHECK:STDOUT:   %4: type = unbound_element_type %C1, %B [template]
+// CHECK:STDOUT:   %5: type = struct_type {.base: %B} [template]
 // CHECK:STDOUT:   %C2: type = class_type @C2 [template]
-// CHECK:STDOUT:   %.6: type = unbound_element_type %C2, %B [template]
+// CHECK:STDOUT:   %6: type = unbound_element_type %C2, %B [template]
 // CHECK:STDOUT:   %C3: type = class_type @C3 [template]
-// CHECK:STDOUT:   %.7: type = unbound_element_type %C3, %B [template]
+// CHECK:STDOUT:   %7: type = unbound_element_type %C3, %B [template]
 // CHECK:STDOUT:   %C4: type = class_type @C4 [template]
-// CHECK:STDOUT:   %.8: type = unbound_element_type %C4, %B [template]
+// CHECK:STDOUT:   %8: type = unbound_element_type %C4, %B [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -102,40 +102,40 @@ class C4 {
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @C1 {
 // CHECK:STDOUT:   %B.ref: type = name_ref B, file.%B.decl [template = constants.%B]
-// CHECK:STDOUT:   %.loc18: %.4 = base_decl %B, element0 [template]
+// CHECK:STDOUT:   %loc18: %4 = base_decl %B, element0 [template]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = constants.%C1
-// CHECK:STDOUT:   .base = %.loc18
+// CHECK:STDOUT:   .base = %loc18
 // CHECK:STDOUT:   extend name_scope2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @C2 {
 // CHECK:STDOUT:   %B.ref: type = name_ref B, file.%B.decl [template = constants.%B]
-// CHECK:STDOUT:   %.loc30: %.6 = base_decl %B, element0 [template]
+// CHECK:STDOUT:   %loc30: %6 = base_decl %B, element0 [template]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = constants.%C2
-// CHECK:STDOUT:   .base = %.loc30
+// CHECK:STDOUT:   .base = %loc30
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @C3 {
 // CHECK:STDOUT:   %B.ref: type = name_ref B, file.%B.decl [template = constants.%B]
-// CHECK:STDOUT:   %.loc41: %.7 = base_decl %B, element0 [template]
+// CHECK:STDOUT:   %loc41: %7 = base_decl %B, element0 [template]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = constants.%C3
-// CHECK:STDOUT:   .base = %.loc41
+// CHECK:STDOUT:   .base = %loc41
 // CHECK:STDOUT:   extend name_scope2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @C4 {
 // CHECK:STDOUT:   %B.ref: type = name_ref B, file.%B.decl [template = constants.%B]
-// CHECK:STDOUT:   %.loc51: %.8 = base_decl %B, element0 [template]
+// CHECK:STDOUT:   %loc51: %8 = base_decl %B, element0 [template]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = constants.%C4
-// CHECK:STDOUT:   .base = %.loc51
+// CHECK:STDOUT:   .base = %loc51
 // CHECK:STDOUT:   extend name_scope2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

@@ -139,7 +139,7 @@ private class Redecl {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Def: type = class_type @Def [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -158,7 +158,7 @@ private class Redecl {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %ForwardWithDef: type = class_type @ForwardWithDef [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -193,9 +193,9 @@ private class Redecl {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Def: type = class_type @Def [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
 // CHECK:STDOUT:   %struct: %Def = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -223,17 +223,17 @@ private class Redecl {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc4_15.1: %.1 = struct_literal ()
-// CHECK:STDOUT:   %.loc4_15.2: init %Def = class_init (), file.%c.var [template = constants.%struct]
-// CHECK:STDOUT:   %.loc4_16: init %Def = converted %.loc4_15.1, %.loc4_15.2 [template = constants.%struct]
-// CHECK:STDOUT:   assign file.%c.var, %.loc4_16
+// CHECK:STDOUT:   %loc4_15.1: %1 = struct_literal ()
+// CHECK:STDOUT:   %loc4_15.2: init %Def = class_init (), file.%c.var [template = constants.%struct]
+// CHECK:STDOUT:   %loc4_16: init %Def = converted %loc4_15.1, %loc4_15.2 [template = constants.%struct]
+// CHECK:STDOUT:   assign file.%c.var, %loc4_16
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: --- fail_local_def.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -248,7 +248,7 @@ private class Redecl {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc10: %.1 = struct_literal ()
+// CHECK:STDOUT:   %loc10: %1 = struct_literal ()
 // CHECK:STDOUT:   assign file.%c.var, <error>
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
@@ -256,7 +256,7 @@ private class Redecl {}
 // CHECK:STDOUT: --- fail_other_def.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -276,7 +276,7 @@ private class Redecl {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc10: %.1 = struct_literal ()
+// CHECK:STDOUT:   %loc10: %1 = struct_literal ()
 // CHECK:STDOUT:   assign file.%c.var, <error>
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
@@ -285,9 +285,9 @@ private class Redecl {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %ForwardWithDef: type = class_type @ForwardWithDef [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
 // CHECK:STDOUT:   %struct: %ForwardWithDef = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -315,17 +315,17 @@ private class Redecl {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc4_26.1: %.1 = struct_literal ()
-// CHECK:STDOUT:   %.loc4_26.2: init %ForwardWithDef = class_init (), file.%c.var [template = constants.%struct]
-// CHECK:STDOUT:   %.loc4_27: init %ForwardWithDef = converted %.loc4_26.1, %.loc4_26.2 [template = constants.%struct]
-// CHECK:STDOUT:   assign file.%c.var, %.loc4_27
+// CHECK:STDOUT:   %loc4_26.1: %1 = struct_literal ()
+// CHECK:STDOUT:   %loc4_26.2: init %ForwardWithDef = class_init (), file.%c.var [template = constants.%struct]
+// CHECK:STDOUT:   %loc4_27: init %ForwardWithDef = converted %loc4_26.1, %loc4_26.2 [template = constants.%struct]
+// CHECK:STDOUT:   assign file.%c.var, %loc4_27
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: --- fail_local_forward_with_def.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -340,7 +340,7 @@ private class Redecl {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc10: %.1 = struct_literal ()
+// CHECK:STDOUT:   %loc10: %1 = struct_literal ()
 // CHECK:STDOUT:   assign file.%c.var, <error>
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
@@ -348,7 +348,7 @@ private class Redecl {}
 // CHECK:STDOUT: --- fail_other_forward_with_def.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -368,7 +368,7 @@ private class Redecl {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc10: %.1 = struct_literal ()
+// CHECK:STDOUT:   %loc10: %1 = struct_literal ()
 // CHECK:STDOUT:   assign file.%c.var, <error>
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
@@ -377,11 +377,11 @@ private class Redecl {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Forward: type = class_type @Forward [template]
-// CHECK:STDOUT:   %.1: type = ptr_type %Forward [template]
+// CHECK:STDOUT:   %1: type = ptr_type %Forward [template]
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = struct_type {} [template]
+// CHECK:STDOUT:   %3: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -397,9 +397,9 @@ private class Redecl {}
 // CHECK:STDOUT:   %default.import = import <invalid>
 // CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
 // CHECK:STDOUT:     %Forward.ref: type = name_ref Forward, imports.%import_ref [template = constants.%Forward]
-// CHECK:STDOUT:     %.loc4: type = ptr_type %Forward [template = constants.%.1]
-// CHECK:STDOUT:     %c.loc4_6.1: %.1 = param c
-// CHECK:STDOUT:     @F.%c: %.1 = bind_name c, %c.loc4_6.1
+// CHECK:STDOUT:     %loc4: type = ptr_type %Forward [template = constants.%1]
+// CHECK:STDOUT:     %c.loc4_6.1: %1 = param c
+// CHECK:STDOUT:     @F.%c: %1 = bind_name c, %c.loc4_6.1
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Forward.decl: type = class_decl @Forward [template = constants.%Forward] {}
 // CHECK:STDOUT: }
@@ -409,7 +409,7 @@ private class Redecl {}
 // CHECK:STDOUT:   .Self = constants.%Forward
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @F(%c: %.1) {
+// CHECK:STDOUT: fn @F(%c: %1) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
@@ -418,7 +418,7 @@ private class Redecl {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -429,7 +429,7 @@ private class Redecl {}
 // CHECK:STDOUT:   %default.import = import <invalid>
 // CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
 // CHECK:STDOUT:     %Forward.ref: <error> = name_ref Forward, <error> [template = <error>]
-// CHECK:STDOUT:     %.loc10: type = ptr_type <error> [template = <error>]
+// CHECK:STDOUT:     %loc10: type = ptr_type <error> [template = <error>]
 // CHECK:STDOUT:     %c.loc10_6.1: <error> = param c
 // CHECK:STDOUT:     @F.%c: <error> = bind_name c, %c.loc10_6.1
 // CHECK:STDOUT:   }
@@ -444,7 +444,7 @@ private class Redecl {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -460,7 +460,7 @@ private class Redecl {}
 // CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
 // CHECK:STDOUT:     %Test.ref: <namespace> = name_ref Test, %Test [template = %Test]
 // CHECK:STDOUT:     %Forward.ref: <error> = name_ref Forward, <error> [template = <error>]
-// CHECK:STDOUT:     %.loc9: type = ptr_type <error> [template = <error>]
+// CHECK:STDOUT:     %loc9: type = ptr_type <error> [template = <error>]
 // CHECK:STDOUT:     %c.loc9_6.1: <error> = param c
 // CHECK:STDOUT:     @F.%c: <error> = bind_name c, %c.loc9_6.1
 // CHECK:STDOUT:   }
@@ -475,7 +475,7 @@ private class Redecl {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Redecl: type = class_type @Redecl [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {

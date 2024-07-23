@@ -19,7 +19,7 @@ fn Main() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Main.type: type = fn_type @Main [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Main: %Main.type = struct_value () [template]
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
@@ -50,8 +50,8 @@ fn Main() {
 // CHECK:STDOUT: fn @Main() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %int.make_type_32: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc15_10.1: type = value_of_initializer %int.make_type_32 [template = i32]
-// CHECK:STDOUT:   %.loc15_10.2: type = converted %int.make_type_32, %.loc15_10.1 [template = i32]
+// CHECK:STDOUT:   %loc15_10.1: type = value_of_initializer %int.make_type_32 [template = i32]
+// CHECK:STDOUT:   %loc15_10.2: type = converted %int.make_type_32, %loc15_10.1 [template = i32]
 // CHECK:STDOUT:   %y.var: ref i32 = var y
 // CHECK:STDOUT:   %y: ref i32 = bind_name y, %y.var
 // CHECK:STDOUT:   %package.ref: <namespace> = name_ref package, package [template = package]

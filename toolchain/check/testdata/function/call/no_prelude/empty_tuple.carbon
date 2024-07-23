@@ -19,12 +19,12 @@ fn Main() {
 // CHECK:STDOUT: --- empty_tuple.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Echo.type: type = fn_type @Echo [template]
 // CHECK:STDOUT:   %Echo: %Echo.type = struct_value () [template]
 // CHECK:STDOUT:   %Main.type: type = fn_type @Main [template]
 // CHECK:STDOUT:   %Main: %Main.type = struct_value () [template]
-// CHECK:STDOUT:   %tuple: %.1 = tuple_value () [template]
+// CHECK:STDOUT:   %tuple: %1 = tuple_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -33,30 +33,30 @@ fn Main() {
 // CHECK:STDOUT:     .Main = %Main.decl
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Echo.decl: %Echo.type = fn_decl @Echo [template = constants.%Echo] {
-// CHECK:STDOUT:     %.loc11_13.1: %.1 = tuple_literal ()
-// CHECK:STDOUT:     %.loc11_13.2: type = converted %.loc11_13.1, constants.%.1 [template = constants.%.1]
-// CHECK:STDOUT:     %a.loc11_9.1: %.1 = param a
-// CHECK:STDOUT:     @Echo.%a: %.1 = bind_name a, %a.loc11_9.1
-// CHECK:STDOUT:     %.loc11_20.1: %.1 = tuple_literal ()
-// CHECK:STDOUT:     %.loc11_20.2: type = converted %.loc11_20.1, constants.%.1 [template = constants.%.1]
-// CHECK:STDOUT:     @Echo.%return: ref %.1 = var <return slot>
+// CHECK:STDOUT:     %loc11_13.1: %1 = tuple_literal ()
+// CHECK:STDOUT:     %loc11_13.2: type = converted %loc11_13.1, constants.%1 [template = constants.%1]
+// CHECK:STDOUT:     %a.loc11_9.1: %1 = param a
+// CHECK:STDOUT:     @Echo.%a: %1 = bind_name a, %a.loc11_9.1
+// CHECK:STDOUT:     %loc11_20.1: %1 = tuple_literal ()
+// CHECK:STDOUT:     %loc11_20.2: type = converted %loc11_20.1, constants.%1 [template = constants.%1]
+// CHECK:STDOUT:     @Echo.%return: ref %1 = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Main.decl: %Main.type = fn_decl @Main [template = constants.%Main] {}
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @Echo(%a: %.1) -> %.1 {
+// CHECK:STDOUT: fn @Echo(%a: %1) -> %1 {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %a.ref: %.1 = name_ref a, %a
+// CHECK:STDOUT:   %a.ref: %1 = name_ref a, %a
 // CHECK:STDOUT:   return %a.ref
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Main() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %Echo.ref: %Echo.type = name_ref Echo, file.%Echo.decl [template = constants.%Echo]
-// CHECK:STDOUT:   %.loc16_9: %.1 = tuple_literal ()
-// CHECK:STDOUT:   %tuple: %.1 = tuple_value () [template = constants.%tuple]
-// CHECK:STDOUT:   %.loc16_7: %.1 = converted %.loc16_9, %tuple [template = constants.%tuple]
-// CHECK:STDOUT:   %Echo.call: init %.1 = call %Echo.ref(%.loc16_7)
+// CHECK:STDOUT:   %loc16_9: %1 = tuple_literal ()
+// CHECK:STDOUT:   %tuple: %1 = tuple_value () [template = constants.%tuple]
+// CHECK:STDOUT:   %loc16_7: %1 = converted %loc16_9, %tuple [template = constants.%tuple]
+// CHECK:STDOUT:   %Echo.call: init %1 = call %Echo.ref(%loc16_7)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

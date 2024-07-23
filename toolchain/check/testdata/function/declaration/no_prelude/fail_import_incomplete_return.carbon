@@ -81,7 +81,7 @@ fn CallFAndGIncomplete() {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
 // CHECK:STDOUT:   %D: type = class_type @D [template]
 // CHECK:STDOUT:   %ReturnCUnused.type: type = fn_type @ReturnCUnused [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %ReturnCUnused: %ReturnCUnused.type = struct_value () [template]
 // CHECK:STDOUT:   %ReturnCUsed.type: type = fn_type @ReturnCUsed [template]
 // CHECK:STDOUT:   %ReturnCUsed: %ReturnCUsed.type = struct_value () [template]
@@ -91,7 +91,7 @@ fn CallFAndGIncomplete() {
 // CHECK:STDOUT:   %ReturnDUsed: %ReturnDUsed.type = struct_value () [template]
 // CHECK:STDOUT:   %Call.type: type = fn_type @Call [template]
 // CHECK:STDOUT:   %Call: %Call.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: type = struct_type {} [template]
+// CHECK:STDOUT:   %2: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -154,7 +154,7 @@ fn CallFAndGIncomplete() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %CallFAndGIncomplete.type: type = fn_type @CallFAndGIncomplete [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %CallFAndGIncomplete: %CallFAndGIncomplete.type = struct_value () [template]
 // CHECK:STDOUT:   %C: type = class_type @C [template]
 // CHECK:STDOUT:   %ReturnCUnused.type: type = fn_type @ReturnCUnused [template]
@@ -162,10 +162,10 @@ fn CallFAndGIncomplete() {
 // CHECK:STDOUT:   %ReturnCUsed.type: type = fn_type @ReturnCUsed [template]
 // CHECK:STDOUT:   %ReturnCUsed: %ReturnCUsed.type = struct_value () [template]
 // CHECK:STDOUT:   %D: type = class_type @D [template]
-// CHECK:STDOUT:   %.2: type = struct_type {} [template]
+// CHECK:STDOUT:   %2: type = struct_type {} [template]
 // CHECK:STDOUT:   %ReturnDUnused.type: type = fn_type @ReturnDUnused [template]
 // CHECK:STDOUT:   %ReturnDUnused: %ReturnDUnused.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.2 [template]
+// CHECK:STDOUT:   %3: type = ptr_type %2 [template]
 // CHECK:STDOUT:   %ReturnDUsed.type: type = fn_type @ReturnDUsed [template]
 // CHECK:STDOUT:   %ReturnDUsed: %ReturnDUsed.type = struct_value () [template]
 // CHECK:STDOUT: }
@@ -210,9 +210,9 @@ fn CallFAndGIncomplete() {
 // CHECK:STDOUT:   %ReturnCUsed.ref: %ReturnCUsed.type = name_ref ReturnCUsed, imports.%import_ref.4 [template = constants.%ReturnCUsed]
 // CHECK:STDOUT:   %ReturnCUsed.call: init <error> = call %ReturnCUsed.ref()
 // CHECK:STDOUT:   %ReturnDUnused.ref: %ReturnDUnused.type = name_ref ReturnDUnused, imports.%import_ref.5 [template = constants.%ReturnDUnused]
-// CHECK:STDOUT:   %.loc24_16.1: ref %D = temporary_storage
-// CHECK:STDOUT:   %ReturnDUnused.call: init %D = call %ReturnDUnused.ref() to %.loc24_16.1
-// CHECK:STDOUT:   %.loc24_16.2: ref %D = temporary %.loc24_16.1, %ReturnDUnused.call
+// CHECK:STDOUT:   %loc24_16.1: ref %D = temporary_storage
+// CHECK:STDOUT:   %ReturnDUnused.call: init %D = call %ReturnDUnused.ref() to %loc24_16.1
+// CHECK:STDOUT:   %loc24_16.2: ref %D = temporary %loc24_16.1, %ReturnDUnused.call
 // CHECK:STDOUT:   %ReturnDUsed.ref: %ReturnDUsed.type = name_ref ReturnDUsed, imports.%import_ref.6 [template = constants.%ReturnDUsed]
 // CHECK:STDOUT:   %ReturnDUsed.call: init <error> = call %ReturnDUsed.ref()
 // CHECK:STDOUT:   return

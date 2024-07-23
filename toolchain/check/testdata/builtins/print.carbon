@@ -20,16 +20,16 @@ fn Main() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
 // CHECK:STDOUT:   %Print.type.1: type = fn_type @Print.1 [template]
 // CHECK:STDOUT:   %Print.1: %Print.type.1 = struct_value () [template]
 // CHECK:STDOUT:   %Main.type: type = fn_type @Main [template]
 // CHECK:STDOUT:   %Main: %Main.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: i32 = int_literal 1 [template]
+// CHECK:STDOUT:   %2: i32 = int_literal 1 [template]
 // CHECK:STDOUT:   %Print.type.2: type = fn_type @Print.2 [template]
 // CHECK:STDOUT:   %Print.2: %Print.type.2 = struct_value () [template]
-// CHECK:STDOUT:   %.3: i32 = int_literal 2 [template]
+// CHECK:STDOUT:   %3: i32 = int_literal 2 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -55,8 +55,8 @@ fn Main() {
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Print.decl: %Print.type.1 = fn_decl @Print.1 [template = constants.%Print.1] {
 // CHECK:STDOUT:     %int.make_type_32: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc11_13.1: type = value_of_initializer %int.make_type_32 [template = i32]
-// CHECK:STDOUT:     %.loc11_13.2: type = converted %int.make_type_32, %.loc11_13.1 [template = i32]
+// CHECK:STDOUT:     %loc11_13.1: type = value_of_initializer %int.make_type_32 [template = i32]
+// CHECK:STDOUT:     %loc11_13.2: type = converted %int.make_type_32, %loc11_13.1 [template = i32]
 // CHECK:STDOUT:     %a.loc11_10.1: i32 = param a
 // CHECK:STDOUT:     @Print.1.%a: i32 = bind_name a, %a.loc11_10.1
 // CHECK:STDOUT:   }
@@ -70,12 +70,12 @@ fn Main() {
 // CHECK:STDOUT: fn @Main() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %Print.ref.loc14: %Print.type.1 = name_ref Print, file.%Print.decl [template = constants.%Print.1]
-// CHECK:STDOUT:   %.loc14: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   %print.int.loc14: init %.1 = call %Print.ref.loc14(%.loc14)
+// CHECK:STDOUT:   %loc14: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   %print.int.loc14: init %1 = call %Print.ref.loc14(%loc14)
 // CHECK:STDOUT:   %Core.ref: <namespace> = name_ref Core, file.%Core [template = file.%Core]
 // CHECK:STDOUT:   %Print.ref.loc16: %Print.type.2 = name_ref Print, imports.%import_ref.2 [template = constants.%Print.2]
-// CHECK:STDOUT:   %.loc16: i32 = int_literal 2 [template = constants.%.3]
-// CHECK:STDOUT:   %print.int.loc16: init %.1 = call %Print.ref.loc16(%.loc16)
+// CHECK:STDOUT:   %loc16: i32 = int_literal 2 [template = constants.%3]
+// CHECK:STDOUT:   %print.int.loc16: init %1 = call %Print.ref.loc16(%loc16)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

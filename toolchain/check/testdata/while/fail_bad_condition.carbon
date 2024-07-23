@@ -19,10 +19,10 @@ fn While() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %While.type: type = fn_type @While [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %While: %While.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: type = ptr_type String [template]
-// CHECK:STDOUT:   %.3: String = string_literal "Hello" [template]
+// CHECK:STDOUT:   %2: type = ptr_type String [template]
+// CHECK:STDOUT:   %3: String = string_literal "Hello" [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -48,7 +48,7 @@ fn While() {
 // CHECK:STDOUT:   br !while.cond
 // CHECK:STDOUT:
 // CHECK:STDOUT: !while.cond:
-// CHECK:STDOUT:   %.loc15: String = string_literal "Hello" [template = constants.%.3]
+// CHECK:STDOUT:   %loc15: String = string_literal "Hello" [template = constants.%3]
 // CHECK:STDOUT:   if <error> br !while.body else br !while.done
 // CHECK:STDOUT:
 // CHECK:STDOUT: !while.body:

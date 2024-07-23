@@ -19,9 +19,9 @@ fn Main() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Main.type: type = fn_type @Main [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Main: %Main.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: type = struct_type {} [template]
+// CHECK:STDOUT:   %2: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -33,11 +33,11 @@ fn Main() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Main() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc15_11.1: %.2 = struct_literal ()
-// CHECK:STDOUT:   %.loc15_11.2: type = converted %.loc15_11.1, constants.%.2 [template = constants.%.2]
-// CHECK:STDOUT:   %x.var: ref %.2 = var x
-// CHECK:STDOUT:   %x: ref %.2 = bind_name x, %x.var
-// CHECK:STDOUT:   %.loc15_16: %.1 = tuple_literal ()
+// CHECK:STDOUT:   %loc15_11.1: %2 = struct_literal ()
+// CHECK:STDOUT:   %loc15_11.2: type = converted %loc15_11.1, constants.%2 [template = constants.%2]
+// CHECK:STDOUT:   %x.var: ref %2 = var x
+// CHECK:STDOUT:   %x: ref %2 = bind_name x, %x.var
+// CHECK:STDOUT:   %loc15_16: %1 = tuple_literal ()
 // CHECK:STDOUT:   assign %x.var, <error>
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }

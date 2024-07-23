@@ -32,7 +32,7 @@ var package_b: () = package.NS.ChildNS.B();
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %A.type: type = fn_type @A [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %A: %A.type = struct_value () [template]
 // CHECK:STDOUT:   %B.type: type = fn_type @B [template]
 // CHECK:STDOUT:   %B: %B.type = struct_value () [template]
@@ -71,7 +71,7 @@ var package_b: () = package.NS.ChildNS.B();
 // CHECK:STDOUT: --- implicit.impl.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %A.type: type = fn_type @A [template]
 // CHECK:STDOUT:   %A: %A.type = struct_value () [template]
 // CHECK:STDOUT:   %B.type: type = fn_type @B [template]
@@ -113,22 +113,22 @@ var package_b: () = package.NS.ChildNS.B();
 // CHECK:STDOUT:     import Core//prelude/operators/comparison
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.loc4_9.1: %.1 = tuple_literal ()
-// CHECK:STDOUT:   %.loc4_9.2: type = converted %.loc4_9.1, constants.%.1 [template = constants.%.1]
-// CHECK:STDOUT:   %a.var: ref %.1 = var a
-// CHECK:STDOUT:   %a: ref %.1 = bind_name a, %a.var
-// CHECK:STDOUT:   %.loc5_9.1: %.1 = tuple_literal ()
-// CHECK:STDOUT:   %.loc5_9.2: type = converted %.loc5_9.1, constants.%.1 [template = constants.%.1]
-// CHECK:STDOUT:   %b.var: ref %.1 = var b
-// CHECK:STDOUT:   %b: ref %.1 = bind_name b, %b.var
-// CHECK:STDOUT:   %.loc7_17.1: %.1 = tuple_literal ()
-// CHECK:STDOUT:   %.loc7_17.2: type = converted %.loc7_17.1, constants.%.1 [template = constants.%.1]
-// CHECK:STDOUT:   %package_a.var: ref %.1 = var package_a
-// CHECK:STDOUT:   %package_a: ref %.1 = bind_name package_a, %package_a.var
-// CHECK:STDOUT:   %.loc8_17.1: %.1 = tuple_literal ()
-// CHECK:STDOUT:   %.loc8_17.2: type = converted %.loc8_17.1, constants.%.1 [template = constants.%.1]
-// CHECK:STDOUT:   %package_b.var: ref %.1 = var package_b
-// CHECK:STDOUT:   %package_b: ref %.1 = bind_name package_b, %package_b.var
+// CHECK:STDOUT:   %loc4_9.1: %1 = tuple_literal ()
+// CHECK:STDOUT:   %loc4_9.2: type = converted %loc4_9.1, constants.%1 [template = constants.%1]
+// CHECK:STDOUT:   %a.var: ref %1 = var a
+// CHECK:STDOUT:   %a: ref %1 = bind_name a, %a.var
+// CHECK:STDOUT:   %loc5_9.1: %1 = tuple_literal ()
+// CHECK:STDOUT:   %loc5_9.2: type = converted %loc5_9.1, constants.%1 [template = constants.%1]
+// CHECK:STDOUT:   %b.var: ref %1 = var b
+// CHECK:STDOUT:   %b: ref %1 = bind_name b, %b.var
+// CHECK:STDOUT:   %loc7_17.1: %1 = tuple_literal ()
+// CHECK:STDOUT:   %loc7_17.2: type = converted %loc7_17.1, constants.%1 [template = constants.%1]
+// CHECK:STDOUT:   %package_a.var: ref %1 = var package_a
+// CHECK:STDOUT:   %package_a: ref %1 = bind_name package_a, %package_a.var
+// CHECK:STDOUT:   %loc8_17.1: %1 = tuple_literal ()
+// CHECK:STDOUT:   %loc8_17.2: type = converted %loc8_17.1, constants.%1 [template = constants.%1]
+// CHECK:STDOUT:   %package_b.var: ref %1 = var package_b
+// CHECK:STDOUT:   %package_b: ref %1 = bind_name package_b, %package_b.var
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @A();
@@ -139,23 +139,23 @@ var package_b: () = package.NS.ChildNS.B();
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %NS.ref.loc4: <namespace> = name_ref NS, file.%NS [template = file.%NS]
 // CHECK:STDOUT:   %A.ref.loc4: %A.type = name_ref A, imports.%import_ref.1 [template = constants.%A]
-// CHECK:STDOUT:   %A.call.loc4: init %.1 = call %A.ref.loc4()
+// CHECK:STDOUT:   %A.call.loc4: init %1 = call %A.ref.loc4()
 // CHECK:STDOUT:   assign file.%a.var, %A.call.loc4
 // CHECK:STDOUT:   %NS.ref.loc5: <namespace> = name_ref NS, file.%NS [template = file.%NS]
 // CHECK:STDOUT:   %ChildNS.ref.loc5: <namespace> = name_ref ChildNS, file.%ChildNS [template = file.%ChildNS]
 // CHECK:STDOUT:   %B.ref.loc5: %B.type = name_ref B, imports.%import_ref.2 [template = constants.%B]
-// CHECK:STDOUT:   %B.call.loc5: init %.1 = call %B.ref.loc5()
+// CHECK:STDOUT:   %B.call.loc5: init %1 = call %B.ref.loc5()
 // CHECK:STDOUT:   assign file.%b.var, %B.call.loc5
 // CHECK:STDOUT:   %package.ref.loc7: <namespace> = name_ref package, package [template = package]
 // CHECK:STDOUT:   %NS.ref.loc7: <namespace> = name_ref NS, file.%NS [template = file.%NS]
 // CHECK:STDOUT:   %A.ref.loc7: %A.type = name_ref A, imports.%import_ref.1 [template = constants.%A]
-// CHECK:STDOUT:   %A.call.loc7: init %.1 = call %A.ref.loc7()
+// CHECK:STDOUT:   %A.call.loc7: init %1 = call %A.ref.loc7()
 // CHECK:STDOUT:   assign file.%package_a.var, %A.call.loc7
 // CHECK:STDOUT:   %package.ref.loc8: <namespace> = name_ref package, package [template = package]
 // CHECK:STDOUT:   %NS.ref.loc8: <namespace> = name_ref NS, file.%NS [template = file.%NS]
 // CHECK:STDOUT:   %ChildNS.ref.loc8: <namespace> = name_ref ChildNS, file.%ChildNS [template = file.%ChildNS]
 // CHECK:STDOUT:   %B.ref.loc8: %B.type = name_ref B, imports.%import_ref.2 [template = constants.%B]
-// CHECK:STDOUT:   %B.call.loc8: init %.1 = call %B.ref.loc8()
+// CHECK:STDOUT:   %B.call.loc8: init %1 = call %B.ref.loc8()
 // CHECK:STDOUT:   assign file.%package_b.var, %B.call.loc8
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }

@@ -34,11 +34,11 @@ fn FirstPerfectNumber() -> z { return 6; }
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
 // CHECK:STDOUT:   %Six.type: type = fn_type @Six [template]
 // CHECK:STDOUT:   %Six: %Six.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: i32 = int_literal 6 [template]
+// CHECK:STDOUT:   %2: i32 = int_literal 6 [template]
 // CHECK:STDOUT:   %y: type = bind_symbolic_name y 0 [symbolic]
 // CHECK:STDOUT:   %HalfDozen.type: type = fn_type @HalfDozen [template]
 // CHECK:STDOUT:   %HalfDozen: %HalfDozen.type = struct_value () [template]
@@ -50,7 +50,7 @@ fn FirstPerfectNumber() -> z { return 6; }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Six() -> <error> {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc16: i32 = int_literal 6 [template = constants.%.2]
+// CHECK:STDOUT:   %loc16: i32 = int_literal 6 [template = constants.%2]
 // CHECK:STDOUT:   return <error>
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -61,7 +61,7 @@ fn FirstPerfectNumber() -> z { return 6; }
 // CHECK:STDOUT:
 // CHECK:STDOUT:   fn() -> %y {
 // CHECK:STDOUT:   !entry:
-// CHECK:STDOUT:     %.loc24: i32 = int_literal 6 [template = constants.%.2]
+// CHECK:STDOUT:     %loc24: i32 = int_literal 6 [template = constants.%2]
 // CHECK:STDOUT:     return <error>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }

@@ -45,63 +45,63 @@ fn TestRef(b: C) {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %TestUnary.type: type = fn_type @TestUnary [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %TestUnary: %TestUnary.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
-// CHECK:STDOUT:   %.4: type = interface_type @Negate [template]
-// CHECK:STDOUT:   %Self.1: %.4 = bind_symbolic_name Self 0 [symbolic]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
+// CHECK:STDOUT:   %4: type = interface_type @Negate [template]
+// CHECK:STDOUT:   %Self.1: %4 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %Op.type.1: type = fn_type @Op.1 [template]
 // CHECK:STDOUT:   %Op.1: %Op.type.1 = struct_value () [template]
-// CHECK:STDOUT:   %.5: type = assoc_entity_type @Negate, %Op.type.1 [template]
-// CHECK:STDOUT:   %.6: %.5 = assoc_entity element0, imports.%import_ref.5 [template]
+// CHECK:STDOUT:   %5: type = assoc_entity_type @Negate, %Op.type.1 [template]
+// CHECK:STDOUT:   %6: %5 = assoc_entity element0, imports.%import_ref.5 [template]
 // CHECK:STDOUT:   %TestBinary.type: type = fn_type @TestBinary [template]
 // CHECK:STDOUT:   %TestBinary: %TestBinary.type = struct_value () [template]
-// CHECK:STDOUT:   %.7: type = interface_type @Add [template]
-// CHECK:STDOUT:   %Self.2: %.7 = bind_symbolic_name Self 0 [symbolic]
+// CHECK:STDOUT:   %7: type = interface_type @Add [template]
+// CHECK:STDOUT:   %Self.2: %7 = bind_symbolic_name Self 0 [symbolic]
 // CHECK:STDOUT:   %Op.type.2: type = fn_type @Op.2 [template]
 // CHECK:STDOUT:   %Op.2: %Op.type.2 = struct_value () [template]
-// CHECK:STDOUT:   %.8: type = assoc_entity_type @Add, %Op.type.2 [template]
-// CHECK:STDOUT:   %.9: %.8 = assoc_entity element0, imports.%import_ref.10 [template]
+// CHECK:STDOUT:   %8: type = assoc_entity_type @Add, %Op.type.2 [template]
+// CHECK:STDOUT:   %9: %8 = assoc_entity element0, imports.%import_ref.10 [template]
 // CHECK:STDOUT:   %TestRef.type: type = fn_type @TestRef [template]
 // CHECK:STDOUT:   %TestRef: %TestRef.type = struct_value () [template]
 // CHECK:STDOUT:   %struct: %C = struct_value () [template]
-// CHECK:STDOUT:   %.10: type = interface_type @AddAssign [template]
-// CHECK:STDOUT:   %Self.3: %.10 = bind_symbolic_name Self 0 [symbolic]
-// CHECK:STDOUT:   %.11: type = ptr_type %Self.3 [symbolic]
+// CHECK:STDOUT:   %10: type = interface_type @AddAssign [template]
+// CHECK:STDOUT:   %Self.3: %10 = bind_symbolic_name Self 0 [symbolic]
+// CHECK:STDOUT:   %11: type = ptr_type %Self.3 [symbolic]
 // CHECK:STDOUT:   %Op.type.3: type = fn_type @Op.3 [template]
 // CHECK:STDOUT:   %Op.3: %Op.type.3 = struct_value () [template]
-// CHECK:STDOUT:   %.12: type = assoc_entity_type @AddAssign, %Op.type.3 [template]
-// CHECK:STDOUT:   %.13: %.12 = assoc_entity element0, imports.%import_ref.15 [template]
-// CHECK:STDOUT:   %.14: type = interface_type @Inc [template]
-// CHECK:STDOUT:   %Self.4: %.14 = bind_symbolic_name Self 0 [symbolic]
-// CHECK:STDOUT:   %.15: type = ptr_type %Self.4 [symbolic]
+// CHECK:STDOUT:   %12: type = assoc_entity_type @AddAssign, %Op.type.3 [template]
+// CHECK:STDOUT:   %13: %12 = assoc_entity element0, imports.%import_ref.15 [template]
+// CHECK:STDOUT:   %14: type = interface_type @Inc [template]
+// CHECK:STDOUT:   %Self.4: %14 = bind_symbolic_name Self 0 [symbolic]
+// CHECK:STDOUT:   %15: type = ptr_type %Self.4 [symbolic]
 // CHECK:STDOUT:   %Op.type.4: type = fn_type @Op.4 [template]
 // CHECK:STDOUT:   %Op.4: %Op.type.4 = struct_value () [template]
-// CHECK:STDOUT:   %.16: type = assoc_entity_type @Inc, %Op.type.4 [template]
-// CHECK:STDOUT:   %.17: %.16 = assoc_entity element0, imports.%import_ref.20 [template]
+// CHECK:STDOUT:   %16: type = assoc_entity_type @Inc, %Op.type.4 [template]
+// CHECK:STDOUT:   %17: %16 = assoc_entity element0, imports.%import_ref.20 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
-// CHECK:STDOUT:   %import_ref.1: type = import_ref Core//prelude/operators/arithmetic, inst+72, loaded [template = constants.%.4]
+// CHECK:STDOUT:   %import_ref.1: type = import_ref Core//prelude/operators/arithmetic, inst+72, loaded [template = constants.%4]
 // CHECK:STDOUT:   %import_ref.2 = import_ref Core//prelude/operators/arithmetic, inst+74, unloaded
-// CHECK:STDOUT:   %import_ref.3: %.5 = import_ref Core//prelude/operators/arithmetic, inst+90, loaded [template = constants.%.6]
+// CHECK:STDOUT:   %import_ref.3: %5 = import_ref Core//prelude/operators/arithmetic, inst+90, loaded [template = constants.%6]
 // CHECK:STDOUT:   %import_ref.4 = import_ref Core//prelude/operators/arithmetic, inst+85, unloaded
 // CHECK:STDOUT:   %import_ref.5 = import_ref Core//prelude/operators/arithmetic, inst+85, unloaded
-// CHECK:STDOUT:   %import_ref.6: type = import_ref Core//prelude/operators/arithmetic, inst+1, loaded [template = constants.%.7]
+// CHECK:STDOUT:   %import_ref.6: type = import_ref Core//prelude/operators/arithmetic, inst+1, loaded [template = constants.%7]
 // CHECK:STDOUT:   %import_ref.7 = import_ref Core//prelude/operators/arithmetic, inst+3, unloaded
-// CHECK:STDOUT:   %import_ref.8: %.8 = import_ref Core//prelude/operators/arithmetic, inst+25, loaded [template = constants.%.9]
+// CHECK:STDOUT:   %import_ref.8: %8 = import_ref Core//prelude/operators/arithmetic, inst+25, loaded [template = constants.%9]
 // CHECK:STDOUT:   %import_ref.9 = import_ref Core//prelude/operators/arithmetic, inst+19, unloaded
 // CHECK:STDOUT:   %import_ref.10 = import_ref Core//prelude/operators/arithmetic, inst+19, unloaded
-// CHECK:STDOUT:   %import_ref.11: type = import_ref Core//prelude/operators/arithmetic, inst+27, loaded [template = constants.%.10]
+// CHECK:STDOUT:   %import_ref.11: type = import_ref Core//prelude/operators/arithmetic, inst+27, loaded [template = constants.%10]
 // CHECK:STDOUT:   %import_ref.12 = import_ref Core//prelude/operators/arithmetic, inst+29, unloaded
-// CHECK:STDOUT:   %import_ref.13: %.12 = import_ref Core//prelude/operators/arithmetic, inst+50, loaded [template = constants.%.13]
+// CHECK:STDOUT:   %import_ref.13: %12 = import_ref Core//prelude/operators/arithmetic, inst+50, loaded [template = constants.%13]
 // CHECK:STDOUT:   %import_ref.14 = import_ref Core//prelude/operators/arithmetic, inst+44, unloaded
 // CHECK:STDOUT:   %import_ref.15 = import_ref Core//prelude/operators/arithmetic, inst+44, unloaded
-// CHECK:STDOUT:   %import_ref.16: type = import_ref Core//prelude/operators/arithmetic, inst+52, loaded [template = constants.%.14]
+// CHECK:STDOUT:   %import_ref.16: type = import_ref Core//prelude/operators/arithmetic, inst+52, loaded [template = constants.%14]
 // CHECK:STDOUT:   %import_ref.17 = import_ref Core//prelude/operators/arithmetic, inst+54, unloaded
-// CHECK:STDOUT:   %import_ref.18: %.16 = import_ref Core//prelude/operators/arithmetic, inst+70, loaded [template = constants.%.17]
+// CHECK:STDOUT:   %import_ref.18: %16 = import_ref Core//prelude/operators/arithmetic, inst+70, loaded [template = constants.%17]
 // CHECK:STDOUT:   %import_ref.19 = import_ref Core//prelude/operators/arithmetic, inst+64, unloaded
 // CHECK:STDOUT:   %import_ref.20 = import_ref Core//prelude/operators/arithmetic, inst+64, unloaded
 // CHECK:STDOUT: }
@@ -204,17 +204,17 @@ fn TestRef(b: C) {
 // CHECK:STDOUT:   %C.ref: type = name_ref C, file.%C.decl [template = constants.%C]
 // CHECK:STDOUT:   %a.var: ref %C = var a
 // CHECK:STDOUT:   %a: ref %C = bind_name a, %a.var
-// CHECK:STDOUT:   %.loc32_15.1: %.1 = struct_literal ()
-// CHECK:STDOUT:   %.loc32_15.2: init %C = class_init (), %a.var [template = constants.%struct]
-// CHECK:STDOUT:   %.loc32_16: init %C = converted %.loc32_15.1, %.loc32_15.2 [template = constants.%struct]
-// CHECK:STDOUT:   assign %a.var, %.loc32_16
+// CHECK:STDOUT:   %loc32_15.1: %1 = struct_literal ()
+// CHECK:STDOUT:   %loc32_15.2: init %C = class_init (), %a.var [template = constants.%struct]
+// CHECK:STDOUT:   %loc32_16: init %C = converted %loc32_15.1, %loc32_15.2 [template = constants.%struct]
+// CHECK:STDOUT:   assign %a.var, %loc32_16
 // CHECK:STDOUT:   %a.ref.loc37: ref %C = name_ref a, %a
 // CHECK:STDOUT:   %b.ref: %C = name_ref b, %b
 // CHECK:STDOUT:   %a.ref.loc41: ref %C = name_ref a, %a
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @Op.3[addr %self: %.11](%other: %Self.3);
+// CHECK:STDOUT: fn @Op.3[addr %self: %11](%other: %Self.3);
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @Op.4[addr %self: %.15]();
+// CHECK:STDOUT: fn @Op.4[addr %self: %15]();
 // CHECK:STDOUT:

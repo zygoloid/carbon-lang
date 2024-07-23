@@ -16,7 +16,7 @@ var x: type = 42;
 // CHECK:STDOUT: --- fail_non_type_as_type.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: i32 = int_literal 42 [template]
+// CHECK:STDOUT:   %1: i32 = int_literal 42 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -40,7 +40,7 @@ var x: type = 42;
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc14: i32 = int_literal 42 [template = constants.%.1]
+// CHECK:STDOUT:   %loc14: i32 = int_literal 42 [template = constants.%1]
 // CHECK:STDOUT:   assign file.%x.var, <error>
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }

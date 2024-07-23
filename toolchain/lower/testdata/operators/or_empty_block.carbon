@@ -19,8 +19,8 @@ fn Or(b: bool, c: bool) -> bool {
 // CHECK:STDOUT:
 // CHECK:STDOUT: define i1 @Or(i1 %b, i1 %c) {
 // CHECK:STDOUT: entry:
-// CHECK:STDOUT:   %.loc14_12.1 = xor i1 %b, true
-// CHECK:STDOUT:   br i1 %.loc14_12.1, label %or.rhs, label %or.result
+// CHECK:STDOUT:   %loc14_12.1 = xor i1 %b, true
+// CHECK:STDOUT:   br i1 %loc14_12.1, label %or.rhs, label %or.result
 // CHECK:STDOUT:
 // CHECK:STDOUT: or.rhs:                                           ; preds = %entry
 // CHECK:STDOUT:   br label %or.result

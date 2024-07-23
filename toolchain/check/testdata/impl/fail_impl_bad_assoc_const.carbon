@@ -18,12 +18,12 @@ impl bool as I {}
 // CHECK:STDOUT: --- fail_impl_bad_assoc_const.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = interface_type @I [template]
-// CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic]
-// CHECK:STDOUT:   %.2: type = assoc_entity_type @I, type [template]
-// CHECK:STDOUT:   %.3: %.2 = assoc_entity element0, @I.%T [template]
+// CHECK:STDOUT:   %1: type = interface_type @I [template]
+// CHECK:STDOUT:   %Self: %1 = bind_symbolic_name Self 0 [symbolic]
+// CHECK:STDOUT:   %2: type = assoc_entity_type @I, type [template]
+// CHECK:STDOUT:   %3: %2 = assoc_entity element0, @I.%T [template]
 // CHECK:STDOUT:   %Bool.type: type = fn_type @Bool [template]
-// CHECK:STDOUT:   %.4: type = tuple_type () [template]
+// CHECK:STDOUT:   %4: type = tuple_type () [template]
 // CHECK:STDOUT:   %Bool: %Bool.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -46,27 +46,27 @@ impl bool as I {}
 // CHECK:STDOUT:     import Core//prelude/operators/comparison
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %I.decl: type = interface_decl @I [template = constants.%.1] {}
+// CHECK:STDOUT:   %I.decl: type = interface_decl @I [template = constants.%1] {}
 // CHECK:STDOUT:   impl_decl @impl {
 // CHECK:STDOUT:     %bool.make_type: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc16_6.1: type = value_of_initializer %bool.make_type [template = bool]
-// CHECK:STDOUT:     %.loc16_6.2: type = converted %bool.make_type, %.loc16_6.1 [template = bool]
-// CHECK:STDOUT:     %I.ref: type = name_ref I, %I.decl [template = constants.%.1]
+// CHECK:STDOUT:     %loc16_6.1: type = value_of_initializer %bool.make_type [template = bool]
+// CHECK:STDOUT:     %loc16_6.2: type = converted %bool.make_type, %loc16_6.1 [template = bool]
+// CHECK:STDOUT:     %I.ref: type = name_ref I, %I.decl [template = constants.%1]
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: interface @I {
-// CHECK:STDOUT:   %Self: %.1 = bind_symbolic_name Self 0 [symbolic = constants.%Self]
+// CHECK:STDOUT:   %Self: %1 = bind_symbolic_name Self 0 [symbolic = constants.%Self]
 // CHECK:STDOUT:   %T: type = assoc_const_decl T [template]
-// CHECK:STDOUT:   %.loc11: %.2 = assoc_entity element0, %T [template = constants.%.3]
+// CHECK:STDOUT:   %loc11: %2 = assoc_entity element0, %T [template = constants.%3]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = %Self
-// CHECK:STDOUT:   .T = %.loc11
+// CHECK:STDOUT:   .T = %loc11
 // CHECK:STDOUT:   witness = (%T)
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: impl @impl: bool as %.1 {
+// CHECK:STDOUT: impl @impl: bool as %1 {
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   witness = <error>
 // CHECK:STDOUT: }

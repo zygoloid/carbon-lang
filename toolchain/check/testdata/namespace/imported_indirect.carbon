@@ -120,7 +120,7 @@ var e: () = A.B.C.D();
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %D.type: type = fn_type @D [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %D: %D.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -163,7 +163,7 @@ var e: () = A.B.C.D();
 // CHECK:STDOUT: --- e.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %D.type: type = fn_type @D [template]
 // CHECK:STDOUT:   %D: %D.type = struct_value () [template]
 // CHECK:STDOUT: }
@@ -201,10 +201,10 @@ var e: () = A.B.C.D();
 // CHECK:STDOUT:     import Core//prelude/operators/comparison
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.loc5_9.1: %.1 = tuple_literal ()
-// CHECK:STDOUT:   %.loc5_9.2: type = converted %.loc5_9.1, constants.%.1 [template = constants.%.1]
-// CHECK:STDOUT:   %e.var: ref %.1 = var e
-// CHECK:STDOUT:   %e: ref %.1 = bind_name e, %e.var
+// CHECK:STDOUT:   %loc5_9.1: %1 = tuple_literal ()
+// CHECK:STDOUT:   %loc5_9.2: type = converted %loc5_9.1, constants.%1 [template = constants.%1]
+// CHECK:STDOUT:   %e.var: ref %1 = var e
+// CHECK:STDOUT:   %e: ref %1 = bind_name e, %e.var
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @D();
@@ -215,7 +215,7 @@ var e: () = A.B.C.D();
 // CHECK:STDOUT:   %B.ref: <namespace> = name_ref B, file.%B [template = file.%B]
 // CHECK:STDOUT:   %C.ref: <namespace> = name_ref C, file.%C [template = file.%C]
 // CHECK:STDOUT:   %D.ref: %D.type = name_ref D, imports.%import_ref [template = constants.%D]
-// CHECK:STDOUT:   %D.call: init %.1 = call %D.ref()
+// CHECK:STDOUT:   %D.call: init %1 = call %D.ref()
 // CHECK:STDOUT:   assign file.%e.var, %D.call
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }

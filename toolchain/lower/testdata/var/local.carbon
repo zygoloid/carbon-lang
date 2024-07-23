@@ -20,6 +20,6 @@ fn Run() -> i32 {
 // CHECK:STDOUT: entry:
 // CHECK:STDOUT:   %x.var = alloca i32, align 4
 // CHECK:STDOUT:   store i32 1, ptr %x.var, align 4
-// CHECK:STDOUT:   %.loc13 = load i32, ptr %x.var, align 4
-// CHECK:STDOUT:   ret i32 %.loc13
+// CHECK:STDOUT:   %loc13 = load i32, ptr %x.var, align 4
+// CHECK:STDOUT:   ret i32 %loc13
 // CHECK:STDOUT: }

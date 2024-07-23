@@ -22,8 +22,8 @@ fn F() -> i32 {
 // CHECK:STDOUT:
 // CHECK:STDOUT: define i32 @G(ptr %p) {
 // CHECK:STDOUT: entry:
-// CHECK:STDOUT:   %.loc12_10.2 = load i32, ptr %p, align 4
-// CHECK:STDOUT:   ret i32 %.loc12_10.2
+// CHECK:STDOUT:   %loc12_10.2 = load i32, ptr %p, align 4
+// CHECK:STDOUT:   ret i32 %loc12_10.2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: define i32 @F() {

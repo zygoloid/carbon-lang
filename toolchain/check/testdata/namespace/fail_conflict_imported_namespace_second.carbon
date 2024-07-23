@@ -47,7 +47,7 @@ fn NS.Foo();
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %NS.type: type = fn_type @NS [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %NS: %NS.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -75,10 +75,10 @@ fn NS.Foo();
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %NS.type: type = fn_type @NS [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %NS: %NS.type = struct_value () [template]
-// CHECK:STDOUT:   %.type: type = fn_type @.1 [template]
-// CHECK:STDOUT:   %.2: %.type = struct_value () [template]
+// CHECK:STDOUT:   %.type: type = fn_type @1 [template]
+// CHECK:STDOUT:   %2: %.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -101,11 +101,11 @@ fn NS.Foo();
 // CHECK:STDOUT:     import Core//prelude/operators/comparison
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.loc16: <namespace> = namespace [template] {}
-// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [template = constants.%.2] {}
+// CHECK:STDOUT:   %loc16: <namespace> = namespace [template] {}
+// CHECK:STDOUT:   %.decl: %.type = fn_decl @1 [template = constants.%2] {}
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @NS();
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @.1();
+// CHECK:STDOUT: fn @1();
 // CHECK:STDOUT:

@@ -16,7 +16,7 @@ var a: [1; 1];
 // CHECK:STDOUT: --- fail_invalid_type.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: i32 = int_literal 1 [template]
+// CHECK:STDOUT:   %1: i32 = int_literal 1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -34,9 +34,9 @@ var a: [1; 1];
 // CHECK:STDOUT:     import Core//prelude/operators/comparison
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.loc14_9: i32 = int_literal 1 [template = constants.%.1]
-// CHECK:STDOUT:   %.loc14_12: i32 = int_literal 1 [template = constants.%.1]
-// CHECK:STDOUT:   %.loc14_13: type = array_type %.loc14_12, <error> [template = <error>]
+// CHECK:STDOUT:   %loc14_9: i32 = int_literal 1 [template = constants.%1]
+// CHECK:STDOUT:   %loc14_12: i32 = int_literal 1 [template = constants.%1]
+// CHECK:STDOUT:   %loc14_13: type = array_type %loc14_12, <error> [template = <error>]
 // CHECK:STDOUT:   %a.var: ref <error> = var a
 // CHECK:STDOUT:   %a: ref <error> = bind_name a, %a.var
 // CHECK:STDOUT: }

@@ -16,9 +16,9 @@ fn F() -> i32 { return n; }
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: i32 = int_literal 1 [template]
+// CHECK:STDOUT:   %2: i32 = int_literal 1 [template]
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
 // CHECK:STDOUT: }
@@ -45,12 +45,12 @@ fn F() -> i32 { return n; }
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %int.make_type_32.loc11: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc11_8.1: type = value_of_initializer %int.make_type_32.loc11 [template = i32]
-// CHECK:STDOUT:   %.loc11_8.2: type = converted %int.make_type_32.loc11, %.loc11_8.1 [template = i32]
+// CHECK:STDOUT:   %loc11_8.1: type = value_of_initializer %int.make_type_32.loc11 [template = i32]
+// CHECK:STDOUT:   %loc11_8.2: type = converted %int.make_type_32.loc11, %loc11_8.1 [template = i32]
 // CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
 // CHECK:STDOUT:     %int.make_type_32.loc13: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc13_11.1: type = value_of_initializer %int.make_type_32.loc13 [template = i32]
-// CHECK:STDOUT:     %.loc13_11.2: type = converted %int.make_type_32.loc13, %.loc13_11.1 [template = i32]
+// CHECK:STDOUT:     %loc13_11.1: type = value_of_initializer %int.make_type_32.loc13 [template = i32]
+// CHECK:STDOUT:     %loc13_11.2: type = converted %int.make_type_32.loc13, %loc13_11.1 [template = i32]
 // CHECK:STDOUT:     @F.%return: ref i32 = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
@@ -65,8 +65,8 @@ fn F() -> i32 { return n; }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc11: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   %n: i32 = bind_name n, %.loc11
+// CHECK:STDOUT:   %loc11: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   %n: i32 = bind_name n, %loc11
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

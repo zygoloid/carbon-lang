@@ -16,8 +16,8 @@ var x: (1, );
 // CHECK:STDOUT: --- fail_value_as_type.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: i32 = int_literal 1 [template]
-// CHECK:STDOUT:   %.2: type = tuple_type (i32) [template]
+// CHECK:STDOUT:   %1: i32 = int_literal 1 [template]
+// CHECK:STDOUT:   %2: type = tuple_type (i32) [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -35,8 +35,8 @@ var x: (1, );
 // CHECK:STDOUT:     import Core//prelude/operators/comparison
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.loc14_9: i32 = int_literal 1 [template = constants.%.1]
-// CHECK:STDOUT:   %.loc14_12: %.2 = tuple_literal (%.loc14_9)
+// CHECK:STDOUT:   %loc14_9: i32 = int_literal 1 [template = constants.%1]
+// CHECK:STDOUT:   %loc14_12: %2 = tuple_literal (%loc14_9)
 // CHECK:STDOUT:   %x.var: ref <error> = var x
 // CHECK:STDOUT:   %x: ref <error> = bind_name x, %x.var
 // CHECK:STDOUT: }

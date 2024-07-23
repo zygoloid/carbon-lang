@@ -20,13 +20,13 @@ fn Run() {
 // CHECK:STDOUT: --- fail_return_type_mismatch.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: i32 = int_literal 64 [template]
+// CHECK:STDOUT:   %1: i32 = int_literal 64 [template]
 // CHECK:STDOUT:   %Float.type: type = fn_type @Float [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Float: %Float.type = struct_value () [template]
 // CHECK:STDOUT:   %Foo.type: type = fn_type @Foo [template]
 // CHECK:STDOUT:   %Foo: %Foo.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: f64 = float_literal 1 [template]
+// CHECK:STDOUT:   %3: f64 = float_literal 1 [template]
 // CHECK:STDOUT:   %Run.type: type = fn_type @Run [template]
 // CHECK:STDOUT:   %Run: %Run.type = struct_value () [template]
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
@@ -55,10 +55,10 @@ fn Run() {
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Foo.decl: %Foo.type = fn_decl @Foo [template = constants.%Foo] {
-// CHECK:STDOUT:     %.loc11_13.1: i32 = int_literal 64 [template = constants.%.1]
-// CHECK:STDOUT:     %float.make_type: init type = call constants.%Float(%.loc11_13.1) [template = f64]
-// CHECK:STDOUT:     %.loc11_13.2: type = value_of_initializer %float.make_type [template = f64]
-// CHECK:STDOUT:     %.loc11_13.3: type = converted %float.make_type, %.loc11_13.2 [template = f64]
+// CHECK:STDOUT:     %loc11_13.1: i32 = int_literal 64 [template = constants.%1]
+// CHECK:STDOUT:     %float.make_type: init type = call constants.%Float(%loc11_13.1) [template = f64]
+// CHECK:STDOUT:     %loc11_13.2: type = value_of_initializer %float.make_type [template = f64]
+// CHECK:STDOUT:     %loc11_13.3: type = converted %float.make_type, %loc11_13.2 [template = f64]
 // CHECK:STDOUT:     @Foo.%return: ref f64 = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Run.decl: %Run.type = fn_decl @Run [template = constants.%Run] {}
@@ -68,15 +68,15 @@ fn Run() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Foo() -> f64 {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc11: f64 = float_literal 1 [template = constants.%.3]
-// CHECK:STDOUT:   return %.loc11
+// CHECK:STDOUT:   %loc11: f64 = float_literal 1 [template = constants.%3]
+// CHECK:STDOUT:   return %loc11
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Run() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %int.make_type_32: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc17_10.1: type = value_of_initializer %int.make_type_32 [template = i32]
-// CHECK:STDOUT:   %.loc17_10.2: type = converted %int.make_type_32, %.loc17_10.1 [template = i32]
+// CHECK:STDOUT:   %loc17_10.1: type = value_of_initializer %int.make_type_32 [template = i32]
+// CHECK:STDOUT:   %loc17_10.2: type = converted %int.make_type_32, %loc17_10.1 [template = i32]
 // CHECK:STDOUT:   %x.var: ref i32 = var x
 // CHECK:STDOUT:   %x: ref i32 = bind_name x, %x.var
 // CHECK:STDOUT:   %Foo.ref: %Foo.type = name_ref Foo, file.%Foo.decl [template = constants.%Foo]

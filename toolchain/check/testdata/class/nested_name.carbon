@@ -28,15 +28,15 @@ fn G(o: Outer) {
 // CHECK:STDOUT:   %Outer: type = class_type @Outer [template]
 // CHECK:STDOUT:   %Inner: type = class_type @Inner [template]
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: type = unbound_element_type %Inner, i32 [template]
-// CHECK:STDOUT:   %.3: type = struct_type {.n: i32} [template]
-// CHECK:STDOUT:   %.4: type = struct_type {} [template]
-// CHECK:STDOUT:   %.5: type = ptr_type %.4 [template]
+// CHECK:STDOUT:   %2: type = unbound_element_type %Inner, i32 [template]
+// CHECK:STDOUT:   %3: type = struct_type {.n: i32} [template]
+// CHECK:STDOUT:   %4: type = struct_type {} [template]
+// CHECK:STDOUT:   %5: type = ptr_type %4 [template]
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
-// CHECK:STDOUT:   %.6: type = ptr_type %.3 [template]
+// CHECK:STDOUT:   %6: type = ptr_type %3 [template]
 // CHECK:STDOUT:   %G.type: type = fn_type @G [template]
 // CHECK:STDOUT:   %G: %G.type = struct_value () [template]
 // CHECK:STDOUT: }
@@ -70,8 +70,8 @@ fn G(o: Outer) {
 // CHECK:STDOUT:     %oi.loc17_6.1: %Inner = param oi
 // CHECK:STDOUT:     @F.%oi: %Inner = bind_name oi, %oi.loc17_6.1
 // CHECK:STDOUT:     %int.make_type_32: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc17_26.1: type = value_of_initializer %int.make_type_32 [template = i32]
-// CHECK:STDOUT:     %.loc17_26.2: type = converted %int.make_type_32, %.loc17_26.1 [template = i32]
+// CHECK:STDOUT:     %loc17_26.1: type = value_of_initializer %int.make_type_32 [template = i32]
+// CHECK:STDOUT:     %loc17_26.2: type = converted %int.make_type_32, %loc17_26.1 [template = i32]
 // CHECK:STDOUT:     @F.%return: ref i32 = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %G.decl: %G.type = fn_decl @G [template = constants.%G] {
@@ -91,13 +91,13 @@ fn G(o: Outer) {
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Inner {
 // CHECK:STDOUT:   %int.make_type_32: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc13_12.1: type = value_of_initializer %int.make_type_32 [template = i32]
-// CHECK:STDOUT:   %.loc13_12.2: type = converted %int.make_type_32, %.loc13_12.1 [template = i32]
-// CHECK:STDOUT:   %.loc13_10: %.2 = field_decl n, element0 [template]
+// CHECK:STDOUT:   %loc13_12.1: type = value_of_initializer %int.make_type_32 [template = i32]
+// CHECK:STDOUT:   %loc13_12.2: type = converted %int.make_type_32, %loc13_12.1 [template = i32]
+// CHECK:STDOUT:   %loc13_10: %2 = field_decl n, element0 [template]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = constants.%Inner
-// CHECK:STDOUT:   .n = %.loc13_10
+// CHECK:STDOUT:   .n = %loc13_10
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Int32() -> type = "int.make_type_32";
@@ -105,10 +105,10 @@ fn G(o: Outer) {
 // CHECK:STDOUT: fn @F(%oi: %Inner) -> i32 {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %oi.ref: %Inner = name_ref oi, %oi
-// CHECK:STDOUT:   %n.ref: %.2 = name_ref n, @Inner.%.loc13_10 [template = @Inner.%.loc13_10]
-// CHECK:STDOUT:   %.loc18_12.1: ref i32 = class_element_access %oi.ref, element0
-// CHECK:STDOUT:   %.loc18_12.2: i32 = bind_value %.loc18_12.1
-// CHECK:STDOUT:   return %.loc18_12.2
+// CHECK:STDOUT:   %n.ref: %2 = name_ref n, @Inner.%loc13_10 [template = @Inner.%loc13_10]
+// CHECK:STDOUT:   %loc18_12.1: ref i32 = class_element_access %oi.ref, element0
+// CHECK:STDOUT:   %loc18_12.2: i32 = bind_value %loc18_12.1
+// CHECK:STDOUT:   return %loc18_12.2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @G(%o: %Outer) {

@@ -23,10 +23,10 @@ let c_var: c = d;
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %D: type = class_type @D [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
 // CHECK:STDOUT:   %struct: %D = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -60,10 +60,10 @@ let c_var: c = d;
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc15_13.1: %.1 = struct_literal ()
-// CHECK:STDOUT:   %.loc15_13.2: init %D = class_init (), file.%d.var [template = constants.%struct]
-// CHECK:STDOUT:   %.loc15_14: init %D = converted %.loc15_13.1, %.loc15_13.2 [template = constants.%struct]
-// CHECK:STDOUT:   assign file.%d.var, %.loc15_14
+// CHECK:STDOUT:   %loc15_13.1: %1 = struct_literal ()
+// CHECK:STDOUT:   %loc15_13.2: init %D = class_init (), file.%d.var [template = constants.%struct]
+// CHECK:STDOUT:   %loc15_14: init %D = converted %loc15_13.1, %loc15_13.2 [template = constants.%struct]
+// CHECK:STDOUT:   assign file.%d.var, %loc15_14
 // CHECK:STDOUT:   %d.ref: ref %D = name_ref d, file.%d
 // CHECK:STDOUT:   %c_var: %C = bind_name c_var, <error>
 // CHECK:STDOUT:   return

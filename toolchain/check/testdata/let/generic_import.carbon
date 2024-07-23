@@ -25,7 +25,7 @@ var b: T = *a;
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
 // CHECK:STDOUT:   %T: type = bind_symbolic_name T 0 [symbolic]
 // CHECK:STDOUT: }
@@ -56,9 +56,9 @@ var b: T = *a;
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %int.make_type_32: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc4_19.1: type = value_of_initializer %int.make_type_32 [template = i32]
-// CHECK:STDOUT:   %.loc4_19.2: type = converted %int.make_type_32, %.loc4_19.1 [template = i32]
-// CHECK:STDOUT:   %T: type = bind_symbolic_name T 0, %.loc4_19.2 [symbolic = constants.%T]
+// CHECK:STDOUT:   %loc4_19.1: type = value_of_initializer %int.make_type_32 [template = i32]
+// CHECK:STDOUT:   %loc4_19.2: type = converted %int.make_type_32, %loc4_19.1 [template = i32]
+// CHECK:STDOUT:   %T: type = bind_symbolic_name T 0, %loc4_19.2 [symbolic = constants.%T]
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -66,7 +66,7 @@ var b: T = *a;
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %T: type = bind_symbolic_name T 0 [symbolic]
-// CHECK:STDOUT:   %.1: type = ptr_type %T [symbolic]
+// CHECK:STDOUT:   %1: type = ptr_type %T [symbolic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -93,9 +93,9 @@ var b: T = *a;
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %T.ref.loc4: type = name_ref T, imports.%import_ref [symbolic = constants.%T]
-// CHECK:STDOUT:   %.loc4: type = ptr_type %T [symbolic = constants.%.1]
-// CHECK:STDOUT:   %a.var: ref %.1 = var a
-// CHECK:STDOUT:   %a: ref %.1 = bind_name a, %a.var
+// CHECK:STDOUT:   %loc4: type = ptr_type %T [symbolic = constants.%1]
+// CHECK:STDOUT:   %a.var: ref %1 = var a
+// CHECK:STDOUT:   %a: ref %1 = bind_name a, %a.var
 // CHECK:STDOUT:   %T.ref.loc5: type = name_ref T, imports.%import_ref [symbolic = constants.%T]
 // CHECK:STDOUT:   %b.var: ref %T = var b
 // CHECK:STDOUT:   %b: ref %T = bind_name b, %b.var
@@ -103,11 +103,11 @@ var b: T = *a;
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %a.ref: ref %.1 = name_ref a, file.%a
-// CHECK:STDOUT:   %.loc5_13: %.1 = bind_value %a.ref
-// CHECK:STDOUT:   %.loc5_12.1: ref %T = deref %.loc5_13
-// CHECK:STDOUT:   %.loc5_12.2: %T = bind_value %.loc5_12.1
-// CHECK:STDOUT:   assign file.%b.var, %.loc5_12.2
+// CHECK:STDOUT:   %a.ref: ref %1 = name_ref a, file.%a
+// CHECK:STDOUT:   %loc5_13: %1 = bind_value %a.ref
+// CHECK:STDOUT:   %loc5_12.1: ref %T = deref %loc5_13
+// CHECK:STDOUT:   %loc5_12.2: %T = bind_value %loc5_12.1
+// CHECK:STDOUT:   assign file.%b.var, %loc5_12.2
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

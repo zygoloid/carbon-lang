@@ -32,10 +32,10 @@ class Y {
 // CHECK:STDOUT:   %X: type = class_type @X [template]
 // CHECK:STDOUT:   %A.2: type = class_type @A.2 [template]
 // CHECK:STDOUT:   %B.1: type = class_type @B.1 [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %B.2: type = class_type @B.2 [template]
 // CHECK:STDOUT:   %Y: type = class_type @Y [template]
-// CHECK:STDOUT:   %.2: type = class_type @.1 [template]
+// CHECK:STDOUT:   %2: type = class_type @1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -94,14 +94,14 @@ class Y {
 // CHECK:STDOUT: class @B.2;
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Y {
-// CHECK:STDOUT:   %.decl: type = class_decl @.1 [template = constants.%.2] {}
+// CHECK:STDOUT:   %.decl: type = class_decl @1 [template = constants.%2] {}
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = constants.%Y
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: class @.1 {
+// CHECK:STDOUT: class @1 {
 // CHECK:STDOUT: !members:
-// CHECK:STDOUT:   .Self = constants.%.2
+// CHECK:STDOUT:   .Self = constants.%2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

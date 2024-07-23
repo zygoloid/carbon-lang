@@ -30,9 +30,9 @@ fn Run() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Cycle: type = class_type @Cycle [template]
-// CHECK:STDOUT:   %.1: type = ptr_type %Cycle [template]
-// CHECK:STDOUT:   %.2: type = unbound_element_type %Cycle, %.1 [template]
-// CHECK:STDOUT:   %.3: type = struct_type {.a: %.1} [template]
+// CHECK:STDOUT:   %1: type = ptr_type %Cycle [template]
+// CHECK:STDOUT:   %2: type = unbound_element_type %Cycle, %1 [template]
+// CHECK:STDOUT:   %3: type = struct_type {.a: %1} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -55,23 +55,23 @@ fn Run() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Cycle {
 // CHECK:STDOUT:   %Cycle.ref: type = name_ref Cycle, file.%Cycle.decl [template = constants.%Cycle]
-// CHECK:STDOUT:   %.loc5_15: type = ptr_type %Cycle [template = constants.%.1]
-// CHECK:STDOUT:   %.loc5_8: %.2 = field_decl a, element0 [template]
+// CHECK:STDOUT:   %loc5_15: type = ptr_type %Cycle [template = constants.%1]
+// CHECK:STDOUT:   %loc5_8: %2 = field_decl a, element0 [template]
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = constants.%Cycle
-// CHECK:STDOUT:   .a = %.loc5_8
+// CHECK:STDOUT:   .a = %loc5_8
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: --- b.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Run.type: type = fn_type @Run [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Run: %Run.type = struct_value () [template]
 // CHECK:STDOUT:   %Cycle: type = class_type @Cycle [template]
-// CHECK:STDOUT:   %.2: type = ptr_type %Cycle [template]
-// CHECK:STDOUT:   %.3: type = struct_type {.a: %.2} [template]
+// CHECK:STDOUT:   %2: type = ptr_type %Cycle [template]
+// CHECK:STDOUT:   %3: type = struct_type {.a: %2} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -109,9 +109,9 @@ fn Run() {
 // CHECK:STDOUT: fn @Run() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %Cycle.ref: type = name_ref Cycle, imports.%import_ref.1 [template = constants.%Cycle]
-// CHECK:STDOUT:   %.loc7: type = ptr_type %Cycle [template = constants.%.2]
-// CHECK:STDOUT:   %a.var: ref %.2 = var a
-// CHECK:STDOUT:   %a: ref %.2 = bind_name a, %a.var
+// CHECK:STDOUT:   %loc7: type = ptr_type %Cycle [template = constants.%2]
+// CHECK:STDOUT:   %a.var: ref %2 = var a
+// CHECK:STDOUT:   %a: ref %2 = bind_name a, %a.var
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

@@ -183,9 +183,9 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = generic_class_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo.1: %Foo.type = struct_value () [template]
 // CHECK:STDOUT:   %Foo.2: type = class_type @Foo [template]
 // CHECK:STDOUT:   %Bar.type: type = generic_class_type @Bar [template]
@@ -244,9 +244,9 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = generic_class_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo.1: %Foo.type = struct_value () [template]
 // CHECK:STDOUT:   %Foo.2: type = class_type @Foo [template]
 // CHECK:STDOUT: }
@@ -283,14 +283,14 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = generic_class_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo.1: %Foo.type = struct_value () [template]
 // CHECK:STDOUT:   %Foo.2: type = class_type @Foo [template]
-// CHECK:STDOUT:   %.type: type = generic_class_type @.1 [template]
-// CHECK:STDOUT:   %.3: %.type = struct_value () [template]
-// CHECK:STDOUT:   %.4: type = class_type @.1 [template]
+// CHECK:STDOUT:   %.type: type = generic_class_type @1 [template]
+// CHECK:STDOUT:   %3: %.type = struct_value () [template]
+// CHECK:STDOUT:   %4: type = class_type @1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -304,7 +304,7 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:     %a.loc6_11.1: %C = param a
 // CHECK:STDOUT:     %a.loc6_11.2: %C = bind_name a, %a.loc6_11.1
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: %.type = class_decl @.1 [template = constants.%.3] {
+// CHECK:STDOUT:   %.decl: %.type = class_decl @1 [template = constants.%3] {
 // CHECK:STDOUT:     %C.ref.loc14: type = name_ref C, %C.decl [template = constants.%C]
 // CHECK:STDOUT:     %a.loc14_11.1: %C = param a
 // CHECK:STDOUT:     %a.loc14_11.2: %C = bind_name a, %a.loc14_11.1
@@ -318,18 +318,18 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Foo;
 // CHECK:STDOUT:
-// CHECK:STDOUT: class @.1 {
+// CHECK:STDOUT: class @1 {
 // CHECK:STDOUT: !members:
-// CHECK:STDOUT:   .Self = constants.%.4
+// CHECK:STDOUT:   .Self = constants.%4
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: --- todo_fail_raw_identifier.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = generic_class_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo.1: %Foo.type = struct_value () [template]
 // CHECK:STDOUT:   %Foo.2: type = class_type @Foo [template]
 // CHECK:STDOUT: }
@@ -366,9 +366,9 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = generic_class_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo.1: %Foo.type = struct_value () [template]
 // CHECK:STDOUT:   %Foo.2: type = class_type @Foo [template]
 // CHECK:STDOUT:   %Bar.type: type = generic_class_type @Bar [template]
@@ -411,9 +411,9 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = generic_class_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo.1: %Foo.type = struct_value () [template]
 // CHECK:STDOUT:   %Foo.2: type = class_type @Foo [template]
 // CHECK:STDOUT:   %Bar.type: type = generic_class_type @Bar [template]
@@ -469,14 +469,14 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = generic_class_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo.1: %Foo.type = struct_value () [template]
 // CHECK:STDOUT:   %Foo.2: type = class_type @Foo [template]
-// CHECK:STDOUT:   %.type: type = generic_class_type @.1 [template]
-// CHECK:STDOUT:   %.3: %.type = struct_value () [template]
-// CHECK:STDOUT:   %.4: type = class_type @.1 [template]
+// CHECK:STDOUT:   %.type: type = generic_class_type @1 [template]
+// CHECK:STDOUT:   %3: %.type = struct_value () [template]
+// CHECK:STDOUT:   %4: type = class_type @1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -493,7 +493,7 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:     %a.loc7_11.1: %C = param a
 // CHECK:STDOUT:     %a.loc7_11.2: %C = bind_name a, %a.loc7_11.1
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: %.type = class_decl @.1 [template = constants.%.3] {
+// CHECK:STDOUT:   %.decl: %.type = class_decl @1 [template = constants.%3] {
 // CHECK:STDOUT:     %D.ref: type = name_ref D, %D [template = constants.%C]
 // CHECK:STDOUT:     %b.loc15_11.1: %C = param b
 // CHECK:STDOUT:     %b.loc15_11.2: %C = bind_name b, %b.loc15_11.1
@@ -507,23 +507,23 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Foo;
 // CHECK:STDOUT:
-// CHECK:STDOUT: class @.1 {
+// CHECK:STDOUT: class @1 {
 // CHECK:STDOUT: !members:
-// CHECK:STDOUT:   .Self = constants.%.4
+// CHECK:STDOUT:   .Self = constants.%4
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: --- fail_alias.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = generic_class_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo.1: %Foo.type = struct_value () [template]
 // CHECK:STDOUT:   %Foo.2: type = class_type @Foo [template]
-// CHECK:STDOUT:   %.type: type = generic_class_type @.1 [template]
-// CHECK:STDOUT:   %.3: %.type = struct_value () [template]
-// CHECK:STDOUT:   %.4: type = class_type @.1 [template]
+// CHECK:STDOUT:   %.type: type = generic_class_type @1 [template]
+// CHECK:STDOUT:   %3: %.type = struct_value () [template]
+// CHECK:STDOUT:   %4: type = class_type @1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -540,7 +540,7 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:     %a.loc7_11.1: %C = param a
 // CHECK:STDOUT:     %a.loc7_11.2: %C = bind_name a, %a.loc7_11.1
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: %.type = class_decl @.1 [template = constants.%.3] {
+// CHECK:STDOUT:   %.decl: %.type = class_decl @1 [template = constants.%3] {
 // CHECK:STDOUT:     %D.ref: type = name_ref D, %D [template = constants.%C]
 // CHECK:STDOUT:     %a.loc15_11.1: %C = param a
 // CHECK:STDOUT:     %a.loc15_11.2: %C = bind_name a, %a.loc15_11.1
@@ -554,23 +554,23 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Foo;
 // CHECK:STDOUT:
-// CHECK:STDOUT: class @.1 {
+// CHECK:STDOUT: class @1 {
 // CHECK:STDOUT: !members:
-// CHECK:STDOUT:   .Self = constants.%.4
+// CHECK:STDOUT:   .Self = constants.%4
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: --- fail_deduced_alias.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = generic_class_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo.1: %Foo.type = struct_value () [template]
 // CHECK:STDOUT:   %Foo.2: type = class_type @Foo [template]
-// CHECK:STDOUT:   %.type: type = generic_class_type @.1 [template]
-// CHECK:STDOUT:   %.3: %.type = struct_value () [template]
-// CHECK:STDOUT:   %.4: type = class_type @.1 [template]
+// CHECK:STDOUT:   %.type: type = generic_class_type @1 [template]
+// CHECK:STDOUT:   %3: %.type = struct_value () [template]
+// CHECK:STDOUT:   %4: type = class_type @1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -587,7 +587,7 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:     %a.loc7_11.1: %C = param a
 // CHECK:STDOUT:     %a.loc7_11.2: %C = bind_name a, %a.loc7_11.1
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: %.type = class_decl @.1 [template = constants.%.3] {
+// CHECK:STDOUT:   %.decl: %.type = class_decl @1 [template = constants.%3] {
 // CHECK:STDOUT:     %D.ref: type = name_ref D, %D [template = constants.%C]
 // CHECK:STDOUT:     %a.loc15_11.1: %C = param a
 // CHECK:STDOUT:     %a.loc15_11.2: %C = bind_name a, %a.loc15_11.1
@@ -601,18 +601,18 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Foo;
 // CHECK:STDOUT:
-// CHECK:STDOUT: class @.1 {
+// CHECK:STDOUT: class @1 {
 // CHECK:STDOUT: !members:
-// CHECK:STDOUT:   .Self = constants.%.4
+// CHECK:STDOUT:   .Self = constants.%4
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: --- alias_two_file.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = generic_class_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo.1: %Foo.type = struct_value () [template]
 // CHECK:STDOUT:   %Foo.2: type = class_type @Foo [template]
 // CHECK:STDOUT: }
@@ -641,9 +641,9 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Foo.type: type = generic_class_type @Foo [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo.1: %Foo.type = struct_value () [template]
 // CHECK:STDOUT:   %Foo.2: type = class_type @Foo [template]
 // CHECK:STDOUT: }
@@ -685,15 +685,15 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
-// CHECK:STDOUT:   %.2: type = const_type %C [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
+// CHECK:STDOUT:   %2: type = const_type %C [template]
 // CHECK:STDOUT:   %Foo.type: type = generic_class_type @Foo [template]
-// CHECK:STDOUT:   %.3: type = tuple_type () [template]
+// CHECK:STDOUT:   %3: type = tuple_type () [template]
 // CHECK:STDOUT:   %Foo.1: %Foo.type = struct_value () [template]
 // CHECK:STDOUT:   %Foo.2: type = class_type @Foo [template]
-// CHECK:STDOUT:   %.type: type = generic_class_type @.1 [template]
-// CHECK:STDOUT:   %.4: %.type = struct_value () [template]
-// CHECK:STDOUT:   %.5: type = class_type @.1 [template]
+// CHECK:STDOUT:   %.type: type = generic_class_type @1 [template]
+// CHECK:STDOUT:   %4: %.type = struct_value () [template]
+// CHECK:STDOUT:   %5: type = class_type @1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -704,16 +704,16 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:   %C.decl: type = class_decl @C [template = constants.%C] {}
 // CHECK:STDOUT:   %Foo.decl: %Foo.type = class_decl @Foo [template = constants.%Foo.1] {
 // CHECK:STDOUT:     %C.ref.loc6: type = name_ref C, %C.decl [template = constants.%C]
-// CHECK:STDOUT:     %.loc6: type = const_type %C [template = constants.%.2]
-// CHECK:STDOUT:     %a.loc6_11.1: %.2 = param a
-// CHECK:STDOUT:     %a.loc6_11.2: %.2 = bind_name a, %a.loc6_11.1
+// CHECK:STDOUT:     %loc6: type = const_type %C [template = constants.%2]
+// CHECK:STDOUT:     %a.loc6_11.1: %2 = param a
+// CHECK:STDOUT:     %a.loc6_11.2: %2 = bind_name a, %a.loc6_11.1
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: %.type = class_decl @.1 [template = constants.%.4] {
+// CHECK:STDOUT:   %.decl: %.type = class_decl @1 [template = constants.%4] {
 // CHECK:STDOUT:     %C.ref.loc18: type = name_ref C, %C.decl [template = constants.%C]
-// CHECK:STDOUT:     %.loc18_21: type = const_type %C [template = constants.%.2]
-// CHECK:STDOUT:     %.loc18_14: type = const_type %.2 [template = constants.%.2]
-// CHECK:STDOUT:     %a.loc18_11.1: %.2 = param a
-// CHECK:STDOUT:     %a.loc18_11.2: %.2 = bind_name a, %a.loc18_11.1
+// CHECK:STDOUT:     %loc18_21: type = const_type %C [template = constants.%2]
+// CHECK:STDOUT:     %loc18_14: type = const_type %2 [template = constants.%2]
+// CHECK:STDOUT:     %a.loc18_11.1: %2 = param a
+// CHECK:STDOUT:     %a.loc18_11.2: %2 = bind_name a, %a.loc18_11.1
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -724,25 +724,25 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Foo;
 // CHECK:STDOUT:
-// CHECK:STDOUT: class @.1 {
+// CHECK:STDOUT: class @1 {
 // CHECK:STDOUT: !members:
-// CHECK:STDOUT:   .Self = constants.%.5
+// CHECK:STDOUT:   .Self = constants.%5
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: --- fail_self_type.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Base: type = class_type @Base [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
-// CHECK:STDOUT:   %.2: type = unbound_element_type %Base, %.1 [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %Base [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = unbound_element_type %Base, %1 [template]
+// CHECK:STDOUT:   %3: type = ptr_type %Base [template]
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
-// CHECK:STDOUT:   %.4: type = struct_type {.a: %.1} [template]
-// CHECK:STDOUT:   %.type: type = fn_type @.1 [template]
-// CHECK:STDOUT:   %.5: %.type = struct_value () [template]
-// CHECK:STDOUT:   %.6: type = ptr_type %.4 [template]
-// CHECK:STDOUT:   %tuple: %.1 = tuple_value () [template]
+// CHECK:STDOUT:   %4: type = struct_type {.a: %1} [template]
+// CHECK:STDOUT:   %.type: type = fn_type @1 [template]
+// CHECK:STDOUT:   %5: %.type = struct_value () [template]
+// CHECK:STDOUT:   %6: type = ptr_type %4 [template]
+// CHECK:STDOUT:   %tuple: %1 = tuple_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -750,45 +750,45 @@ fn Base.F[addr self: Base*]() {
 // CHECK:STDOUT:     .Base = %Base.decl
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Base.decl: type = class_decl @Base [template = constants.%Base] {}
-// CHECK:STDOUT:   %.decl: %.type = fn_decl @.1 [template = constants.%.5] {
+// CHECK:STDOUT:   %.decl: %.type = fn_decl @1 [template = constants.%5] {
 // CHECK:STDOUT:     %Base.ref: type = name_ref Base, %Base.decl [template = constants.%Base]
-// CHECK:STDOUT:     %.loc16_26: type = ptr_type %Base [template = constants.%.3]
-// CHECK:STDOUT:     %self.loc16_16.1: %.3 = param self
-// CHECK:STDOUT:     @.1.%self: %.3 = bind_name self, %self.loc16_16.1
-// CHECK:STDOUT:     @.1.%.loc16: %.3 = addr_pattern @.1.%self
+// CHECK:STDOUT:     %loc16_26: type = ptr_type %Base [template = constants.%3]
+// CHECK:STDOUT:     %self.loc16_16.1: %3 = param self
+// CHECK:STDOUT:     @1.%self: %3 = bind_name self, %self.loc16_16.1
+// CHECK:STDOUT:     @1.%loc16: %3 = addr_pattern @1.%self
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Base {
-// CHECK:STDOUT:   %.loc5_11.1: %.1 = tuple_literal ()
-// CHECK:STDOUT:   %.loc5_11.2: type = converted %.loc5_11.1, constants.%.1 [template = constants.%.1]
-// CHECK:STDOUT:   %.loc5_8: %.2 = field_decl a, element0 [template]
+// CHECK:STDOUT:   %loc5_11.1: %1 = tuple_literal ()
+// CHECK:STDOUT:   %loc5_11.2: type = converted %loc5_11.1, constants.%1 [template = constants.%1]
+// CHECK:STDOUT:   %loc5_8: %2 = field_decl a, element0 [template]
 // CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
 // CHECK:STDOUT:     %Self.ref: type = name_ref Self, constants.%Base [template = constants.%Base]
-// CHECK:STDOUT:     %.loc7_23: type = ptr_type %Base [template = constants.%.3]
-// CHECK:STDOUT:     %self.loc7_13.1: %.3 = param self
-// CHECK:STDOUT:     %self.loc7_13.3: %.3 = bind_name self, %self.loc7_13.1
-// CHECK:STDOUT:     %.loc7_8: %.3 = addr_pattern %self.loc7_13.3
+// CHECK:STDOUT:     %loc7_23: type = ptr_type %Base [template = constants.%3]
+// CHECK:STDOUT:     %self.loc7_13.1: %3 = param self
+// CHECK:STDOUT:     %self.loc7_13.3: %3 = bind_name self, %self.loc7_13.1
+// CHECK:STDOUT:     %loc7_8: %3 = addr_pattern %self.loc7_13.3
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:
 // CHECK:STDOUT: !members:
 // CHECK:STDOUT:   .Self = constants.%Base
-// CHECK:STDOUT:   .a = %.loc5_8
+// CHECK:STDOUT:   .a = %loc5_8
 // CHECK:STDOUT:   .F = %F.decl
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @F[addr @Base.%self.loc7_13.3: %.3]();
+// CHECK:STDOUT: fn @F[addr @Base.%self.loc7_13.3: %3]();
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @.1[addr %self: %.3]() {
+// CHECK:STDOUT: fn @1[addr %self: %3]() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %self.ref: %.3 = name_ref self, %self
-// CHECK:STDOUT:   %.loc17_4: ref %Base = deref %self.ref
-// CHECK:STDOUT:   %a.ref: %.2 = name_ref a, @Base.%.loc5_8 [template = @Base.%.loc5_8]
-// CHECK:STDOUT:   %.loc17_10: ref %.1 = class_element_access %.loc17_4, element0
-// CHECK:STDOUT:   %.loc17_16.1: %.1 = tuple_literal ()
-// CHECK:STDOUT:   %.loc17_16.2: init %.1 = tuple_init () to %.loc17_10 [template = constants.%tuple]
-// CHECK:STDOUT:   %.loc17_13: init %.1 = converted %.loc17_16.1, %.loc17_16.2 [template = constants.%tuple]
-// CHECK:STDOUT:   assign %.loc17_10, %.loc17_13
+// CHECK:STDOUT:   %self.ref: %3 = name_ref self, %self
+// CHECK:STDOUT:   %loc17_4: ref %Base = deref %self.ref
+// CHECK:STDOUT:   %a.ref: %2 = name_ref a, @Base.%loc5_8 [template = @Base.%loc5_8]
+// CHECK:STDOUT:   %loc17_10: ref %1 = class_element_access %loc17_4, element0
+// CHECK:STDOUT:   %loc17_16.1: %1 = tuple_literal ()
+// CHECK:STDOUT:   %loc17_16.2: init %1 = tuple_init () to %loc17_10 [template = constants.%tuple]
+// CHECK:STDOUT:   %loc17_13: init %1 = converted %loc17_16.1, %loc17_16.2 [template = constants.%tuple]
+// CHECK:STDOUT:   assign %loc17_10, %loc17_13
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

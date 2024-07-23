@@ -58,10 +58,10 @@ var y2: bool = false or true;
 // CHECK:STDOUT: --- fail_todo_control_flow_init.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
-// CHECK:STDOUT:   %.2: bool = bool_literal true [template]
-// CHECK:STDOUT:   %tuple: %.1 = tuple_value () [template]
-// CHECK:STDOUT:   %.3: bool = bool_literal false [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: bool = bool_literal true [template]
+// CHECK:STDOUT:   %tuple: %1 = tuple_value () [template]
+// CHECK:STDOUT:   %3: bool = bool_literal false [template]
 // CHECK:STDOUT:   %Bool.type: type = fn_type @Bool [template]
 // CHECK:STDOUT:   %Bool: %Bool.type = struct_value () [template]
 // CHECK:STDOUT: }
@@ -89,22 +89,22 @@ var y2: bool = false or true;
 // CHECK:STDOUT:     import Core//prelude/operators/comparison
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.loc23_9.1: %.1 = tuple_literal ()
-// CHECK:STDOUT:   %.loc23_9.2: type = converted %.loc23_9.1, constants.%.1 [template = constants.%.1]
-// CHECK:STDOUT:   %x.var: ref %.1 = var x
-// CHECK:STDOUT:   %x: ref %.1 = bind_name x, %x.var
-// CHECK:STDOUT:   %.loc37_10.1: %.1 = tuple_literal ()
-// CHECK:STDOUT:   %.loc37_10.2: type = converted %.loc37_10.1, constants.%.1 [template = constants.%.1]
-// CHECK:STDOUT:   %x2.var: ref %.1 = var x2
-// CHECK:STDOUT:   %x2: ref %.1 = bind_name x2, %x2.var
+// CHECK:STDOUT:   %loc23_9.1: %1 = tuple_literal ()
+// CHECK:STDOUT:   %loc23_9.2: type = converted %loc23_9.1, constants.%1 [template = constants.%1]
+// CHECK:STDOUT:   %x.var: ref %1 = var x
+// CHECK:STDOUT:   %x: ref %1 = bind_name x, %x.var
+// CHECK:STDOUT:   %loc37_10.1: %1 = tuple_literal ()
+// CHECK:STDOUT:   %loc37_10.2: type = converted %loc37_10.1, constants.%1 [template = constants.%1]
+// CHECK:STDOUT:   %x2.var: ref %1 = var x2
+// CHECK:STDOUT:   %x2: ref %1 = bind_name x2, %x2.var
 // CHECK:STDOUT:   %bool.make_type.loc47: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:   %.loc47_8.1: type = value_of_initializer %bool.make_type.loc47 [template = bool]
-// CHECK:STDOUT:   %.loc47_8.2: type = converted %bool.make_type.loc47, %.loc47_8.1 [template = bool]
+// CHECK:STDOUT:   %loc47_8.1: type = value_of_initializer %bool.make_type.loc47 [template = bool]
+// CHECK:STDOUT:   %loc47_8.2: type = converted %bool.make_type.loc47, %loc47_8.1 [template = bool]
 // CHECK:STDOUT:   %y.var: ref bool = var y
 // CHECK:STDOUT:   %y: ref bool = bind_name y, %y.var
 // CHECK:STDOUT:   %bool.make_type.loc56: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:   %.loc56_9.1: type = value_of_initializer %bool.make_type.loc56 [template = bool]
-// CHECK:STDOUT:   %.loc56_9.2: type = converted %bool.make_type.loc56, %.loc56_9.1 [template = bool]
+// CHECK:STDOUT:   %loc56_9.1: type = value_of_initializer %bool.make_type.loc56 [template = bool]
+// CHECK:STDOUT:   %loc56_9.2: type = converted %bool.make_type.loc56, %loc56_9.1 [template = bool]
 // CHECK:STDOUT:   %y2.var: ref bool = var y2
 // CHECK:STDOUT:   %y2: ref bool = bind_name y2, %y2.var
 // CHECK:STDOUT: }
@@ -113,7 +113,7 @@ var y2: bool = false or true;
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc23: bool = bool_literal true [template = constants.%.2]
-// CHECK:STDOUT:   if %.loc23 br !if.expr.then else br !if.expr.else
+// CHECK:STDOUT:   %loc23: bool = bool_literal true [template = constants.%2]
+// CHECK:STDOUT:   if %loc23 br !if.expr.then else br !if.expr.else
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

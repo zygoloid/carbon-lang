@@ -20,7 +20,7 @@ var a: () = A();
 // CHECK:STDOUT: --- fail_implicit.impl.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -40,10 +40,10 @@ var a: () = A();
 // CHECK:STDOUT:     import Core//prelude/operators/comparison
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.loc7_9.1: %.1 = tuple_literal ()
-// CHECK:STDOUT:   %.loc7_9.2: type = converted %.loc7_9.1, constants.%.1 [template = constants.%.1]
-// CHECK:STDOUT:   %a.var: ref %.1 = var a
-// CHECK:STDOUT:   %a: ref %.1 = bind_name a, %a.var
+// CHECK:STDOUT:   %loc7_9.1: %1 = tuple_literal ()
+// CHECK:STDOUT:   %loc7_9.2: type = converted %loc7_9.1, constants.%1 [template = constants.%1]
+// CHECK:STDOUT:   %a.var: ref %1 = var a
+// CHECK:STDOUT:   %a: ref %1 = bind_name a, %a.var
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {

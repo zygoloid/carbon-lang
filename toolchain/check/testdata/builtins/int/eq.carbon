@@ -37,22 +37,22 @@ fn WrongResult(a: i32, b: i32) -> i32 = "int.eq";
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
 // CHECK:STDOUT:   %Bool.type: type = fn_type @Bool [template]
 // CHECK:STDOUT:   %Bool: %Bool.type = struct_value () [template]
 // CHECK:STDOUT:   %Eq.type: type = fn_type @Eq [template]
 // CHECK:STDOUT:   %Eq: %Eq.type = struct_value () [template]
 // CHECK:STDOUT:   %True: type = class_type @True [template]
-// CHECK:STDOUT:   %.2: type = struct_type {} [template]
+// CHECK:STDOUT:   %2: type = struct_type {} [template]
 // CHECK:STDOUT:   %False: type = class_type @False [template]
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.2 [template]
-// CHECK:STDOUT:   %.4: i32 = int_literal 1 [template]
-// CHECK:STDOUT:   %.5: bool = bool_literal true [template]
-// CHECK:STDOUT:   %.6: i32 = int_literal 2 [template]
-// CHECK:STDOUT:   %.7: bool = bool_literal false [template]
+// CHECK:STDOUT:   %3: type = ptr_type %2 [template]
+// CHECK:STDOUT:   %4: i32 = int_literal 1 [template]
+// CHECK:STDOUT:   %5: bool = bool_literal true [template]
+// CHECK:STDOUT:   %6: i32 = int_literal 2 [template]
+// CHECK:STDOUT:   %7: bool = bool_literal false [template]
 // CHECK:STDOUT:   %RuntimeCall.type: type = fn_type @RuntimeCall [template]
 // CHECK:STDOUT:   %RuntimeCall: %RuntimeCall.type = struct_value () [template]
 // CHECK:STDOUT: }
@@ -87,18 +87,18 @@ fn WrongResult(a: i32, b: i32) -> i32 = "int.eq";
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Eq.decl: %Eq.type = fn_decl @Eq [template = constants.%Eq] {
 // CHECK:STDOUT:     %int.make_type_32.loc2_10: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc2_10.1: type = value_of_initializer %int.make_type_32.loc2_10 [template = i32]
-// CHECK:STDOUT:     %.loc2_10.2: type = converted %int.make_type_32.loc2_10, %.loc2_10.1 [template = i32]
+// CHECK:STDOUT:     %loc2_10.1: type = value_of_initializer %int.make_type_32.loc2_10 [template = i32]
+// CHECK:STDOUT:     %loc2_10.2: type = converted %int.make_type_32.loc2_10, %loc2_10.1 [template = i32]
 // CHECK:STDOUT:     %a.loc2_7.1: i32 = param a
 // CHECK:STDOUT:     @Eq.%a: i32 = bind_name a, %a.loc2_7.1
 // CHECK:STDOUT:     %int.make_type_32.loc2_18: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc2_18.1: type = value_of_initializer %int.make_type_32.loc2_18 [template = i32]
-// CHECK:STDOUT:     %.loc2_18.2: type = converted %int.make_type_32.loc2_18, %.loc2_18.1 [template = i32]
+// CHECK:STDOUT:     %loc2_18.1: type = value_of_initializer %int.make_type_32.loc2_18 [template = i32]
+// CHECK:STDOUT:     %loc2_18.2: type = converted %int.make_type_32.loc2_18, %loc2_18.1 [template = i32]
 // CHECK:STDOUT:     %b.loc2_15.1: i32 = param b
 // CHECK:STDOUT:     @Eq.%b: i32 = bind_name b, %b.loc2_15.1
 // CHECK:STDOUT:     %bool.make_type.loc2: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc2_26.1: type = value_of_initializer %bool.make_type.loc2 [template = bool]
-// CHECK:STDOUT:     %.loc2_26.2: type = converted %bool.make_type.loc2, %.loc2_26.1 [template = bool]
+// CHECK:STDOUT:     %loc2_26.1: type = value_of_initializer %bool.make_type.loc2 [template = bool]
+// CHECK:STDOUT:     %loc2_26.2: type = converted %bool.make_type.loc2, %loc2_26.1 [template = bool]
 // CHECK:STDOUT:     @Eq.%return: ref bool = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %True.decl: type = class_decl @True [template = constants.%True] {}
@@ -113,18 +113,18 @@ fn WrongResult(a: i32, b: i32) -> i32 = "int.eq";
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %RuntimeCall.decl: %RuntimeCall.type = fn_decl @RuntimeCall [template = constants.%RuntimeCall] {
 // CHECK:STDOUT:     %int.make_type_32.loc12_19: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc12_19.1: type = value_of_initializer %int.make_type_32.loc12_19 [template = i32]
-// CHECK:STDOUT:     %.loc12_19.2: type = converted %int.make_type_32.loc12_19, %.loc12_19.1 [template = i32]
+// CHECK:STDOUT:     %loc12_19.1: type = value_of_initializer %int.make_type_32.loc12_19 [template = i32]
+// CHECK:STDOUT:     %loc12_19.2: type = converted %int.make_type_32.loc12_19, %loc12_19.1 [template = i32]
 // CHECK:STDOUT:     %a.loc12_16.1: i32 = param a
 // CHECK:STDOUT:     @RuntimeCall.%a: i32 = bind_name a, %a.loc12_16.1
 // CHECK:STDOUT:     %int.make_type_32.loc12_27: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc12_27.1: type = value_of_initializer %int.make_type_32.loc12_27 [template = i32]
-// CHECK:STDOUT:     %.loc12_27.2: type = converted %int.make_type_32.loc12_27, %.loc12_27.1 [template = i32]
+// CHECK:STDOUT:     %loc12_27.1: type = value_of_initializer %int.make_type_32.loc12_27 [template = i32]
+// CHECK:STDOUT:     %loc12_27.2: type = converted %int.make_type_32.loc12_27, %loc12_27.1 [template = i32]
 // CHECK:STDOUT:     %b.loc12_24.1: i32 = param b
 // CHECK:STDOUT:     @RuntimeCall.%b: i32 = bind_name b, %b.loc12_24.1
 // CHECK:STDOUT:     %bool.make_type.loc12: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc12_35.1: type = value_of_initializer %bool.make_type.loc12 [template = bool]
-// CHECK:STDOUT:     %.loc12_35.2: type = converted %bool.make_type.loc12, %.loc12_35.1 [template = bool]
+// CHECK:STDOUT:     %loc12_35.1: type = value_of_initializer %bool.make_type.loc12 [template = bool]
+// CHECK:STDOUT:     %loc12_35.2: type = converted %bool.make_type.loc12, %loc12_35.1 [template = bool]
 // CHECK:STDOUT:     @RuntimeCall.%return: ref bool = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
@@ -149,12 +149,12 @@ fn WrongResult(a: i32, b: i32) -> i32 = "int.eq";
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %true_.ref: %True = name_ref true_, %true_
 // CHECK:STDOUT:   %Eq.ref.loc8: %Eq.type = name_ref Eq, file.%Eq.decl [template = constants.%Eq]
-// CHECK:STDOUT:   %.loc8_19: i32 = int_literal 1 [template = constants.%.4]
-// CHECK:STDOUT:   %.loc8_22: i32 = int_literal 1 [template = constants.%.4]
-// CHECK:STDOUT:   %int.eq.loc8: init bool = call %Eq.ref.loc8(%.loc8_19, %.loc8_22) [template = constants.%.5]
-// CHECK:STDOUT:   %.loc8_13.1: bool = value_of_initializer %int.eq.loc8 [template = constants.%.5]
-// CHECK:STDOUT:   %.loc8_13.2: bool = converted %int.eq.loc8, %.loc8_13.1 [template = constants.%.5]
-// CHECK:STDOUT:   if %.loc8_13.2 br !if.expr.then.loc8 else br !if.expr.else.loc8
+// CHECK:STDOUT:   %loc8_19: i32 = int_literal 1 [template = constants.%4]
+// CHECK:STDOUT:   %loc8_22: i32 = int_literal 1 [template = constants.%4]
+// CHECK:STDOUT:   %int.eq.loc8: init bool = call %Eq.ref.loc8(%loc8_19, %loc8_22) [template = constants.%5]
+// CHECK:STDOUT:   %loc8_13.1: bool = value_of_initializer %int.eq.loc8 [template = constants.%5]
+// CHECK:STDOUT:   %loc8_13.2: bool = converted %int.eq.loc8, %loc8_13.1 [template = constants.%5]
+// CHECK:STDOUT:   if %loc8_13.2 br !if.expr.then.loc8 else br !if.expr.else.loc8
 // CHECK:STDOUT:
 // CHECK:STDOUT: !if.expr.then.loc8:
 // CHECK:STDOUT:   %True.ref.loc8: type = name_ref True, file.%True.decl [template = constants.%True]
@@ -165,15 +165,15 @@ fn WrongResult(a: i32, b: i32) -> i32 = "int.eq";
 // CHECK:STDOUT:   br !if.expr.result.loc8(%False.ref.loc8)
 // CHECK:STDOUT:
 // CHECK:STDOUT: !if.expr.result.loc8:
-// CHECK:STDOUT:   %.loc8_13.3: type = block_arg !if.expr.result.loc8 [template = constants.%True]
+// CHECK:STDOUT:   %loc8_13.3: type = block_arg !if.expr.result.loc8 [template = constants.%True]
 // CHECK:STDOUT:   %false_.ref: %False = name_ref false_, %false_
 // CHECK:STDOUT:   %Eq.ref.loc9: %Eq.type = name_ref Eq, file.%Eq.decl [template = constants.%Eq]
-// CHECK:STDOUT:   %.loc9_20: i32 = int_literal 1 [template = constants.%.4]
-// CHECK:STDOUT:   %.loc9_23: i32 = int_literal 2 [template = constants.%.6]
-// CHECK:STDOUT:   %int.eq.loc9: init bool = call %Eq.ref.loc9(%.loc9_20, %.loc9_23) [template = constants.%.7]
-// CHECK:STDOUT:   %.loc9_14.1: bool = value_of_initializer %int.eq.loc9 [template = constants.%.7]
-// CHECK:STDOUT:   %.loc9_14.2: bool = converted %int.eq.loc9, %.loc9_14.1 [template = constants.%.7]
-// CHECK:STDOUT:   if %.loc9_14.2 br !if.expr.then.loc9 else br !if.expr.else.loc9
+// CHECK:STDOUT:   %loc9_20: i32 = int_literal 1 [template = constants.%4]
+// CHECK:STDOUT:   %loc9_23: i32 = int_literal 2 [template = constants.%6]
+// CHECK:STDOUT:   %int.eq.loc9: init bool = call %Eq.ref.loc9(%loc9_20, %loc9_23) [template = constants.%7]
+// CHECK:STDOUT:   %loc9_14.1: bool = value_of_initializer %int.eq.loc9 [template = constants.%7]
+// CHECK:STDOUT:   %loc9_14.2: bool = converted %int.eq.loc9, %loc9_14.1 [template = constants.%7]
+// CHECK:STDOUT:   if %loc9_14.2 br !if.expr.then.loc9 else br !if.expr.else.loc9
 // CHECK:STDOUT:
 // CHECK:STDOUT: !if.expr.then.loc9:
 // CHECK:STDOUT:   %True.ref.loc9: type = name_ref True, file.%True.decl [template = constants.%True]
@@ -184,7 +184,7 @@ fn WrongResult(a: i32, b: i32) -> i32 = "int.eq";
 // CHECK:STDOUT:   br !if.expr.result.loc9(%False.ref.loc9)
 // CHECK:STDOUT:
 // CHECK:STDOUT: !if.expr.result.loc9:
-// CHECK:STDOUT:   %.loc9_14.3: type = block_arg !if.expr.result.loc9 [template = constants.%False]
+// CHECK:STDOUT:   %loc9_14.3: type = block_arg !if.expr.result.loc9 [template = constants.%False]
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -194,16 +194,16 @@ fn WrongResult(a: i32, b: i32) -> i32 = "int.eq";
 // CHECK:STDOUT:   %a.ref: i32 = name_ref a, %a
 // CHECK:STDOUT:   %b.ref: i32 = name_ref b, %b
 // CHECK:STDOUT:   %int.eq: init bool = call %Eq.ref(%a.ref, %b.ref)
-// CHECK:STDOUT:   %.loc13_18.1: bool = value_of_initializer %int.eq
-// CHECK:STDOUT:   %.loc13_18.2: bool = converted %int.eq, %.loc13_18.1
-// CHECK:STDOUT:   return %.loc13_18.2
+// CHECK:STDOUT:   %loc13_18.1: bool = value_of_initializer %int.eq
+// CHECK:STDOUT:   %loc13_18.2: bool = converted %int.eq, %loc13_18.1
+// CHECK:STDOUT:   return %loc13_18.2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: --- fail_bad_decl.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
 // CHECK:STDOUT:   %WrongResult.type: type = fn_type @WrongResult [template]
 // CHECK:STDOUT:   %WrongResult: %WrongResult.type = struct_value () [template]
@@ -232,18 +232,18 @@ fn WrongResult(a: i32, b: i32) -> i32 = "int.eq";
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %WrongResult.decl: %WrongResult.type = fn_decl @WrongResult [template = constants.%WrongResult] {
 // CHECK:STDOUT:     %int.make_type_32.loc7_19: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc7_19.1: type = value_of_initializer %int.make_type_32.loc7_19 [template = i32]
-// CHECK:STDOUT:     %.loc7_19.2: type = converted %int.make_type_32.loc7_19, %.loc7_19.1 [template = i32]
+// CHECK:STDOUT:     %loc7_19.1: type = value_of_initializer %int.make_type_32.loc7_19 [template = i32]
+// CHECK:STDOUT:     %loc7_19.2: type = converted %int.make_type_32.loc7_19, %loc7_19.1 [template = i32]
 // CHECK:STDOUT:     %a.loc7_16.1: i32 = param a
 // CHECK:STDOUT:     @WrongResult.%a: i32 = bind_name a, %a.loc7_16.1
 // CHECK:STDOUT:     %int.make_type_32.loc7_27: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc7_27.1: type = value_of_initializer %int.make_type_32.loc7_27 [template = i32]
-// CHECK:STDOUT:     %.loc7_27.2: type = converted %int.make_type_32.loc7_27, %.loc7_27.1 [template = i32]
+// CHECK:STDOUT:     %loc7_27.1: type = value_of_initializer %int.make_type_32.loc7_27 [template = i32]
+// CHECK:STDOUT:     %loc7_27.2: type = converted %int.make_type_32.loc7_27, %loc7_27.1 [template = i32]
 // CHECK:STDOUT:     %b.loc7_24.1: i32 = param b
 // CHECK:STDOUT:     @WrongResult.%b: i32 = bind_name b, %b.loc7_24.1
 // CHECK:STDOUT:     %int.make_type_32.loc7_35: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc7_35.1: type = value_of_initializer %int.make_type_32.loc7_35 [template = i32]
-// CHECK:STDOUT:     %.loc7_35.2: type = converted %int.make_type_32.loc7_35, %.loc7_35.1 [template = i32]
+// CHECK:STDOUT:     %loc7_35.1: type = value_of_initializer %int.make_type_32.loc7_35 [template = i32]
+// CHECK:STDOUT:     %loc7_35.2: type = converted %int.make_type_32.loc7_35, %loc7_35.1 [template = i32]
 // CHECK:STDOUT:     @WrongResult.%return: ref i32 = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }

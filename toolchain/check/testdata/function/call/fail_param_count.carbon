@@ -68,7 +68,7 @@ fn Main() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Run0.type: type = fn_type @Run0 [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Run0: %Run0.type = struct_value () [template]
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
@@ -78,8 +78,8 @@ fn Main() {
 // CHECK:STDOUT:   %Run2: %Run2.type = struct_value () [template]
 // CHECK:STDOUT:   %Main.type: type = fn_type @Main [template]
 // CHECK:STDOUT:   %Main: %Main.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: i32 = int_literal 1 [template]
-// CHECK:STDOUT:   %.3: i32 = int_literal 0 [template]
+// CHECK:STDOUT:   %2: i32 = int_literal 1 [template]
+// CHECK:STDOUT:   %3: i32 = int_literal 0 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -109,20 +109,20 @@ fn Main() {
 // CHECK:STDOUT:   %Run0.decl: %Run0.type = fn_decl @Run0 [template = constants.%Run0] {}
 // CHECK:STDOUT:   %Run1.decl: %Run1.type = fn_decl @Run1 [template = constants.%Run1] {
 // CHECK:STDOUT:     %int.make_type_32.loc12: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc12_12.1: type = value_of_initializer %int.make_type_32.loc12 [template = i32]
-// CHECK:STDOUT:     %.loc12_12.2: type = converted %int.make_type_32.loc12, %.loc12_12.1 [template = i32]
+// CHECK:STDOUT:     %loc12_12.1: type = value_of_initializer %int.make_type_32.loc12 [template = i32]
+// CHECK:STDOUT:     %loc12_12.2: type = converted %int.make_type_32.loc12, %loc12_12.1 [template = i32]
 // CHECK:STDOUT:     %a.loc12_9.1: i32 = param a
 // CHECK:STDOUT:     @Run1.%a: i32 = bind_name a, %a.loc12_9.1
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Run2.decl: %Run2.type = fn_decl @Run2 [template = constants.%Run2] {
 // CHECK:STDOUT:     %int.make_type_32.loc13_12: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc13_12.1: type = value_of_initializer %int.make_type_32.loc13_12 [template = i32]
-// CHECK:STDOUT:     %.loc13_12.2: type = converted %int.make_type_32.loc13_12, %.loc13_12.1 [template = i32]
+// CHECK:STDOUT:     %loc13_12.1: type = value_of_initializer %int.make_type_32.loc13_12 [template = i32]
+// CHECK:STDOUT:     %loc13_12.2: type = converted %int.make_type_32.loc13_12, %loc13_12.1 [template = i32]
 // CHECK:STDOUT:     %a.loc13_9.1: i32 = param a
 // CHECK:STDOUT:     @Run2.%a: i32 = bind_name a, %a.loc13_9.1
 // CHECK:STDOUT:     %int.make_type_32.loc13_20: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc13_20.1: type = value_of_initializer %int.make_type_32.loc13_20 [template = i32]
-// CHECK:STDOUT:     %.loc13_20.2: type = converted %int.make_type_32.loc13_20, %.loc13_20.1 [template = i32]
+// CHECK:STDOUT:     %loc13_20.1: type = value_of_initializer %int.make_type_32.loc13_20 [template = i32]
+// CHECK:STDOUT:     %loc13_20.2: type = converted %int.make_type_32.loc13_20, %loc13_20.1 [template = i32]
 // CHECK:STDOUT:     %b.loc13_17.1: i32 = param b
 // CHECK:STDOUT:     @Run2.%b: i32 = bind_name b, %b.loc13_17.1
 // CHECK:STDOUT:   }
@@ -149,23 +149,23 @@ fn Main() {
 // CHECK:STDOUT: fn @Main() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %Run0.ref.loc23: %Run0.type = name_ref Run0, file.%Run0.decl [template = constants.%Run0]
-// CHECK:STDOUT:   %.loc23: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   %Run0.call.loc23: init %.1 = call %Run0.ref.loc23(<invalid>) [template = <error>]
+// CHECK:STDOUT:   %loc23: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   %Run0.call.loc23: init %1 = call %Run0.ref.loc23(<invalid>) [template = <error>]
 // CHECK:STDOUT:   %Run0.ref.loc31: %Run0.type = name_ref Run0, file.%Run0.decl [template = constants.%Run0]
-// CHECK:STDOUT:   %.loc31_8: i32 = int_literal 0 [template = constants.%.3]
-// CHECK:STDOUT:   %.loc31_11: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   %Run0.call.loc31: init %.1 = call %Run0.ref.loc31(<invalid>) [template = <error>]
+// CHECK:STDOUT:   %loc31_8: i32 = int_literal 0 [template = constants.%3]
+// CHECK:STDOUT:   %loc31_11: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   %Run0.call.loc31: init %1 = call %Run0.ref.loc31(<invalid>) [template = <error>]
 // CHECK:STDOUT:   %Run1.ref.loc40: %Run1.type = name_ref Run1, file.%Run1.decl [template = constants.%Run1]
-// CHECK:STDOUT:   %Run1.call.loc40: init %.1 = call %Run1.ref.loc40(<invalid>) [template = <error>]
+// CHECK:STDOUT:   %Run1.call.loc40: init %1 = call %Run1.ref.loc40(<invalid>) [template = <error>]
 // CHECK:STDOUT:   %Run1.ref.loc48: %Run1.type = name_ref Run1, file.%Run1.decl [template = constants.%Run1]
-// CHECK:STDOUT:   %.loc48_8: i32 = int_literal 0 [template = constants.%.3]
-// CHECK:STDOUT:   %.loc48_11: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   %Run1.call.loc48: init %.1 = call %Run1.ref.loc48(<invalid>) [template = <error>]
+// CHECK:STDOUT:   %loc48_8: i32 = int_literal 0 [template = constants.%3]
+// CHECK:STDOUT:   %loc48_11: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   %Run1.call.loc48: init %1 = call %Run1.ref.loc48(<invalid>) [template = <error>]
 // CHECK:STDOUT:   %Run2.ref.loc57: %Run2.type = name_ref Run2, file.%Run2.decl [template = constants.%Run2]
-// CHECK:STDOUT:   %Run2.call.loc57: init %.1 = call %Run2.ref.loc57(<invalid>) [template = <error>]
+// CHECK:STDOUT:   %Run2.call.loc57: init %1 = call %Run2.ref.loc57(<invalid>) [template = <error>]
 // CHECK:STDOUT:   %Run2.ref.loc64: %Run2.type = name_ref Run2, file.%Run2.decl [template = constants.%Run2]
-// CHECK:STDOUT:   %.loc64: i32 = int_literal 0 [template = constants.%.3]
-// CHECK:STDOUT:   %Run2.call.loc64: init %.1 = call %Run2.ref.loc64(<invalid>) [template = <error>]
+// CHECK:STDOUT:   %loc64: i32 = int_literal 0 [template = constants.%3]
+// CHECK:STDOUT:   %Run2.call.loc64: init %1 = call %Run2.ref.loc64(<invalid>) [template = <error>]
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

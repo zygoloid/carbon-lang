@@ -22,14 +22,14 @@ fn Run() -> i32 {
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Class: type = class_type @Class [template]
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: type = struct_type {} [template]
+// CHECK:STDOUT:   %2: type = struct_type {} [template]
 // CHECK:STDOUT:   %Run.type: type = fn_type @Run [template]
 // CHECK:STDOUT:   %Run: %Run.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.2 [template]
+// CHECK:STDOUT:   %3: type = ptr_type %2 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -56,8 +56,8 @@ fn Run() -> i32 {
 // CHECK:STDOUT:   %Class.decl: type = class_decl @Class [template = constants.%Class] {}
 // CHECK:STDOUT:   %Run.decl: %Run.type = fn_decl @Run [template = constants.%Run] {
 // CHECK:STDOUT:     %int.make_type_32: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc15_13.1: type = value_of_initializer %int.make_type_32 [template = i32]
-// CHECK:STDOUT:     %.loc15_13.2: type = converted %int.make_type_32, %.loc15_13.1 [template = i32]
+// CHECK:STDOUT:     %loc15_13.1: type = value_of_initializer %int.make_type_32 [template = i32]
+// CHECK:STDOUT:     %loc15_13.2: type = converted %int.make_type_32, %loc15_13.1 [template = i32]
 // CHECK:STDOUT:     @Run.%return: ref i32 = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
@@ -65,8 +65,8 @@ fn Run() -> i32 {
 // CHECK:STDOUT: class @Class {
 // CHECK:STDOUT:   %F.decl: %F.type = fn_decl @F [template = constants.%F] {
 // CHECK:STDOUT:     %int.make_type_32: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:     %.loc12_13.1: type = value_of_initializer %int.make_type_32 [template = i32]
-// CHECK:STDOUT:     %.loc12_13.2: type = converted %int.make_type_32, %.loc12_13.1 [template = i32]
+// CHECK:STDOUT:     %loc12_13.1: type = value_of_initializer %int.make_type_32 [template = i32]
+// CHECK:STDOUT:     %loc12_13.2: type = converted %int.make_type_32, %loc12_13.1 [template = i32]
 // CHECK:STDOUT:     %return.var: ref i32 = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:
@@ -87,8 +87,8 @@ fn Run() -> i32 {
 // CHECK:STDOUT:   %c.ref: ref %Class = name_ref c, %c
 // CHECK:STDOUT:   %F.ref: %F.type = name_ref F, @Class.%F.decl [template = constants.%F]
 // CHECK:STDOUT:   %F.call: init i32 = call %F.ref()
-// CHECK:STDOUT:   %.loc17_15.1: i32 = value_of_initializer %F.call
-// CHECK:STDOUT:   %.loc17_15.2: i32 = converted %F.call, %.loc17_15.1
-// CHECK:STDOUT:   return %.loc17_15.2
+// CHECK:STDOUT:   %loc17_15.1: i32 = value_of_initializer %F.call
+// CHECK:STDOUT:   %loc17_15.2: i32 = converted %F.call, %loc17_15.1
+// CHECK:STDOUT:   return %loc17_15.2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

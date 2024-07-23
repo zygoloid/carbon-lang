@@ -16,10 +16,10 @@ var x: {} = {.a = 1};
 // CHECK:STDOUT: --- fail_assign_to_empty.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %.3: i32 = int_literal 1 [template]
-// CHECK:STDOUT:   %.4: type = struct_type {.a: i32} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
+// CHECK:STDOUT:   %3: i32 = int_literal 1 [template]
+// CHECK:STDOUT:   %4: type = struct_type {.a: i32} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -37,16 +37,16 @@ var x: {} = {.a = 1};
 // CHECK:STDOUT:     import Core//prelude/operators/comparison
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.loc14_9.1: %.1 = struct_literal ()
-// CHECK:STDOUT:   %.loc14_9.2: type = converted %.loc14_9.1, constants.%.1 [template = constants.%.1]
-// CHECK:STDOUT:   %x.var: ref %.1 = var x
-// CHECK:STDOUT:   %x: ref %.1 = bind_name x, %x.var
+// CHECK:STDOUT:   %loc14_9.1: %1 = struct_literal ()
+// CHECK:STDOUT:   %loc14_9.2: type = converted %loc14_9.1, constants.%1 [template = constants.%1]
+// CHECK:STDOUT:   %x.var: ref %1 = var x
+// CHECK:STDOUT:   %x: ref %1 = bind_name x, %x.var
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc14_19: i32 = int_literal 1 [template = constants.%.3]
-// CHECK:STDOUT:   %.loc14_20: %.4 = struct_literal (%.loc14_19)
+// CHECK:STDOUT:   %loc14_19: i32 = int_literal 1 [template = constants.%3]
+// CHECK:STDOUT:   %loc14_20: %4 = struct_literal (%loc14_19)
 // CHECK:STDOUT:   assign file.%x.var, <error>
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }

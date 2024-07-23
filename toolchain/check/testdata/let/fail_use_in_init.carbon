@@ -19,7 +19,7 @@ fn F() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
@@ -50,8 +50,8 @@ fn F() {
 // CHECK:STDOUT: fn @F() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %int.make_type_32: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc15_10.1: type = value_of_initializer %int.make_type_32 [template = i32]
-// CHECK:STDOUT:   %.loc15_10.2: type = converted %int.make_type_32, %.loc15_10.1 [template = i32]
+// CHECK:STDOUT:   %loc15_10.1: type = value_of_initializer %int.make_type_32 [template = i32]
+// CHECK:STDOUT:   %loc15_10.2: type = converted %int.make_type_32, %loc15_10.1 [template = i32]
 // CHECK:STDOUT:   %a.ref: <error> = name_ref a, <error> [template = <error>]
 // CHECK:STDOUT:   %a: i32 = bind_name a, <error>
 // CHECK:STDOUT:   return

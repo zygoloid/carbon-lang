@@ -18,11 +18,11 @@ fn Six() -> x { return 6; }
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
 // CHECK:STDOUT:   %Six.type: type = fn_type @Six [template]
 // CHECK:STDOUT:   %Six: %Six.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: i32 = int_literal 6 [template]
+// CHECK:STDOUT:   %2: i32 = int_literal 6 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -49,7 +49,7 @@ fn Six() -> x { return 6; }
 // CHECK:STDOUT:   %x: ref type = bind_name x, %x.var
 // CHECK:STDOUT:   %Six.decl: %Six.type = fn_decl @Six [template = constants.%Six] {
 // CHECK:STDOUT:     %x.ref: ref type = name_ref x, %x
-// CHECK:STDOUT:     %.loc15: type = bind_value %x.ref
+// CHECK:STDOUT:     %loc15: type = bind_value %x.ref
 // CHECK:STDOUT:     @Six.%return: ref <error> = var <return slot>
 // CHECK:STDOUT:   }
 // CHECK:STDOUT: }
@@ -58,7 +58,7 @@ fn Six() -> x { return 6; }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Six() -> <error> {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc15: i32 = int_literal 6 [template = constants.%.2]
+// CHECK:STDOUT:   %loc15: i32 = int_literal 6 [template = constants.%2]
 // CHECK:STDOUT:   return <error>
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

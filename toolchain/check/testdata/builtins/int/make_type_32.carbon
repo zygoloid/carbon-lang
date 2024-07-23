@@ -26,7 +26,7 @@ var i: Int() = 0;
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Int.type: type = fn_type @Int [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int: %Int.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -56,9 +56,9 @@ var i: Int() = 0;
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Int.type: type = fn_type @Int [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int: %Int.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: i32 = int_literal 0 [template]
+// CHECK:STDOUT:   %2: i32 = int_literal 0 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -84,8 +84,8 @@ var i: Int() = 0;
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Int.ref: %Int.type = name_ref Int, imports.%import_ref [template = constants.%Int]
 // CHECK:STDOUT:   %int.make_type_32: init type = call %Int.ref() [template = i32]
-// CHECK:STDOUT:   %.loc6_12.1: type = value_of_initializer %int.make_type_32 [template = i32]
-// CHECK:STDOUT:   %.loc6_12.2: type = converted %int.make_type_32, %.loc6_12.1 [template = i32]
+// CHECK:STDOUT:   %loc6_12.1: type = value_of_initializer %int.make_type_32 [template = i32]
+// CHECK:STDOUT:   %loc6_12.2: type = converted %int.make_type_32, %loc6_12.1 [template = i32]
 // CHECK:STDOUT:   %i.var: ref i32 = var i
 // CHECK:STDOUT:   %i: ref i32 = bind_name i, %i.var
 // CHECK:STDOUT: }
@@ -94,8 +94,8 @@ var i: Int() = 0;
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc6: i32 = int_literal 0 [template = constants.%.2]
-// CHECK:STDOUT:   assign file.%i.var, %.loc6
+// CHECK:STDOUT:   %loc6: i32 = int_literal 0 [template = constants.%2]
+// CHECK:STDOUT:   assign file.%i.var, %loc6
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

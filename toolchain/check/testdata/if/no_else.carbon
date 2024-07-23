@@ -22,7 +22,7 @@ fn If(b: bool) {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
 // CHECK:STDOUT:   %G.type: type = fn_type @G [template]
 // CHECK:STDOUT:   %G: %G.type = struct_value () [template]
@@ -57,8 +57,8 @@ fn If(b: bool) {
 // CHECK:STDOUT:   %G.decl: %G.type = fn_decl @G [template = constants.%G] {}
 // CHECK:STDOUT:   %If.decl: %If.type = fn_decl @If [template = constants.%If] {
 // CHECK:STDOUT:     %bool.make_type: init type = call constants.%Bool() [template = bool]
-// CHECK:STDOUT:     %.loc14_10.1: type = value_of_initializer %bool.make_type [template = bool]
-// CHECK:STDOUT:     %.loc14_10.2: type = converted %bool.make_type, %.loc14_10.1 [template = bool]
+// CHECK:STDOUT:     %loc14_10.1: type = value_of_initializer %bool.make_type [template = bool]
+// CHECK:STDOUT:     %loc14_10.2: type = converted %bool.make_type, %loc14_10.1 [template = bool]
 // CHECK:STDOUT:     %b.loc14_7.1: bool = param b
 // CHECK:STDOUT:     @If.%b: bool = bind_name b, %b.loc14_7.1
 // CHECK:STDOUT:   }
@@ -83,12 +83,12 @@ fn If(b: bool) {
 // CHECK:STDOUT:
 // CHECK:STDOUT: !if.then:
 // CHECK:STDOUT:   %F.ref: %F.type = name_ref F, file.%F.decl [template = constants.%F]
-// CHECK:STDOUT:   %F.call: init %.1 = call %F.ref()
+// CHECK:STDOUT:   %F.call: init %1 = call %F.ref()
 // CHECK:STDOUT:   br !if.else
 // CHECK:STDOUT:
 // CHECK:STDOUT: !if.else:
 // CHECK:STDOUT:   %G.ref: %G.type = name_ref G, file.%G.decl [template = constants.%G]
-// CHECK:STDOUT:   %G.call: init %.1 = call %G.ref()
+// CHECK:STDOUT:   %G.call: init %1 = call %G.ref()
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

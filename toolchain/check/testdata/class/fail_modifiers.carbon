@@ -80,7 +80,7 @@ extern class ExternDefined {}
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %DuplicatePrivate: type = class_type @DuplicatePrivate [template]
 // CHECK:STDOUT:   %TwoAccess: type = class_type @TwoAccess [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %TwoAbstract: type = class_type @TwoAbstract [template]
 // CHECK:STDOUT:   %Virtual: type = class_type @Virtual [template]
 // CHECK:STDOUT:   %WrongOrder: type = class_type @WrongOrder [template]

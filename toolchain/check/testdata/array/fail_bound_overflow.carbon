@@ -30,9 +30,9 @@ var b: [1; 39999999999999999993];
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: i32 = int_literal 1 [template]
+// CHECK:STDOUT:   %2: i32 = int_literal 1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -56,13 +56,13 @@ var b: [1; 39999999999999999993];
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %int.make_type_32: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc18_9.1: type = value_of_initializer %int.make_type_32 [template = i32]
-// CHECK:STDOUT:   %.loc18_9.2: type = converted %int.make_type_32, %.loc18_9.1 [template = i32]
-// CHECK:STDOUT:   %.loc18_34: type = array_type <error>, i32 [template = <error>]
+// CHECK:STDOUT:   %loc18_9.1: type = value_of_initializer %int.make_type_32 [template = i32]
+// CHECK:STDOUT:   %loc18_9.2: type = converted %int.make_type_32, %loc18_9.1 [template = i32]
+// CHECK:STDOUT:   %loc18_34: type = array_type <error>, i32 [template = <error>]
 // CHECK:STDOUT:   %a.var: ref <error> = var a
 // CHECK:STDOUT:   %a: ref <error> = bind_name a, %a.var
-// CHECK:STDOUT:   %.loc27_9: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   %.loc27_32: type = array_type <error>, <error> [template = <error>]
+// CHECK:STDOUT:   %loc27_9: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   %loc27_32: type = array_type <error>, <error> [template = <error>]
 // CHECK:STDOUT:   %b.var: ref <error> = var b
 // CHECK:STDOUT:   %b: ref <error> = bind_name b, %b.var
 // CHECK:STDOUT: }

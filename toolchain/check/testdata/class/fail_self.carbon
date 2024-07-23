@@ -57,12 +57,12 @@ fn CallWrongSelf(ws: WrongSelf) {
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Class: type = class_type @Class [template]
 // CHECK:STDOUT:   %F.type.1: type = fn_type @F.1 [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %F.1: %F.type.1 = struct_value () [template]
 // CHECK:STDOUT:   %G.type: type = fn_type @G [template]
 // CHECK:STDOUT:   %G: %G.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: type = struct_type {} [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.2 [template]
+// CHECK:STDOUT:   %2: type = struct_type {} [template]
+// CHECK:STDOUT:   %3: type = ptr_type %2 [template]
 // CHECK:STDOUT:   %WrongSelf: type = class_type @WrongSelf [template]
 // CHECK:STDOUT:   %F.type.2: type = fn_type @F.2 [template]
 // CHECK:STDOUT:   %F.2: %F.type.2 = struct_value () [template]
@@ -145,7 +145,7 @@ fn CallWrongSelf(ws: WrongSelf) {
 // CHECK:STDOUT:   %self.var: ref %Class = var self
 // CHECK:STDOUT:   %self: ref %Class = bind_name self, %self.var
 // CHECK:STDOUT:   %self.ref: ref %Class = name_ref self, %self
-// CHECK:STDOUT:   %.loc38: %Class = bind_value %self.ref
+// CHECK:STDOUT:   %loc38: %Class = bind_value %self.ref
 // CHECK:STDOUT:   return <error> to %return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -155,8 +155,8 @@ fn CallWrongSelf(ws: WrongSelf) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %ws.ref: %WrongSelf = name_ref ws, %ws
 // CHECK:STDOUT:   %F.ref: %F.type.2 = name_ref F, @WrongSelf.%F.decl [template = constants.%F.2]
-// CHECK:STDOUT:   %.loc52: <bound method> = bound_method %ws.ref, %F.ref
-// CHECK:STDOUT:   %F.call: init %.1 = call %.loc52(<invalid>) [template = <error>]
+// CHECK:STDOUT:   %loc52: <bound method> = bound_method %ws.ref, %F.ref
+// CHECK:STDOUT:   %F.call: init %1 = call %loc52(<invalid>) [template = <error>]
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

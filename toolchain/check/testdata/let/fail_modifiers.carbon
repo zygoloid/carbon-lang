@@ -87,9 +87,9 @@ protected protected let i: i32 = 1;
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Int32.type: type = fn_type @Int32 [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %Int32: %Int32.type = struct_value () [template]
-// CHECK:STDOUT:   %.2: i32 = int_literal 1 [template]
+// CHECK:STDOUT:   %2: i32 = int_literal 1 [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -126,51 +126,51 @@ protected protected let i: i32 = 1;
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %int.make_type_32.loc15: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc15_18.1: type = value_of_initializer %int.make_type_32.loc15 [template = i32]
-// CHECK:STDOUT:   %.loc15_18.2: type = converted %int.make_type_32.loc15, %.loc15_18.1 [template = i32]
+// CHECK:STDOUT:   %loc15_18.1: type = value_of_initializer %int.make_type_32.loc15 [template = i32]
+// CHECK:STDOUT:   %loc15_18.2: type = converted %int.make_type_32.loc15, %loc15_18.1 [template = i32]
 // CHECK:STDOUT:   %int.make_type_32.loc21: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc21_16.1: type = value_of_initializer %int.make_type_32.loc21 [template = i32]
-// CHECK:STDOUT:   %.loc21_16.2: type = converted %int.make_type_32.loc21, %.loc21_16.1 [template = i32]
+// CHECK:STDOUT:   %loc21_16.1: type = value_of_initializer %int.make_type_32.loc21 [template = i32]
+// CHECK:STDOUT:   %loc21_16.2: type = converted %int.make_type_32.loc21, %loc21_16.1 [template = i32]
 // CHECK:STDOUT:   %int.make_type_32.loc27: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc27_14.1: type = value_of_initializer %int.make_type_32.loc27 [template = i32]
-// CHECK:STDOUT:   %.loc27_14.2: type = converted %int.make_type_32.loc27, %.loc27_14.1 [template = i32]
+// CHECK:STDOUT:   %loc27_14.1: type = value_of_initializer %int.make_type_32.loc27 [template = i32]
+// CHECK:STDOUT:   %loc27_14.2: type = converted %int.make_type_32.loc27, %loc27_14.1 [template = i32]
 // CHECK:STDOUT:   %int.make_type_32.loc33: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc33_16.1: type = value_of_initializer %int.make_type_32.loc33 [template = i32]
-// CHECK:STDOUT:   %.loc33_16.2: type = converted %int.make_type_32.loc33, %.loc33_16.1 [template = i32]
+// CHECK:STDOUT:   %loc33_16.1: type = value_of_initializer %int.make_type_32.loc33 [template = i32]
+// CHECK:STDOUT:   %loc33_16.2: type = converted %int.make_type_32.loc33, %loc33_16.1 [template = i32]
 // CHECK:STDOUT:   %int.make_type_32.loc46: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc46_22.1: type = value_of_initializer %int.make_type_32.loc46 [template = i32]
-// CHECK:STDOUT:   %.loc46_22.2: type = converted %int.make_type_32.loc46, %.loc46_22.1 [template = i32]
+// CHECK:STDOUT:   %loc46_22.1: type = value_of_initializer %int.make_type_32.loc46 [template = i32]
+// CHECK:STDOUT:   %loc46_22.2: type = converted %int.make_type_32.loc46, %loc46_22.1 [template = i32]
 // CHECK:STDOUT:   %int.make_type_32.loc59: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc59_24.1: type = value_of_initializer %int.make_type_32.loc59 [template = i32]
-// CHECK:STDOUT:   %.loc59_24.2: type = converted %int.make_type_32.loc59, %.loc59_24.1 [template = i32]
+// CHECK:STDOUT:   %loc59_24.1: type = value_of_initializer %int.make_type_32.loc59 [template = i32]
+// CHECK:STDOUT:   %loc59_24.2: type = converted %int.make_type_32.loc59, %loc59_24.1 [template = i32]
 // CHECK:STDOUT:   %int.make_type_32.loc72: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc72_26.1: type = value_of_initializer %int.make_type_32.loc72 [template = i32]
-// CHECK:STDOUT:   %.loc72_26.2: type = converted %int.make_type_32.loc72, %.loc72_26.1 [template = i32]
+// CHECK:STDOUT:   %loc72_26.1: type = value_of_initializer %int.make_type_32.loc72 [template = i32]
+// CHECK:STDOUT:   %loc72_26.2: type = converted %int.make_type_32.loc72, %loc72_26.1 [template = i32]
 // CHECK:STDOUT:   %int.make_type_32.loc84: init type = call constants.%Int32() [template = i32]
-// CHECK:STDOUT:   %.loc84_28.1: type = value_of_initializer %int.make_type_32.loc84 [template = i32]
-// CHECK:STDOUT:   %.loc84_28.2: type = converted %int.make_type_32.loc84, %.loc84_28.1 [template = i32]
+// CHECK:STDOUT:   %loc84_28.1: type = value_of_initializer %int.make_type_32.loc84 [template = i32]
+// CHECK:STDOUT:   %loc84_28.2: type = converted %int.make_type_32.loc84, %loc84_28.1 [template = i32]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @Int32() -> type = "int.make_type_32";
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc15: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   %b: i32 = bind_name b, %.loc15
-// CHECK:STDOUT:   %.loc21: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   %c: i32 = bind_name c, %.loc21
-// CHECK:STDOUT:   %.loc27: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   %d: i32 = bind_name d, %.loc27
-// CHECK:STDOUT:   %.loc33: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   %e: i32 = bind_name e, %.loc33
-// CHECK:STDOUT:   %.loc46: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   %f: i32 = bind_name f, %.loc46
-// CHECK:STDOUT:   %.loc59: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   %g: i32 = bind_name g, %.loc59
-// CHECK:STDOUT:   %.loc72: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   %h: i32 = bind_name h, %.loc72
-// CHECK:STDOUT:   %.loc84: i32 = int_literal 1 [template = constants.%.2]
-// CHECK:STDOUT:   %i: i32 = bind_name i, %.loc84
+// CHECK:STDOUT:   %loc15: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   %b: i32 = bind_name b, %loc15
+// CHECK:STDOUT:   %loc21: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   %c: i32 = bind_name c, %loc21
+// CHECK:STDOUT:   %loc27: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   %d: i32 = bind_name d, %loc27
+// CHECK:STDOUT:   %loc33: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   %e: i32 = bind_name e, %loc33
+// CHECK:STDOUT:   %loc46: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   %f: i32 = bind_name f, %loc46
+// CHECK:STDOUT:   %loc59: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   %g: i32 = bind_name g, %loc59
+// CHECK:STDOUT:   %loc72: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   %h: i32 = bind_name h, %loc72
+// CHECK:STDOUT:   %loc84: i32 = int_literal 1 [template = constants.%2]
+// CHECK:STDOUT:   %i: i32 = bind_name i, %loc84
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

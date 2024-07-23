@@ -56,7 +56,7 @@ var inst: Test.A = {};
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -78,9 +78,9 @@ var inst: Test.A = {};
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %C: type = class_type @C [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
 // CHECK:STDOUT:   %struct: %C = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -110,17 +110,17 @@ var inst: Test.A = {};
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc4_16.1: %.1 = struct_literal ()
-// CHECK:STDOUT:   %.loc4_16.2: init %C = class_init (), file.%inst.var [template = constants.%struct]
-// CHECK:STDOUT:   %.loc4_17: init %C = converted %.loc4_16.1, %.loc4_16.2 [template = constants.%struct]
-// CHECK:STDOUT:   assign file.%inst.var, %.loc4_17
+// CHECK:STDOUT:   %loc4_16.1: %1 = struct_literal ()
+// CHECK:STDOUT:   %loc4_16.2: init %C = class_init (), file.%inst.var [template = constants.%struct]
+// CHECK:STDOUT:   %loc4_17: init %C = converted %loc4_16.1, %loc4_16.2 [template = constants.%struct]
+// CHECK:STDOUT:   assign file.%inst.var, %loc4_17
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: --- fail_local_def.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
@@ -140,7 +140,7 @@ var inst: Test.A = {};
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc10: %.1 = struct_literal ()
+// CHECK:STDOUT:   %loc10: %1 = struct_literal ()
 // CHECK:STDOUT:   assign file.%inst.var, <error>
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
@@ -148,7 +148,7 @@ var inst: Test.A = {};
 // CHECK:STDOUT: --- fail_other_def.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {
@@ -168,7 +168,7 @@ var inst: Test.A = {};
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @__global_init() {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc9: %.1 = struct_literal ()
+// CHECK:STDOUT:   %loc9: %1 = struct_literal ()
 // CHECK:STDOUT:   assign file.%inst.var, <error>
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }

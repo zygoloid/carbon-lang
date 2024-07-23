@@ -26,7 +26,7 @@ fn F() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %F.type: type = fn_type @F [template]
-// CHECK:STDOUT:   %.1: type = tuple_type () [template]
+// CHECK:STDOUT:   %1: type = tuple_type () [template]
 // CHECK:STDOUT:   %F: %F.type = struct_value () [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -53,9 +53,9 @@ fn F() {
 // CHECK:STDOUT: fn @F() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %A.ref.loc18: <namespace> = name_ref A, file.%A [template = file.%A]
-// CHECK:STDOUT:   %.loc18: ref <error> = deref <error>
+// CHECK:STDOUT:   %loc18: ref <error> = deref <error>
 // CHECK:STDOUT:   %A.ref.loc22: <namespace> = name_ref A, file.%A [template = file.%A]
-// CHECK:STDOUT:   %.loc22: ref <error> = deref <error>
+// CHECK:STDOUT:   %loc22: ref <error> = deref <error>
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

@@ -51,7 +51,7 @@ var a: Incomplete;
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Empty: type = class_type @Empty [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Incomplete: type = class_type @Incomplete [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -86,8 +86,8 @@ var a: Incomplete;
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %Empty: type = class_type @Empty [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
-// CHECK:STDOUT:   %.2: type = class_type @.1 [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
+// CHECK:STDOUT:   %2: type = class_type @1 [template]
 // CHECK:STDOUT:   %Incomplete: type = class_type @Incomplete [template]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -115,7 +115,7 @@ var a: Incomplete;
 // CHECK:STDOUT:     import Core//prelude/operators/comparison
 // CHECK:STDOUT:     import Core//prelude/types/bool
 // CHECK:STDOUT:   }
-// CHECK:STDOUT:   %.decl: type = class_decl @.1 [template = constants.%.2] {}
+// CHECK:STDOUT:   %.decl: type = class_decl @1 [template = constants.%2] {}
 // CHECK:STDOUT:   %Incomplete.ref: type = name_ref Incomplete, imports.%import_ref.2 [template = constants.%Incomplete]
 // CHECK:STDOUT:   %a.var: ref <error> = var a
 // CHECK:STDOUT:   %a: ref <error> = bind_name a, %a.var
@@ -126,9 +126,9 @@ var a: Incomplete;
 // CHECK:STDOUT:   .Self = imports.%import_ref.3
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: class @.1 {
+// CHECK:STDOUT: class @1 {
 // CHECK:STDOUT: !members:
-// CHECK:STDOUT:   .Self = constants.%.2
+// CHECK:STDOUT:   .Self = constants.%2
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: class @Incomplete;

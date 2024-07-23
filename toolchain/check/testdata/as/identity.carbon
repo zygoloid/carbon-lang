@@ -32,12 +32,12 @@ fn Initializing() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
 // CHECK:STDOUT:   %X: type = class_type @X [template]
-// CHECK:STDOUT:   %.1: type = struct_type {} [template]
+// CHECK:STDOUT:   %1: type = struct_type {} [template]
 // CHECK:STDOUT:   %Value.type: type = fn_type @Value [template]
-// CHECK:STDOUT:   %.2: type = tuple_type () [template]
+// CHECK:STDOUT:   %2: type = tuple_type () [template]
 // CHECK:STDOUT:   %Value: %Value.type = struct_value () [template]
-// CHECK:STDOUT:   %.3: type = ptr_type %.1 [template]
-// CHECK:STDOUT:   %.4: type = ptr_type %X [template]
+// CHECK:STDOUT:   %3: type = ptr_type %1 [template]
+// CHECK:STDOUT:   %4: type = ptr_type %X [template]
 // CHECK:STDOUT:   %Reference.type: type = fn_type @Reference [template]
 // CHECK:STDOUT:   %Reference: %Reference.type = struct_value () [template]
 // CHECK:STDOUT:   %Make.type: type = fn_type @Make [template]
@@ -73,9 +73,9 @@ fn Initializing() {
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Reference.decl: %Reference.type = fn_decl @Reference [template = constants.%Reference] {
 // CHECK:STDOUT:     %X.ref.loc21: type = name_ref X, %X.decl [template = constants.%X]
-// CHECK:STDOUT:     %.loc21: type = ptr_type %X [template = constants.%.4]
-// CHECK:STDOUT:     %p.loc21_14.1: %.4 = param p
-// CHECK:STDOUT:     @Reference.%p: %.4 = bind_name p, %p.loc21_14.1
+// CHECK:STDOUT:     %loc21: type = ptr_type %X [template = constants.%4]
+// CHECK:STDOUT:     %p.loc21_14.1: %4 = param p
+// CHECK:STDOUT:     @Reference.%p: %4 = bind_name p, %p.loc21_14.1
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %Make.decl: %Make.type = fn_decl @Make [template = constants.%Make] {
 // CHECK:STDOUT:     %X.ref.loc25: type = name_ref X, %X.decl [template = constants.%X]
@@ -98,15 +98,15 @@ fn Initializing() {
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
-// CHECK:STDOUT: fn @Reference(%p: %.4) {
+// CHECK:STDOUT: fn @Reference(%p: %4) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %X.ref.loc22_10: type = name_ref X, file.%X.decl [template = constants.%X]
-// CHECK:STDOUT:   %.loc22_11: type = ptr_type %X [template = constants.%.4]
-// CHECK:STDOUT:   %p.ref: %.4 = name_ref p, %p
-// CHECK:STDOUT:   %.loc22_17: ref %X = deref %p.ref
+// CHECK:STDOUT:   %loc22_11: type = ptr_type %X [template = constants.%4]
+// CHECK:STDOUT:   %p.ref: %4 = name_ref p, %p
+// CHECK:STDOUT:   %loc22_17: ref %X = deref %p.ref
 // CHECK:STDOUT:   %X.ref.loc22_23: type = name_ref X, file.%X.decl [template = constants.%X]
-// CHECK:STDOUT:   %.loc22_15: %.4 = addr_of %.loc22_17
-// CHECK:STDOUT:   %q: %.4 = bind_name q, %.loc22_15
+// CHECK:STDOUT:   %loc22_15: %4 = addr_of %loc22_17
+// CHECK:STDOUT:   %q: %4 = bind_name q, %loc22_15
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -118,8 +118,8 @@ fn Initializing() {
 // CHECK:STDOUT:   %x.var: ref %X = var x
 // CHECK:STDOUT:   %x: ref %X = bind_name x, %x.var
 // CHECK:STDOUT:   %Make.ref: %Make.type = name_ref Make, file.%Make.decl [template = constants.%Make]
-// CHECK:STDOUT:   %.loc28: ref %X = splice_block %x.var {}
-// CHECK:STDOUT:   %Make.call: init %X = call %Make.ref() to %.loc28
+// CHECK:STDOUT:   %loc28: ref %X = splice_block %x.var {}
+// CHECK:STDOUT:   %Make.call: init %X = call %Make.ref() to %loc28
 // CHECK:STDOUT:   %X.ref.loc28_25: type = name_ref X, file.%X.decl [template = constants.%X]
 // CHECK:STDOUT:   assign %x.var, %Make.call
 // CHECK:STDOUT:   return
