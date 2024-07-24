@@ -19,7 +19,8 @@
 
 namespace Carbon::SemIR {
 
-auto Function::GetParamFromParamRefId(const File& sem_ir, InstId param_ref_id)
+auto PartialFunction::GetParamFromParamRefId(const File& sem_ir,
+                                             InstId param_ref_id)
     -> std::pair<InstId, Param> {
   auto ref = sem_ir.insts().Get(param_ref_id);
 

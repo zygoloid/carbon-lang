@@ -1141,23 +1141,23 @@ class ImportRefResolver {
            .name_id = SemIR::NameId::ReturnSlot});
     }
     function_decl.function_id = context_.functions().Add(
-        {.name_id = GetLocalNameId(function.name_id),
-         .parent_scope_id = parent_scope_id,
-         .decl_id = function_decl_id,
-         .generic_id = generic_id,
-         .first_param_node_id = Parse::NodeId::Invalid,
-         .last_param_node_id = Parse::NodeId::Invalid,
-         .implicit_param_refs_id = GetLocalParamRefsId(
-             function.implicit_param_refs_id, implicit_param_const_ids),
-         .param_refs_id =
-             GetLocalParamRefsId(function.param_refs_id, param_const_ids),
-         .return_storage_id = new_return_storage,
-         .is_extern = function.is_extern,
-         .return_slot = function.return_slot,
-         .builtin_function_kind = function.builtin_function_kind,
-         .definition_id = function.definition_id.is_valid()
-                              ? function_decl_id
-                              : SemIR::InstId::Invalid});
+        {{.name_id = GetLocalNameId(function.name_id),
+          .parent_scope_id = parent_scope_id,
+          .decl_id = function_decl_id,
+          .generic_id = generic_id,
+          .first_param_node_id = Parse::NodeId::Invalid,
+          .last_param_node_id = Parse::NodeId::Invalid,
+          .implicit_param_refs_id = GetLocalParamRefsId(
+              function.implicit_param_refs_id, implicit_param_const_ids),
+          .param_refs_id =
+              GetLocalParamRefsId(function.param_refs_id, param_const_ids),
+          .definition_id = function.definition_id.is_valid()
+                               ? function_decl_id
+                               : SemIR::InstId::Invalid},
+         {.return_storage_id = new_return_storage,
+          .is_extern = function.is_extern,
+          .return_slot = function.return_slot,
+          .builtin_function_kind = function.builtin_function_kind}});
     function_decl.type_id = context_.GetFunctionType(function_decl.function_id);
     // Write the function ID into the FunctionDecl.
     context_.ReplaceInstBeforeConstantUse(function_decl_id, function_decl);

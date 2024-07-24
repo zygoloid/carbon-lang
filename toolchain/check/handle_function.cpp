@@ -251,17 +251,17 @@ static auto BuildFunctionDecl(Context& context,
   // Build the function entity. This will be merged into an existing function if
   // there is one, or otherwise added to the function store.
   auto function_info = SemIR::Function{
-      .name_id = name_context.name_id_for_new_inst(),
-      .parent_scope_id = name_context.parent_scope_id_for_new_inst(),
-      .decl_id = decl_id,
-      .generic_id = SemIR::GenericId::Invalid,
-      .first_param_node_id = name.first_param_node_id,
-      .last_param_node_id = name.last_param_node_id,
-      .implicit_param_refs_id = name.implicit_params_id,
-      .param_refs_id = name.params_id,
-      .return_storage_id = return_storage_id,
-      .is_extern = is_extern,
-      .return_slot = return_slot};
+      {.name_id = name_context.name_id_for_new_inst(),
+       .parent_scope_id = name_context.parent_scope_id_for_new_inst(),
+       .decl_id = decl_id,
+       .generic_id = SemIR::GenericId::Invalid,
+       .first_param_node_id = name.first_param_node_id,
+       .last_param_node_id = name.last_param_node_id,
+       .implicit_param_refs_id = name.implicit_params_id,
+       .param_refs_id = name.params_id},
+      {.return_storage_id = return_storage_id,
+       .is_extern = is_extern,
+       .return_slot = return_slot}};
   if (is_definition) {
     function_info.definition_id = decl_id;
   }
