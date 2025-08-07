@@ -280,7 +280,6 @@ class Formatter {
   auto FormatArg(EntityNameId id) -> void;
   auto FormatArg(FacetTypeId id) -> void;
   auto FormatArg(IntKind k) -> void { k.Print(out_); }
-  auto FormatArg(FloatKind k) -> void { k.Print(out_); }
   auto FormatArg(ImportIRId id) -> void;
   auto FormatArg(IntId id) -> void;
   auto FormatArg(ElementIndex index) -> void { out_ << index; }

@@ -918,10 +918,9 @@ static auto MapBuiltinType(Context& context, clang::QualType qual_type,
     // != 64.
     CARBON_CHECK(ast_context.getTypeSize(qual_type) == 64);
     CARBON_CHECK(ast_context.hasSameType(qual_type, ast_context.DoubleTy));
-    return ExprAsType(
-        context, Parse::NodeId::None,
-        MakeFloatTypeLiteral(context, Parse::NodeId::None,
-                             SemIR::FloatKind::None, context.ints().Add(64)));
+    return ExprAsType(context, Parse::NodeId::None,
+                      MakeFloatTypeLiteral(context, Parse::NodeId::None,
+                                           context.ints().Add(64)));
   }
 
   return {.inst_id = SemIR::TypeInstId::None, .type_id = SemIR::TypeId::None};

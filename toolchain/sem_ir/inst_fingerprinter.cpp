@@ -318,7 +318,7 @@ struct Worklist {
 
   template <typename T>
     requires(SameAsOneOf<T, BoolValue, CompileTimeBindIndex, ElementIndex,
-                         FloatKind, IntKind, CallParamIndex>)
+                         IntKind, CallParamIndex>)
   auto Add(T arg) -> void {
     // Index-like ID: just include the value directly.
     contents.push_back(arg.index);

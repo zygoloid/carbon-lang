@@ -42,7 +42,6 @@ using IdKind = TypeEnum<
     EntityNameId,
     ExprRegionId,
     FacetTypeId,
-    FloatKind,
     FunctionId,
     GenericId,
     ImplId,

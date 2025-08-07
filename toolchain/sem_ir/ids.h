@@ -468,16 +468,6 @@ struct IntKind : public IdBase<IntKind> {
 constexpr IntKind IntKind::Unsigned = IntKind(0);
 constexpr IntKind IntKind::Signed = IntKind(1);
 
-// A float kind value.
-struct FloatKind : public IdBase<FloatKind> {
-  // Not used by `Print`, but for `IdKind`.
-  static constexpr llvm::StringLiteral Label = "float_kind";
-
-  using IdBase::IdBase;
-
-  auto Print(llvm::raw_ostream& out) const -> void { out << "float"; }
-};
-
 // An X-macro for special names. Uses should look like:
 //
 //   #define CARBON_SPECIAL_NAME_ID_FOR_XYZ(Name) ...
