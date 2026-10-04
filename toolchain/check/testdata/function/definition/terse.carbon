@@ -38,9 +38,29 @@ fn TestEval() {
 }
 
 fn GenericNonDependent[T: type](unused x: T) => 42 as i32;
+fn GenericId[T: Core.Copy](x: T) => x;
+fn GenericPair[T: Core.Copy, U: Core.Copy](x: T, y: U) => (x, y);
+fn GenericCaller[T: Core.Copy](x: T) => GenericId(x);
+fn TemplateDeref[template T: type](p: T*) => *p;
+eval fn EvalGenericId[T: Core.Copy](x: T) => x;
 
-fn TestGenericNonDependent() {
-  let unused a: i32 = GenericNonDependent(true);
+class GenericBox(T: Core.Copy) {
+  fn Get(self: Self) => self.x;
+  fn Make(x: T) => {.x = x} as Self;
+  var x: T;
+}
+
+fn TestGeneric() {
+  let a: i32 = GenericNonDependent(true);
+  let b: i32 = GenericId(a);
+  let c: bool = GenericCaller(true);
+  let p: (i32, bool) = GenericPair(b, c);
+  var v: i32 = p.0;
+  let unused d: i32 = TemplateDeref(&v);
+  var arr: array(i32, EvalGenericId(3));
+  let _: array(i32, 3) = arr;
+  let box: GenericBox(i32) = GenericBox(i32).Make(7);
+  let unused e: i32 = box.Get();
 }
 
 class WithMethods {
@@ -135,6 +155,38 @@ class Incomplete;
 // CHECK:STDERR:
 fn DerefIncomplete(p: Incomplete*) => *p;
 
+fn GenericDerefIncomplete[template T: type](p: T*) => *p;
+fn CallGenericDerefIncomplete(p: Incomplete*) {
+  // CHECK:STDERR: fail_incomplete_return.carbon:[[@LINE+27]]:3: error: unable to monomorphize specific `GenericDerefIncomplete(Incomplete)` [ResolvingSpecificHere]
+  // CHECK:STDERR:   GenericDerefIncomplete(p);
+  // CHECK:STDERR:   ^~~~~~~~~~~~~~~~~~~~~~
+  // CHECK:STDERR: fail_incomplete_return.carbon:[[@LINE-5]]:55: note: `T` evaluates to incomplete type `Incomplete` [IncompleteTypeInMonomorphization]
+  // CHECK:STDERR: fn GenericDerefIncomplete[template T: type](p: T*) => *p;
+  // CHECK:STDERR:                                                       ^~
+  // CHECK:STDERR: fail_incomplete_return.carbon:[[@LINE-19]]:1: note: class was forward declared here [ClassForwardDeclaredHere]
+  // CHECK:STDERR: class Incomplete;
+  // CHECK:STDERR: ^~~~~~~~~~~~~~~~~
+  // CHECK:STDERR:
+  // CHECK:STDERR: fail_incomplete_return.carbon:[[@LINE+17]]:3: error: unable to monomorphize specific `GenericDerefIncomplete(Incomplete)` [ResolvingSpecificHere]
+  // CHECK:STDERR:   GenericDerefIncomplete(p);
+  // CHECK:STDERR:   ^~~~~~~~~~~~~~~~~~~~~~
+  // CHECK:STDERR: fail_incomplete_return.carbon:[[@LINE-15]]:55: note: cannot access member of interface `Core.Copy` in type `Incomplete` that does not implement that interface [MissingImplInMemberAccess]
+  // CHECK:STDERR: fn GenericDerefIncomplete[template T: type](p: T*) => *p;
+  // CHECK:STDERR:                                                       ^~
+  // CHECK:STDERR:
+  // CHECK:STDERR: fail_incomplete_return.carbon:[[@LINE+10]]:3: error: function returns incomplete type `Incomplete` [IncompleteTypeInFunctionReturnType]
+  // CHECK:STDERR:   GenericDerefIncomplete(p);
+  // CHECK:STDERR:   ^~~~~~~~~~~~~~~~~~~~~~~~~
+  // CHECK:STDERR: fail_incomplete_return.carbon:[[@LINE-33]]:1: note: class was forward declared here [ClassForwardDeclaredHere]
+  // CHECK:STDERR: class Incomplete;
+  // CHECK:STDERR: ^~~~~~~~~~~~~~~~~
+  // CHECK:STDERR: fail_incomplete_return.carbon:[[@LINE-25]]:55: note: return type declared here [IncompleteReturnTypeHere]
+  // CHECK:STDERR: fn GenericDerefIncomplete[template T: type](p: T*) => *p;
+  // CHECK:STDERR:                                                       ^~
+  // CHECK:STDERR:
+  GenericDerefIncomplete(p);
+}
+
 // --- fail_unused.carbon
 library "[[@TEST_NAME]]";
 
@@ -150,15 +202,6 @@ library "[[@TEST_NAME]]";
 // CHECK:STDERR:                                         ^
 // CHECK:STDERR:
 fn UnusedTest(x: i32, unused y: i32) => y;
-
-// --- fail_todo_dependent_return.carbon
-library "[[@TEST_NAME]]";
-
-// CHECK:STDERR: fail_todo_dependent_return.carbon:[[@LINE+4]]:37: error: semantics TODO: `deduced return type that depends on a generic parameter` [SemanticsTodo]
-// CHECK:STDERR: fn GenericId[T: Core.Copy](x: T) => x;
-// CHECK:STDERR:                                     ^
-// CHECK:STDERR:
-fn GenericId[T: Core.Copy](x: T) => x;
 
 // --- fail_todo_call_before_deduced.carbon
 library "[[@TEST_NAME]]";
@@ -217,9 +260,9 @@ class C {
 // CHECK:STDOUT:   %Copy.impl_witness.b51: <witness> = impl_witness imports.%Copy.impl_witness_table.8d2, @Int.as.Copy.impl(%int_32) [concrete]
 // CHECK:STDOUT:   %Int.as.Copy.impl.Op.type.3f6: type = fn_type @Int.as.Copy.impl.Op, @Int.as.Copy.impl(%int_32) [concrete]
 // CHECK:STDOUT:   %Int.as.Copy.impl.Op.4f6: %Int.as.Copy.impl.Op.type.3f6 = struct_value () [concrete]
-// CHECK:STDOUT:   %Copy.facet: %Copy.type = facet_value %i32, (%Copy.impl_witness.b51) [concrete]
-// CHECK:STDOUT:   %Copy.WithSelf.Op.type.381: type = fn_type @Copy.WithSelf.Op, @Copy.WithSelf(%Copy.facet) [concrete]
-// CHECK:STDOUT:   %.737: type = fn_type_with_self_type %Copy.WithSelf.Op.type.381, %Copy.facet [concrete]
+// CHECK:STDOUT:   %Copy.facet.1e1: %Copy.type = facet_value %i32, (%Copy.impl_witness.b51) [concrete]
+// CHECK:STDOUT:   %Copy.WithSelf.Op.type.381: type = fn_type @Copy.WithSelf.Op, @Copy.WithSelf(%Copy.facet.1e1) [concrete]
+// CHECK:STDOUT:   %.737: type = fn_type_with_self_type %Copy.WithSelf.Op.type.381, %Copy.facet.1e1 [concrete]
 // CHECK:STDOUT:   %Int.as.Copy.impl.Op.specific_fn: <specific function> = specific_function %Int.as.Copy.impl.Op.4f6, @Int.as.Copy.impl.Op(%int_32) [concrete]
 // CHECK:STDOUT:   %Unit.type: type = fn_type @Unit [concrete]
 // CHECK:STDOUT:   %Unit: %Unit.type = struct_value () [concrete]
@@ -228,8 +271,8 @@ class C {
 // CHECK:STDOUT:   %pattern_type.cb1: type = pattern_type %empty_tuple.type [concrete]
 // CHECK:STDOUT:   %return.param_patt.900: %pattern_type.cb1 = out_param_pattern [concrete]
 // CHECK:STDOUT:   %return.patt.427: %pattern_type.cb1 = return_slot_pattern %return.param_patt.900, %empty_tuple.type [concrete]
-// CHECK:STDOUT:   %y.param_patt: %pattern_type.6b6 = value_param_pattern [concrete]
-// CHECK:STDOUT:   %y.patt: %pattern_type.6b6 = wrapper_binding_pattern y, %y.param_patt [concrete]
+// CHECK:STDOUT:   %y.param_patt.673: %pattern_type.6b6 = value_param_pattern [concrete]
+// CHECK:STDOUT:   %y.patt.547: %pattern_type.6b6 = wrapper_binding_pattern y, %y.param_patt.673 [concrete]
 // CHECK:STDOUT:   %Pair.type: type = fn_type @Pair [concrete]
 // CHECK:STDOUT:   %Pair: %Pair.type = struct_value () [concrete]
 // CHECK:STDOUT:   %struct_type.a.b: type = struct_type {.a: %i32, .b: %i32} [concrete]
@@ -255,7 +298,7 @@ class C {
 // CHECK:STDOUT:   %Core.IntLiteral.as.ImplicitAs.impl.Convert.specific_fn: <specific function> = specific_function %Core.IntLiteral.as.ImplicitAs.impl.Convert.e39, @Core.IntLiteral.as.ImplicitAs.impl.Convert(%int_32) [concrete]
 // CHECK:STDOUT:   %bound_method.098: <bound method> = bound_method %int_42.20e, %Core.IntLiteral.as.ImplicitAs.impl.Convert.specific_fn [concrete]
 // CHECK:STDOUT:   %int_42.ac4: %i32 = int_value 42 [concrete]
-// CHECK:STDOUT:   %p.patt: %pattern_type.20e3 = value_binding_pattern p [concrete]
+// CHECK:STDOUT:   %p.patt.b0c: %pattern_type.20e3 = value_binding_pattern p [concrete]
 // CHECK:STDOUT:   %int_10.64f: Core.IntLiteral = int_value 10 [concrete]
 // CHECK:STDOUT:   %Core.IntLiteral.as.ImplicitAs.impl.Convert.bound.dcb: <bound method> = bound_method %int_10.64f, %Core.IntLiteral.as.ImplicitAs.impl.Convert.e39 [concrete]
 // CHECK:STDOUT:   %bound_method.1b6a: <bound method> = bound_method %int_10.64f, %Core.IntLiteral.as.ImplicitAs.impl.Convert.specific_fn [concrete]
@@ -342,8 +385,8 @@ class C {
 // CHECK:STDOUT:   %Pair.decl: %Pair.type = fn_decl @Pair [concrete = constants.%Pair] {
 // CHECK:STDOUT:     %x.param_patt: %pattern_type.6b6 = value_param_pattern [concrete = constants.%x.param_patt.cee]
 // CHECK:STDOUT:     %x.patt: %pattern_type.6b6 = wrapper_binding_pattern x, %x.param_patt [concrete = constants.%x.patt.e3b]
-// CHECK:STDOUT:     %y.param_patt: %pattern_type.6b6 = value_param_pattern [concrete = constants.%y.param_patt]
-// CHECK:STDOUT:     %y.patt: %pattern_type.6b6 = wrapper_binding_pattern y, %y.param_patt [concrete = constants.%y.patt]
+// CHECK:STDOUT:     %y.param_patt: %pattern_type.6b6 = value_param_pattern [concrete = constants.%y.param_patt.673]
+// CHECK:STDOUT:     %y.patt: %pattern_type.6b6 = wrapper_binding_pattern y, %y.param_patt [concrete = constants.%y.patt.547]
 // CHECK:STDOUT:     %return.param_patt: %pattern_type.20e3 = out_param_pattern [concrete = constants.%return.param_patt.3a9]
 // CHECK:STDOUT:     %return.patt: %pattern_type.20e3 = return_slot_pattern %return.param_patt, constants.%struct_type.a.b [concrete = constants.%return.patt.1de]
 // CHECK:STDOUT:   } {
@@ -450,7 +493,7 @@ class C {
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %p: %struct_type.a.b = wrapper_binding p, %.loc13_41.7
 // CHECK:STDOUT:   name_binding_decl {
-// CHECK:STDOUT:     %p.patt: %pattern_type.20e3 = value_binding_pattern p [concrete = constants.%p.patt]
+// CHECK:STDOUT:     %p.patt: %pattern_type.20e3 = value_binding_pattern p [concrete = constants.%p.patt.b0c]
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %p.ref: %struct_type.a.b = name_ref p, %p
 // CHECK:STDOUT:   %.loc14: %i32 = struct_access %p.ref, element0

@@ -681,13 +681,9 @@ auto CheckFunctionReturnOnFinish(Context& context, Parse::NodeId node_id,
 static auto DeduceReturnType(Context& context, SemIR::LocId loc_id,
                              SemIR::Function& function, SemIR::TypeId type_id)
     -> void {
-  if (context.types().GetConstantId(type_id).is_symbolic()) {
-    context.TODO(loc_id,
-                 "deduced return type that depends on a generic parameter");
-    type_id = SemIR::ErrorInst::TypeId;
-  }
-
-  auto return_type_inst_id = context.types().GetTypeInstId(type_id);
+  auto return_type_inst_id =
+      context.types().GetAsTypeInstId(GetOrAddInstWithSpecificConstantValue(
+          context, context.types().GetTypeInstId(type_id)));
 
   auto return_form_inst_id = AddInstInNoBlock(
       context,
@@ -754,6 +750,8 @@ static auto DeduceReturnType(Context& context, SemIR::LocId loc_id,
 
   CheckFunctionReturnPatternType(context, loc_id, function.return_pattern_id,
                                  SemIR::SpecificId::None);
+  TryToCompleteType(context, context.insts().Get(out_param_id).type_id(),
+                    loc_id);
 }
 
 auto CheckFunctionTerseBody(Context& context, SemIR::FunctionId function_id,
@@ -785,6 +783,11 @@ auto FinishFunctionDefinition(Context& context, SemIR::FunctionId function_id)
 
   // If this is a generic function, collect information about the definition.
   FinishGenericDefinition(context, function.generic_id);
+  if (function.HasDefinitionAttachedReturnType(context.sem_ir())) {
+    ResolveSpecificDefinition(
+        context, SemIR::LocId(function.definition_id),
+        context.generics().GetSelfSpecific(function.generic_id));
+  }
 }
 
 }  // namespace Carbon::Check

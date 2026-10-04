@@ -265,7 +265,7 @@ auto GetOrAddInstWithSpecificConstantValue(Context& context,
                                            SemIR::InstId inst_id)
     -> SemIR::InstId {
   auto const_id = context.constant_values().GetAttached(inst_id);
-  if (!const_id.is_symbolic()) {
+  if (!context.constant_values().DependsOnGenericParameter(const_id)) {
     return inst_id;
   }
 

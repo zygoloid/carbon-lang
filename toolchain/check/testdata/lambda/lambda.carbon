@@ -79,6 +79,13 @@ fn TestFormsAndPatterns() {
 
   PassToGeneric(id_fn);
   PassToGeneric(terse_id_fn);
+
+  alias generic_terse_id = fn [T: Core.Copy](x: T) => x;
+  let g1: i32 = generic_terse_id(42 as i32);
+  let g2: bool = generic_terse_id(true);
+  alias generic_terse_pair = fn [T: Core.Copy, U: Core.Copy](x: T, y: U) => (x, y);
+  let unused gp: (i32, bool) = generic_terse_pair(g1, g2);
+  let unused g3: i32 = (fn [T: Core.Copy](x: T) => x)(10 as i32);
 }
 
 class InClass {
@@ -301,17 +308,6 @@ fn F() {
   (fn => 0);
 }
 
-// --- fail_todo_dependent_terse_return.carbon
-library "[[@TEST_NAME]]";
-
-fn F() {
-  // CHECK:STDERR: fail_todo_dependent_terse_return.carbon:[[@LINE+4]]:31: error: semantics TODO: `deduced return type that depends on a generic parameter` [SemanticsTodo]
-  // CHECK:STDERR:   (fn [T: Core.Copy](x: T) => x);
-  // CHECK:STDERR:                               ^
-  // CHECK:STDERR:
-  (fn [T: Core.Copy](x: T) => x);
-}
-
 // CHECK:STDOUT: --- basic.carbon
 // CHECK:STDOUT:
 // CHECK:STDOUT: constants {
@@ -410,6 +406,8 @@ fn F() {
 // CHECK:STDOUT:   %fn.type.41c: type = fn_type @fn.loc19 [concrete]
 // CHECK:STDOUT:   %fn.30f: %fn.type.41c = struct_value () [concrete]
 // CHECK:STDOUT:   %Destroy.type: type = facet_type <@Destroy> [concrete]
+// CHECK:STDOUT:   %As.type.116: type = generic_interface_type @As [concrete]
+// CHECK:STDOUT:   %As.generic: %As.type.116 = struct_value () [concrete]
 // CHECK:STDOUT:   %complete_type.127: <witness> = complete_type_witness bool [concrete]
 // CHECK:STDOUT:   %Copy.WithSelf.Op.type.d02: type = fn_type @Copy.WithSelf.Op, @Copy.WithSelf(%Copy.facet.7af) [concrete]
 // CHECK:STDOUT:   %.e28: type = fn_type_with_self_type %Copy.WithSelf.Op.type.d02, %Copy.facet.7af [concrete]
@@ -424,6 +422,7 @@ fn F() {
 // CHECK:STDOUT:     .ImplicitAs = %Core.ImplicitAs
 // CHECK:STDOUT:     .Bool = %Core.Bool
 // CHECK:STDOUT:     .Destroy = %Core.Destroy
+// CHECK:STDOUT:     .As = %Core.As
 // CHECK:STDOUT:     import Core//prelude
 // CHECK:STDOUT:     import Core//prelude/...
 // CHECK:STDOUT:   }
@@ -438,6 +437,7 @@ fn F() {
 // CHECK:STDOUT:   %Core.import_ref.9c3: %bool.as.Copy.impl.Op.type = import_ref Core//prelude/parts/copy, loc{{\d+_\d+}}, loaded [concrete = constants.%bool.as.Copy.impl.Op]
 // CHECK:STDOUT:   %Copy.impl_witness_table.bda = impl_witness_table (%Core.import_ref.9c3), @bool.as.Copy.impl [concrete]
 // CHECK:STDOUT:   %Core.Destroy: type = import_ref Core//prelude/parts/destroy, Destroy, loaded [concrete = constants.%Destroy.type]
+// CHECK:STDOUT:   %Core.As: %As.type.116 = import_ref Core//prelude/parts/as, As, loaded [concrete = constants.%As.generic]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {

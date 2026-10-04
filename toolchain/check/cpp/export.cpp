@@ -1454,6 +1454,9 @@ auto ExportFunctionSpecializationToCpp(
   if (specific_id == SemIR::SpecificId::None) {
     return false;
   }
+  if (target.function.HasDefinitionAttachedReturnType(context.sem_ir())) {
+    ResolveSpecificDefinition(context, loc_id, specific_id);
+  }
   // This name is appended to the thunk name to disambiguate between
   // specializations.
   SemIR::Mangler m(context.sem_ir(), context.total_ir_count(),

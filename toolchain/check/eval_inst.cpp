@@ -710,8 +710,8 @@ auto EvalConstantInst(Context& context, SemIR::InstId inst_id,
   // If the callee function found in the impl witness is not generic, the result
   // is simply that function.
   // TODO: We could do this even before the callee is concrete.
-  auto generic_id =
-      context.functions().Get(callee_fn_type->function_id).generic_id;
+  const auto& callee_fn = context.functions().Get(callee_fn_type->function_id);
+  auto generic_id = callee_fn.generic_id;
   if (!generic_id.has_value()) {
     return ConstantEvalResult::Existing(
         context.constant_values().Get(inst.callee_id));
@@ -740,6 +740,9 @@ auto EvalConstantInst(Context& context, SemIR::InstId inst_id,
               interface_fn_args.end());
   auto specific_id =
       MakeSpecific(context, SemIR::LocId(inst_id), generic_id, args);
+  if (callee_fn.HasDefinitionAttachedReturnType(context.sem_ir())) {
+    ResolveSpecificDefinition(context, SemIR::LocId(inst_id), specific_id);
+  }
   context.definitions_required_by_use().push_back(
       {SemIR::LocId(inst_id), specific_id});
 
@@ -761,6 +764,9 @@ auto EvalConstantInst(Context& context, SemIR::InstId inst_id,
   auto callee_function =
       SemIR::GetCalleeAsFunction(context.sem_ir(), inst.callee_id);
   const auto& fn = context.functions().Get(callee_function.function_id);
+  if (fn.HasDefinitionAttachedReturnType(context.sem_ir())) {
+    ResolveSpecificDefinition(context, SemIR::LocId(inst_id), inst.specific_id);
+  }
   if (!callee_function.self_type_id.has_value() &&
       fn.GetBuiltinFunctionKind(context.sem_ir()) !=
           SemIR::BuiltinFunctionKind::NoOp &&

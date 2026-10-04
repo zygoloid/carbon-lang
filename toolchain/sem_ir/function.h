@@ -335,6 +335,12 @@ struct Function : public EntityWithParamsBase,
                              SpecificId specific_id = SpecificId::None) const
       -> InstId;
 
+  // Returns whether this function has a deduced return type that is attached to
+  // the definition region of its generic. If so, resolving the definition of a
+  // specific for this function is necessary before querying its return type,
+  // return form, or return pattern.
+  auto HasDefinitionAttachedReturnType(const File& file) const -> bool;
+
   // When merging a declaration and definition, prefer things which would point
   // at the definition for diagnostics. Note that merging parameter default
   // values needs more context, so doesn't happen here.

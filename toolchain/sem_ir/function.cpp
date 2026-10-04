@@ -194,6 +194,16 @@ auto Function::GetDeclaredReturnForm(const File& file,
   return file.constant_values().GetInstId(return_form_constant_id);
 }
 
+auto Function::HasDefinitionAttachedReturnType(const File& file) const -> bool {
+  if (!return_pattern_id.has_value()) {
+    return false;
+  }
+  auto const_id = file.constant_values().GetAttached(return_pattern_id);
+  return file.constant_values().IsAttached(const_id) &&
+         file.constant_values().GetSymbolicConstant(const_id).index.region() ==
+             GenericInstIndex::Region::Definition;
+}
+
 }  // namespace Carbon::SemIR
 
 namespace Carbon {
