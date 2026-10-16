@@ -53,6 +53,9 @@ class GenericRegionStack {
   // Returns whether the stack is empty.
   auto Empty() const -> bool { return pending_generic_ids_.empty(); }
 
+  auto InsertCork() -> void { corks_.push_back(pending_generic_ids_.size()); }
+  auto RemoveCork() -> void { corks_.pop_back(); }
+
   // Sets the GenericId for the currently pending generic, once one has been
   // allocated.
   auto SetPendingGenericId(SemIR::GenericId generic_id) -> void {
@@ -65,12 +68,16 @@ class GenericRegionStack {
   // on something in the current pending generic.
   auto AddDependentInst(SemIR::InstId inst_id) -> void {
     CARBON_CHECK(!Empty());
+    CARBON_CHECK(corks_.empty() ||
+                 corks_.back() != pending_generic_ids_.size());
     dependent_inst_stack_.AppendToTop(inst_id);
   }
 
   // Adds an instruction to the eval block for the current pending generic.
   auto AddInstToEvalBlock(SemIR::InstId inst_id) -> void {
     CARBON_CHECK(!Empty());
+    CARBON_CHECK(corks_.empty() ||
+                 corks_.back() != pending_generic_ids_.size());
     pending_eval_block_stack_.AppendToTop(inst_id);
   }
 
@@ -99,15 +106,6 @@ class GenericRegionStack {
     return constants_in_generic_stack_.back();
   }
 
-  // Returns the total number of instructions tracked by all pending generic
-  // regions. Pushing and then popping a region leaves this unchanged, so this
-  // can be used to check that an operation didn't add anything to any of the
-  // regions that were pending when it started.
-  auto num_tracked_insts() const -> size_t {
-    return dependent_inst_stack_.all_values_size() +
-           pending_eval_block_stack_.all_values_size();
-  }
-
   // Runs verification that the processing cleanly finished.
   auto VerifyOnFinish() const -> void {
     CARBON_CHECK(pending_generic_ids_.empty(),
@@ -121,6 +119,8 @@ class GenericRegionStack {
 
   // The IDs of pending generics.
   llvm::SmallVector<PendingGeneric> pending_generic_ids_;
+
+  llvm::SmallVector<size_t> corks_;
 
   // Contents of eval blocks for pending generics.
   ArrayStack<SemIR::InstId> pending_eval_block_stack_;

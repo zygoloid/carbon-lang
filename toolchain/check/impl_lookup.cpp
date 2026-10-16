@@ -295,12 +295,11 @@ static auto TryGetSpecificWitnessIdForImpl(
     // Note we do not do this for lookups _inside_ the definition of the impl,
     // as that creates a cycle where resolving the definition must resolve the
     // definition.
-    AddInstInNoBlock(
+    EvalOrAddInst<SemIR::RequireSpecificDefinition>(
         context, loc_id,
-        SemIR::RequireSpecificDefinition{
-            .type_id = GetSingletonType(
-                context, SemIR::RequireSpecificDefinitionType::TypeInstId),
-            .specific_id = specific_id});
+        {.type_id = GetSingletonType(
+             context, SemIR::RequireSpecificDefinitionType::TypeInstId),
+         .specific_id = specific_id});
   }
 
   return SemIR::GetConstantValueInSpecific(context.sem_ir(), specific_id,

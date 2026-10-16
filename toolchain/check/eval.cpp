@@ -3615,7 +3615,7 @@ auto TryEvalBlockForSpecific(Context& context, SemIR::LocId loc_id,
 
   // Everything created while evaluating the eval block belongs to the specific,
   // so nothing should be added to any generic we're in the middle of checking.
-  auto num_tracked_insts = context.generic_region_stack().num_tracked_insts();
+  context.generic_region_stack().InsertCork();
 
   for (auto [i, inst_id, result_id] :
        llvm::enumerate(eval_block, value_block)) {
@@ -3629,13 +3629,7 @@ auto TryEvalBlockForSpecific(Context& context, SemIR::LocId loc_id,
     result_id = context.constant_values().GetInstId(const_id);
   }
 
-  // TODO: Enable this CHECK once it passes.
-  //
-  // CARBON_CHECK(
-  //     context.generic_region_stack().num_tracked_insts() ==
-  //     num_tracked_insts, "Evaluating {0} added instructions to an enclosing
-  //     generic region", specific_id);
-  static_cast<void>(num_tracked_insts);
+  context.generic_region_stack().RemoveCork();
 }
 
 // Information about the function call we are currently executing. Unlike
